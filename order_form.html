@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyurtma Berish - Tosh Gilam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: var(--dark);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            animation: slideUp 0.6s ease;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 48px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .form-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-body {
+            padding: 48px 40px;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .form-label svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--primary);
+        }
+
+        .required {
+            color: var(--error);
+            font-size: 1.1rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--gray);
+            opacity: 0.6;
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='14' height='8' viewBox='0 0 14 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L7 7L13 1' stroke='%236366f1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            padding-right: 50px;
+        }
+
+        .form-textarea {
+            min-height: 130px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .stone-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .stone-option {
+            position: relative;
+        }
+
+        .stone-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .stone-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 18px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .stone-option input[type="radio"]:checked + .stone-label {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .stone-label::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .stone-option input[type="radio"]:checked + .stone-label::before {
+            border-color: var(--primary);
+            background: var(--primary);
+            box-shadow: inset 0 0 0 4px white;
+        }
+
+        .stone-label:hover {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary-dark), #be185d);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .submit-btn:hover::before {
+            opacity: 1;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .submit-btn svg {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        .info-text {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .info-text svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--primary);
+        }
+
+        .success-message {
+            display: none;
+            padding: 20px;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-radius: 14px;
+            color: #065f46;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: slideDown 0.4s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-container {
+                border-radius: 24px;
+            }
+
+            .form-header {
+                padding: 36px 28px;
+            }
+
+            .form-header h2 {
+                font-size: 2rem;
+            }
+
+            .form-body {
+                padding: 32px 28px;
+            }
+
+            .stone-options {
+                grid-template-columns: 1fr;
+            }
+
+            .form-input,
+            .form-select,
+            .form-textarea {
+                padding: 14px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Buyurtma berish</h2>
+            <p>Ma'lumotlaringizni qoldiring, biz tez orada aloqaga chiqamiz</p>
+        </div>
+
+        <div class="form-body">
+            <div class="success-message" id="successMessage">
+                ✓ Buyurtmangiz qabul qilindi! Tez orada aloqaga chiqamiz.
+            </div>
+
+            <form id="orderForm">
+                <!-- Ism -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Ismingiz
+                        <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="name"
+                        placeholder="To'liq ismingizni kiriting"
+                        required
+                    >
+                </div>
+
+                <!-- Telefon -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        Telefon raqam
+                        <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="tel" 
+                        class="form-input" 
+                        id="phone"
+                        placeholder="+998 (90) 123-45-67"
+                        required
+                    >
+                </div>
+
+                <!-- Manzil -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Manzil
+                        <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="address"
+                        placeholder="Shahar, tuman, ko'cha va uy raqami"
+                        required
+                    >
+                </div>
+
+                <!-- Tosh turi -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                        Tosh turi
+                        <span class="required">*</span>
+                    </label>
+                    <div class="stone-options">
+                        <div class="stone-option">
+                            <input type="radio" name="stone" id="marble" value="Marmar" required>
+                            <label for="marble" class="stone-label">
+                                <span>Marmar</span>
+                            </label>
+                        </div>
+                        <div class="stone-option">
+                            <input type="radio" name="stone" id="granite" value="Granit">
+                            <label for="granite" class="stone-label">
+                                <span>Granit</span>
+                            </label>
+                        </div>
+                        <div class="stone-option">
+                            <input type="radio" name="stone" id="onyx" value="Oniks">
+                            <label for="onyx" class="stone-label">
+                                <span> Oniks</span>
+                            </label>
+                        </div>
+                        <div class="stone-option">
+                            <input type="radio" name="stone" id="travertine" value="Travertin">
+                            <label for="travertine" class="stone-label">
+                                <span> Travertin</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Izoh -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        Qo'shimcha izoh
+                    </label>
+                    <textarea 
+                        class="form-textarea" 
+                        id="comment"
+                        placeholder="Qo'shimcha ma'lumot, o'lchamlar, rang tanlovi yoki boshqa xohishlaringizni yozing..."
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <span>Buyurtmani yuborish</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('orderForm');
+        const successMessage = document.getElementById('successMessage');
+        const phoneInput = document.getElementById('phone');
+
+        // Phone number formatting
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                if (!value.startsWith('998')) {
+                    value = '998' + value;
+                }
+                
+                let formatted = '+998';
+                if (value.length > 3) {
+                    formatted += ' (' + value.substring(3, 5);
+                }
+                if (value.length > 5) {
+                    formatted += ') ' + value.substring(5, 8);
+                }
+                if (value.length > 8) {
+                    formatted += '-' + value.substring(8, 10);
+                }
+                if (value.length > 10) {
+                    formatted += '-' + value.substring(10, 12);
+                }
+                
+                e.target.value = formatted;
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                stone: document.querySelector('input[name="stone"]:checked').value,
+                comment: document.getElementById('comment').value
+            };
+            
+            console.log('Buyurtma ma\'lumotlari:', formData);
+            
+            // Show success message
+            successMessage.classList.add('show');
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Reset form
+            form.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        });
+
+        // Input animations
+        const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+        
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateX(4px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Stone option animations
+        const stoneLabels = document.querySelectorAll('.stone-label');
+        
+        stoneLabels.forEach(label => {
+            label.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            
+            label.addEventListener('mouseleave', function() {
+                const radio = this.previousElementSibling;
+                if (!radio.checked) {
+                    this.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

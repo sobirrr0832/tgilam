@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategoriyalar - AdVision</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 60px 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateX(-4px);
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .filter-btn {
+            padding: 12px 28px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .category-gradient {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-gradient::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: transform 0.4s;
+        }
+
+        .category-card:nth-child(2) .category-gradient::before {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .category-card:nth-child(3) .category-gradient::before {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .category-card:nth-child(4) .category-gradient::before {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .category-card:nth-child(5) .category-gradient::before {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .category-card:nth-child(6) .category-gradient::before {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .category-card:nth-child(7) .category-gradient::before {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .category-card:nth-child(8) .category-gradient::before {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .category-card:nth-child(9) .category-gradient::before {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .category-card:hover .category-gradient::before {
+            transform: scale(1.1);
+        }
+
+        .category-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+            transition: all 0.4s;
+        }
+
+        .category-card:hover .category-icon {
+            transform: translate(-50%, -50%) scale(1.2) rotate(5deg);
+        }
+
+        .category-content {
+            padding: 32px;
+        }
+
+        .category-content h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .category-content p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .category-arrow {
+            position: absolute;
+            bottom: 32px;
+            right: 32px;
+            width: 44px;
+            height: 44px;
+            background: var(--light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .category-card:hover .category-arrow {
+            background: var(--primary);
+            color: white;
+            transform: translate(4px, -4px);
+        }
+
+        /* Load More */
+        .load-more-section {
+            text-align: center;
+            margin-top: 60px;
+            animation: fadeInUp 0.8s ease 0.6s both;
+        }
+
+        .load-more-btn {
+            background: var(--primary);
+            color: white;
+            padding: 18px 48px;
+            border-radius: 14px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05rem;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .load-more-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .page-header h1 {
+                font-size: 3rem;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 40px 0;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .page-header p {
+                font-size: 1.1rem;
+            }
+
+            .filter-section {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+
+            .category-icon {
+                font-size: 4rem;
+            }
+
+            .category-content h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <a href="#" class="back-link" onclick="history.back(); return false;">
+                ← Orqaga qaytish
+            </a>
+            <h1>Mahsulot Kategoriyalari</h1>
+            <p>Barcha mavjud kategoriyalarni ko'ring va o'zingizga mos mahsulotlarni toping</p>
+        </div>
+
+        <!-- Filter -->
+        <div class="filter-section">
+            <button class="filter-btn active">Barchasi</button>
+            <button class="filter-btn">Ommabop</button>
+            <button class="filter-btn">Yangi</button>
+            <button class="filter-btn">Chegirmada</button>
+            <button class="filter-btn">Premium</button>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">🎨</div>
+                </div>
+                <div class="category-content">
+                    <h3>Dizayn & San'at</h3>
+                    <p>Professional dizayn mahsulotlari, ijodiy asboblar va san'at buyumlari. Har qanday ijodiy loyihangiz uchun ideal.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">500+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.8</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">💎</div>
+                </div>
+                <div class="category-content">
+                    <h3>Premium Tovarlar</h3>
+                    <p>Yuqori sifatli va hashamatli mahsulotlar, ekskluziv dizayn va noyob kolleksiyalar sizning uslubingizni ta'kidlaydi.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">350+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.9</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">⚡</div>
+                </div>
+                <div class="category-content">
+                    <h3>Texnologiya</h3>
+                    <p>Eng so'nggi texnologik mahsulotlar, gadgetlar va zamonaviy elektronika. Kelajak texnologiyalari bugun.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">650+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">👕</div>
+                </div>
+                <div class="category-content">
+                    <h3>Moda & Kiyim</h3>
+                    <p>Zamonaviy va klassik kiyimlar, aksessuarlar va moda mahsulotlari. Uslubli va sifatli kolleksiyalar.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">800+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.6</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">🏠</div>
+                </div>
+                <div class="category-content">
+                    <h3>Uy & Interer</h3>
+                    <p>Zamonaviy mebel, dekor va uy jihozlari. Uyingizni yanada qulay va go'zal qiling.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">450+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.8</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">🏃</div>
+                </div>
+                <div class="category-content">
+                    <h3>Sport & Fitnes</h3>
+                    <p>Sport kiyimlari, mashq asboblari va fitnes aksessuarlari. Sog'lom turmush tarzi uchun kerakli hamma narsa.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">380+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">📚</div>
+                </div>
+                <div class="category-content">
+                    <h3>Kitoblar & Ta'lim</h3>
+                    <p>Turli xil kitoblar, o'quv materiallari va ta'lim resurslari. Bilimingizni oshiring.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">600+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.9</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">🍔</div>
+                </div>
+                <div class="category-content">
+                    <h3>Oziq-ovqat</h3>
+                    <p>Mahalliy va xorijiy oziq-ovqat mahsulotlari, organik va sog'lom ovqatlar to'plami.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">520+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.6</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-gradient">
+                    <div class="category-icon">🎮</div>
+                </div>
+                <div class="category-content">
+                    <h3>O'yinlar & Hobbi</h3>
+                    <p>Video o'yinlar, konsolar, board o'yinlar va boshqa ko'ngilochar mahsulotlar to'plami.</p>
+                    <div class="category-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Mahsulotlar</span>
+                            <span class="stat-value">420+</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Reyting</span>
+                            <span class="stat-value">⭐ 4.8</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="category-arrow">→</div>
+            </div>
+        </div>
+
+        <!-- Load More -->
+        <div class="load-more-section">
+            <button class="load-more-btn">
+                Ko'proq Ko'rish
+                <span>→</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Category cards animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Click effect
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Load more functionality
+        const loadMoreBtn = document.querySelector('.load-more-btn');
+        loadMoreBtn.addEventListener('click', function() {
+            this.innerHTML = '<span>Yuklanmoqda...</span>';
+            setTimeout(() => {
+                this.innerHTML = 'Ko\'proq Ko\'rish <span>→</span>';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

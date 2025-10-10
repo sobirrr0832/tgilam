@@ -93,6 +93,8 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .nav-btn:hover {
@@ -199,6 +201,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary:hover {
@@ -217,6 +221,8 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1.05rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-secondary:hover {
@@ -577,16 +583,10 @@
 
         .gallery-card-footer {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             padding-top: 20px;
             border-top: 1px solid var(--border);
-        }
-
-        .card-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
         }
 
         .card-btn {
@@ -599,11 +599,71 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .card-btn:hover {
             background: var(--primary);
             color: white;
+        }
+
+        .view-all-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 40px auto 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 18px 48px;
+            border-radius: 14px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-all-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--primary-dark), #be185d);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .view-all-btn:hover::before {
+            opacity: 1;
+        }
+
+        .view-all-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        }
+
+        .view-all-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .view-all-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .view-all-btn svg {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .view-all-btn:hover svg {
+            transform: translateX(4px);
         }
 
         /* Contact Form Section */
@@ -1332,7 +1392,6 @@
                         <h3>Marmar Tosh Gilam</h3>
                         <p>Yuqori sifatli marmar tosh gilam, zamonaviy dizayn va uzoq xizmat muddati bilan.</p>
                         <div class="gallery-card-footer">
-                            <div class="card-price">Narx so'rov bo'yicha</div>
                             <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Buyurtma</button>
                         </div>
                     </div>
@@ -1346,7 +1405,6 @@
                         <h3>Granit Tosh Gilam</h3>
                         <p>Mustahkam va bardoshli granit tosh gilam, har qanday sharoitga mos.</p>
                         <div class="gallery-card-footer">
-                            <div class="card-price">Narx so'rov bo'yicha</div>
                             <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Buyurtma</button>
                         </div>
                     </div>
@@ -1360,7 +1418,6 @@
                         <h3>Oniks Tosh Gilam</h3>
                         <p>Eksklyuziv oniks tosh gilam, yorqin va noyob ko'rinish bilan.</p>
                         <div class="gallery-card-footer">
-                            <div class="card-price">Narx so'rov bo'yicha</div>
                             <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Buyurtma</button>
                         </div>
                     </div>
@@ -1374,7 +1431,6 @@
                         <h3>Travertin Tosh Gilam</h3>
                         <p>Tabiiy va issiq ko'rinishdagi travertin tosh gilam, har qanday interyerga mos.</p>
                         <div class="gallery-card-footer">
-                            <div class="card-price">Narx so'rov bo'yicha</div>
                             <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Buyurtma</button>
                         </div>
                     </div>
@@ -1388,7 +1444,6 @@
                         <h3>Marmar Premium</h3>
                         <p>Premium sifatli marmar tosh gilam, noyob dizayn va chidamlilik bilan.</p>
                         <div class="gallery-card-footer">
-                            <div class="card-price">Narx so'rov bo'yicha</div>
                             <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Buyurtma</button>
                         </div>
                     </div>
@@ -1402,7 +1457,6 @@
                         <h3>Granit Pro</h3>
                         <p>Yuqori sifatli granit tosh gilam, professional foydalanish uchun ideal.</p>
                         <div class="gallery-card-footer">
-                            <div class="card-price">Narx so'rov bo'yicha</div>
                             <button class="card-btn" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">Buyurtma</button>
                         </div>
                     </div>
@@ -1410,8 +1464,11 @@
             </div>
             <br><br>
             <button class="view-all-btn">
-                Barchasini ko'rish
-                <span>→</span>
+                <span>Barchasini ko'rish</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
             </button>
         </div>
     </section>

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gilam Kalkulyatori - Tosh Gilam</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to bottom right, #f9fafb, #f3f4f6);
+            min-height: 100vh;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 672px;
+            margin: 0 auto;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-btn {
+            padding: 10px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #6b7280;
+        }
+
+        .lang-btn:hover {
+            background: #f3f4f6;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+
+        .lang-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .icon-wrapper {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: #6b7280;
+        }
+
+        /* Calculator Card */
+        .calculator-card {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1.25rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-calculate {
+            width: 100%;
+            background: linear-gradient(to right, #3b82f6, #1d4ed8);
+            color: white;
+            font-weight: 700;
+            padding: 20px 24px;
+            border-radius: 16px;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-calculate:active {
+            transform: translateY(0);
+        }
+
+        /* Result Section */
+        .result-section {
+            margin-top: 32px;
+            padding: 32px;
+            background: linear-gradient(to bottom right, #d1fae5, #a7f3d0);
+            border-radius: 16px;
+            border: 2px solid #6ee7b7;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #6ee7b7;
+            margin-bottom: 16px;
+        }
+
+        .result-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #064e3b;
+        }
+
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .result-total-label {
+            font-size: 0.875rem;
+            color: #065f46;
+            margin-bottom: 8px;
+        }
+
+        .result-total-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #059669;
+        }
+
+        .btn-order {
+            width: 100%;
+            background: linear-gradient(to right, #059669, #047857);
+            color: white;
+            font-weight: 700;
+            padding: 20px 24px;
+            border-radius: 16px;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-order:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(5, 150, 105, 0.4);
+        }
+
+        .btn-clear {
+            width: 100%;
+            background: #ef4444;
+            color: white;
+            font-weight: 600;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-clear:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        /* Order Form */
+        .order-form-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+            margin-top: 24px;
+        }
+
+        .order-header {
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            padding: 48px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .order-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .order-header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .order-body {
+            padding: 48px 40px;
+        }
+
+        .order-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        .order-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .order-textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .stone-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .stone-option {
+            position: relative;
+        }
+
+        .stone-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .stone-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 18px;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            background: #f9fafb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .stone-option input[type="radio"]:checked + .stone-label {
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+        }
+
+        .stone-label::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .stone-option input[type="radio"]:checked + .stone-label::before {
+            border-color: #6366f1;
+            background: #6366f1;
+            box-shadow: inset 0 0 0 4px white;
+        }
+
+        .order-summary {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .order-summary h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .order-summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: #374151;
+        }
+
+        .order-summary-value {
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            padding: 20px;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            border-radius: 14px;
+            color: #065f46;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: slideDown 0.4s ease;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        /* Undo Toast */
+        .undo-toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: none;
+            align-items: center;
+            gap: 16px;
+            z-index: 1000;
+            animation: slideUpToast 0.3s ease;
+        }
+
+        .undo-toast.show {
+            display: flex;
+        }
+
+        .undo-progress {
+            width: 100%;
+            height: 4px;
+            background: #374151;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .undo-progress-bar {
+            height: 100%;
+            background: #3b82f6;
+            transition: width 0.1s linear;
+        }
+
+        .btn-undo {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .btn-undo:hover {
+            background: #2563eb;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUpToast {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .language-switcher {
+                top: 16px;
+                right: 16px;
+                padding: 6px;
+            }
+
+            .lang-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .lang-icon {
+                width: 16px;
+                height: 16px;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .calculator-card,
+            .order-body {
+                padding: 24px;
+            }
+
+            .order-header {
+                padding: 36px 24px;
+            }
+
+            .order-header h2 {
+                font-size: 2rem;
+            }
+
+            .result-total-value {
+                font-size: 2rem;
+            }
+
+            .stone-options {
+                grid-template-columns: 1fr;
+            }
+
+            .undo-toast {
+                left: 16px;
+                right: 16px;
+                transform: none;
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" onclick="setLanguage('uz')" id="langUz">
+            <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="5" width="18" height="3" fill="currentColor"/>
+                <rect x="3" y="10.5" width="18" height="3" fill="currentColor"/>
+                <rect x="3" y="16" width="18" height="3" fill="currentColor"/>
+            </svg>
+            O'zbekcha
+        </button>
+        <button class="lang-btn" onclick="setLanguage('ru')" id="langRu">
+            <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="5" width="18" height="5" fill="currentColor"/>
+                <rect x="3" y="10" width="18" height="5" fill="#0039A6"/>
+                <rect x="3" y="15" width="18" height="4" fill="#D52B1E"/>
+            </svg>
+            Русский
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="icon-wrapper">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <path d="M3 9h18"/>
+                    <path d="M9 21V9"/>
+                </svg>
+            </div>
+            <h1 data-lang="header_title">Gilam Kalkulyatori</h1>
+            <p data-lang="header_subtitle">Gilam narxini tez va oson hisoblang</p>
+        </div>
+
+        <!-- Calculator Card -->
+        <div class="calculator-card">
+            <div class="form-group">
+                <label class="form-label" data-lang="label_length">Uzunlik (metrda)</label>
+                <input type="number" id="length" class="form-input" data-lang-placeholder="placeholder_length" placeholder="Masalan: 3" min="0" step="0.1">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" data-lang="label_width">Kenglik (metrda)</label>
+                <input type="number" id="width" class="form-input" data-lang-placeholder="placeholder_width" placeholder="Masalan: 4" min="0" step="0.1">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" data-lang="label_price">1 m² narxi (so'mda)</label>
+                <input type="text" id="price" class="form-input" data-lang-placeholder="placeholder_price" placeholder="Masalan: 120 000" inputmode="numeric">
+            </div>
+
+            <button class="btn-calculate" onclick="calculate()" data-lang="btn_calculate">Hisoblash</button>
+
+            <div id="resultSection" class="result-section hidden">
+                <div class="result-row">
+                    <span class="result-label" data-lang="result_area">Umumiy maydon:</span>
+                    <span class="result-value" id="areaDisplay"></span>
+                </div>
+                <div>
+                    <p class="result-total-label" data-lang="result_total_label">Sizning umumiy summangiz:</p>
+                    <p class="result-total-value" id="totalDisplay"></p>
+                </div>
+                <button class="btn-order" onclick="showOrderForm()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span data-lang="btn_order">Buyurtma berish</span>
+                </button>
+                <button class="btn-clear" onclick="confirmClear()" data-lang="btn_clear">Tozalash</button>
+            </div>
+        </div>
+
+        <!-- Order Form -->
+        <div id="orderFormContainer" class="order-form-container hidden">
+            <div class="order-header">
+                <h2 data-lang="order_title">Buyurtma berish</h2>
+                <p data-lang="order_subtitle">Ma'lumotlaringizni qoldiring, biz tez orada aloqaga chiqamiz</p>
+            </div>
+
+            <div class="order-body">
+                <div class="success-message" id="successMessage">
+                    <span data-lang="success_message">✓ Buyurtmangiz qabul qilindi! Tez orada aloqaga chiqamiz.</span>
+                </div>
+
+                <form id="orderForm" action="https://formspree.io/f/xjkaaoaa" method="POST">
+                    <input type="hidden" name="area" id="hiddenArea">
+                    <input type="hidden" name="total" id="hiddenTotal">
+                    <input type="hidden" name="language" id="hiddenLanguage">
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span data-lang="order_name">Ismingiz</span> <span class="required">*</span>
+                        </label>
+                        <input type="text" name="name" class="order-input" data-lang-placeholder="order_name_placeholder" placeholder="To'liq ismingizni kiriting" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span data-lang="order_phone">Telefon raqam</span> <span class="required">*</span>
+                        </label>
+                        <input type="tel" id="phone" name="phone" class="order-input" placeholder="+998 (90) 123-45-67" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span data-lang="order_address">Manzil</span> <span class="required">*</span>
+                        </label>
+                        <input type="text" name="address" class="order-input" data-lang-placeholder="order_address_placeholder" placeholder="Shahar, tuman, ko'cha va uy raqami" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span data-lang="order_stone">Tosh turi</span> <span class="required">*</span>
+                        </label>
+                        <div class="stone-options">
+                            <div class="stone-option">
+                                <input type="radio" name="stone" id="marble" value="Marmar" required>
+                                <label for="marble" class="stone-label" data-lang="stone_marble">Marmar</label>
+                            </div>
+                            <div class="stone-option">
+                                <input type="radio" name="stone" id="granite" value="Granit">
+                                <label for="granite" class="stone-label" data-lang="stone_granite">Granit</label>
+                            </div>
+                            <div class="stone-option">
+                                <input type="radio" name="stone" id="onyx" value="Oniks">
+                                <label for="onyx" class="stone-label" data-lang="stone_onyx">Oniks</label>
+                            </div>
+                            <div class="stone-option">
+                                <input type="radio" name="stone" id="travertine" value="Travertin">
+                                <label for="travertine" class="stone-label" data-lang="stone_travertine">Travertin</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" data-lang="order_comment">Qo'shimcha izoh</label>
+                        <textarea name="comment" class="order-input order-textarea" data-lang-placeholder="order_comment_placeholder" placeholder="Qo'shimcha ma'lumot, o'lchamlar, rang tanlovi yoki boshqa xohishlaringizni yozing..."></textarea>
+                    </div>
+
+                    <div class="order-summary">
+                        <h3 data-lang="order_info">Buyurtma ma'lumotlari:</h3>
+                        <div class="order-summary-item">
+                            <span data-lang="order_info_area">Maydon:</span>
+                            <span class="order-summary-value" id="orderArea"></span>
+                        </div>
+                        <div class="order-summary-item">
+                            <span data-lang="order_info_price">Narx:</span>
+                            <span class="order-summary-value" id="orderTotal"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        <span data-lang="btn_submit">Buyurtmani yuborish</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Undo Toast -->
+    <div id="undoToast" class="undo-toast">
+        <span data-lang="undo_message">Ma'lumotlar o'chirildi</span>
+        <button class="btn-undo" onclick="undoClear()" data-lang="btn_undo">Qaytarish</button>
+        <div class="undo-progress">
+            <div class="undo-progress-bar" id="undoProgress"></div>
+        </div>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            uz: {
+                header_title: "Gilam Kalkulyatori",
+                header_subtitle: "Gilam narxini tez va oson hisoblang",
+                label_length: "Uzunlik (metrda)",
+                label_width: "Kenglik (metrda)",
+                label_price: "1 m² narxi (so'mda)",
+                placeholder_length: "Masalan: 3",
+                placeholder_width: "Masalan: 4",
+                placeholder_price: "Masalan: 120 000",
+                btn_calculate: "Hisoblash",
+                result_area: "Umumiy maydon:",
+                result_total_label: "Sizning umumiy summangiz:",
+                btn_order: "Buyurtma berish",
+                btn_clear: "Tozalash",
+                order_title: "Buyurtma berish",
+                order_subtitle: "Ma'lumotlaringizni qoldiring, biz tez orada aloqaga chiqamiz",
+                success_message: "✓ Buyurtmangiz qabul qilindi! Tez orada aloqaga chiqamiz.",
+                order_name: "Ismingiz",
+                order_name_placeholder: "To'liq ismingizni kiriting",
+                order_phone: "Telefon raqam",
+                order_address: "Manzil",
+                order_address_placeholder: "Shahar, tuman, ko'cha va uy raqami",
+                order_stone: "Tosh turi",
+                stone_marble: "Marmar",
+                stone_granite: "Granit",
+                stone_onyx: "Oniks",
+                stone_travertine: "Travertin",
+                order_comment: "Qo'shimcha izoh",
+                order_comment_placeholder: "Qo'shimcha ma'lumot, o'lchamlar, rang tanlovi yoki boshqa xohishlaringizni yozing...",
+                order_info: "Buyurtma ma'lumotlari:",
+                order_info_area: "Maydon:",
+                order_info_price: "Narx:",
+                btn_submit: "Buyurtmani yuborish",
+                undo_message: "Ma'lumotlar o'chirildi",
+                btn_undo: "Qaytarish",
+                currency: "so'm",
+                alert_fill_fields: "Iltimos, barcha maydonlarni to'ldiring!",
+                alert_confirm_clear: "Ma'lumotlarni tozalashni xohlaysizmi?",
+                alert_error: "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring."
+            },
+            ru: {
+                header_title: "Калькулятор Ковров",
+                header_subtitle: "Рассчитайте стоимость ковра быстро и легко",
+                label_length: "Длина (в метрах)",
+                label_width: "Ширина (в метрах)",
+                label_price: "Цена за 1 м² (в сумах)",
+                placeholder_length: "Например: 3",
+                placeholder_width: "Например: 4",
+                placeholder_price: "Например: 120 000",
+                btn_calculate: "Рассчитать",
+                result_area: "Общая площадь:",
+                result_total_label: "Ваша общая сумма:",
+                btn_order: "Оформить заказ",
+                btn_clear: "Очистить",
+                order_title: "Оформление заказа",
+                order_subtitle: "Оставьте свои данные, мы свяжемся с вами в ближайшее время",
+                success_message: "✓ Ваш заказ принят! Скоро свяжемся с вами.",
+                order_name: "Ваше имя",
+                order_name_placeholder: "Введите ваше полное имя",
+                order_phone: "Номер телефона",
+                order_address: "Адрес",
+                order_address_placeholder: "Город, район, улица и номер дома",
+                order_stone: "Тип камня",
+                stone_marble: "Мрамор",
+                stone_granite: "Гранит",
+                stone_onyx: "Оникс",
+                stone_travertine: "Травертин",
+                order_comment: "Дополнительный комментарий",
+                order_comment_placeholder: "Дополнительная информация, размеры, выбор цвета или другие пожелания...",
+                order_info: "Информация о заказе:",
+                order_info_area: "Площадь:",
+                order_info_price: "Цена:",
+                btn_submit: "Отправить заказ",
+                undo_message: "Данные удалены",
+                btn_undo: "Восстановить",
+                currency: "сум",
+                alert_fill_fields: "Пожалуйста, заполните все поля!",
+                alert_confirm_clear: "Вы хотите очистить данные?",
+                alert_error: "Произошла ошибка. Пожалуйста, попробуйте снова."
+            }
+        };
+
+        let currentLang = 'uz';
+        let calculatedData = {
+            area: 0,
+            total: 0
+        };
+
+        let savedData = null;
+        let undoTimer = null;
+        let undoProgressInterval = null;
+
+        // Set language
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update button states
+            document.getElementById('langUz').classList.toggle('active', lang === 'uz');
+            document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+            
+            // Update all text elements
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-lang-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-lang-placeholder');
+                if (translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Update currency display if result is visible
+            if (!document.getElementById('resultSection').classList.contains('hidden')) {
+                updateResultDisplay();
+            }
+        }
+
+        // Format number with spaces
+        function formatNumber(num) {
+            const str = Math.round(num).toString();
+            return str.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+
+        // Parse formatted number
+        function parseFormattedNumber(str) {
+            return parseFloat(str.replace(/\s/g, ''));
+        }
+
+        // Format price input
+        document.getElementById('price').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            if (value && !isNaN(value)) {
+                const formatted = formatNumber(parseFloat(value));
+                e.target.value = formatted;
+            }
+        });
+
+        // Phone formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 0) {
+                if (!value.startsWith('998')) {
+                    value = '998' + value;
+                }
+                
+                let formatted = '+998';
+                if (value.length > 3) {
+                    formatted += ' (' + value.substring(3, 5);
+                }
+                if (value.length > 5) {
+                    formatted += ') ' + value.substring(5, 8);
+                }
+                if (value.length > 8) {
+                    formatted += '-' + value.substring(8, 10);
+                }
+                if (value.length > 10) {
+                    formatted += '-' + value.substring(10, 12);
+                }
+                
+                e.target.value = formatted;
+            }
+        });
+
+        function updateResultDisplay() {
+            const currency = translations[currentLang].currency;
+            document.getElementById('totalDisplay').textContent = formatNumber(calculatedData.total) + ' ' + currency;
+        }
+
+        function calculate() {
+            const length = parseFloat(document.getElementById('length').value);
+            const width = parseFloat(document.getElementById('width').value);
+            const price = parseFormattedNumber(document.getElementById('price').value);
+
+            if (length > 0 && width > 0 && price > 0) {
+                const area = length * width;
+                const total = area * price;
+
+                calculatedData = { area, total };
+
+                document.getElementById('areaDisplay').textContent = area.toFixed(2) + ' m²';
+                updateResultDisplay();
+                document.getElementById('resultSection').classList.remove('hidden');
+
+                setTimeout(() => {
+                    document.getElementById('resultSection').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'nearest'
+                    });
+                }, 100);
+            } else {
+                alert(translations[currentLang].alert_fill_fields);
+            }
+        }
+
+        function showOrderForm() {
+            document.getElementById('orderFormContainer').classList.remove('hidden');
+            
+            const currency = translations[currentLang].currency;
+            
+            // Set hidden fields with raw numbers
+            document.getElementById('hiddenArea').value = calculatedData.area.toFixed(2) + ' m²';
+            document.getElementById('hiddenTotal').value = Math.round(calculatedData.total) + ' ' + currency;
+            document.getElementById('hiddenLanguage').value = currentLang === 'uz' ? 'O\'zbekcha' : 'Русский';
+            
+            // Display in summary
+            document.getElementById('orderArea').textContent = calculatedData.area.toFixed(2) + ' m²';
+            document.getElementById('orderTotal').textContent = formatNumber(calculatedData.total) + ' ' + currency;
+
+            setTimeout(() => {
+                document.getElementById('orderFormContainer').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100);
+        }
+
+        function confirmClear() {
+            if (confirm(translations[currentLang].alert_confirm_clear)) {
+                clearData();
+            }
+        }
+
+        function clearData() {
+            // Save current data
+            savedData = {
+                length: document.getElementById('length').value,
+                width: document.getElementById('width').value,
+                price: document.getElementById('price').value,
+                calculatedData: { ...calculatedData }
+            };
+
+            // Clear inputs
+            document.getElementById('length').value = '';
+            document.getElementById('width').value = '';
+            document.getElementById('price').value = '';
+            document.getElementById('resultSection').classList.add('hidden');
+            document.getElementById('orderFormContainer').classList.add('hidden');
+
+            // Show undo toast
+            const toast = document.getElementById('undoToast');
+            const progressBar = document.getElementById('undoProgress');
+            toast.classList.add('show');
+            
+            // Progress animation
+            let progress = 100;
+            progressBar.style.width = '100%';
+            
+            undoProgressInterval = setInterval(() => {
+                progress -= 2;
+                progressBar.style.width = progress + '%';
+                
+                if (progress <= 0) {
+                    clearInterval(undoProgressInterval);
+                }
+            }, 100);
+
+            // Auto hide after 5 seconds
+            undoTimer = setTimeout(() => {
+                hideUndoToast();
+                savedData = null;
+            }, 5000);
+        }
+
+        function undoClear() {
+            if (savedData) {
+                // Restore data
+                document.getElementById('length').value = savedData.length;
+                document.getElementById('width').value = savedData.width;
+                document.getElementById('price').value = savedData.price;
+                calculatedData = { ...savedData.calculatedData };
+
+                // Show result
+                document.getElementById('areaDisplay').textContent = calculatedData.area.toFixed(2) + ' m²';
+                updateResultDisplay();
+                document.getElementById('resultSection').classList.remove('hidden');
+
+                hideUndoToast();
+                savedData = null;
+            }
+        }
+
+        function hideUndoToast() {
+            document.getElementById('undoToast').classList.remove('show');
+            if (undoTimer) {
+                clearTimeout(undoTimer);
+                undoTimer = null;
+            }
+            if (undoProgressInterval) {
+                clearInterval(undoProgressInterval);
+                undoProgressInterval = null;
+            }
+        }
+
+        // Form submission
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('.btn-submit');
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+
+            try {
+                const response = await fetch(this.action, {
+                    method: this.method,
+                    body: new FormData(this),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    document.getElementById('successMessage').classList.add('show');
+                    document.getElementById('successMessage').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+
+                    this.reset();
+
+                    setTimeout(() => {
+                        document.getElementById('successMessage').classList.remove('show');
+                    }, 5000);
+                } else {
+                    alert(translations[currentLang].alert_error);
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert(translations[currentLang].alert_error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+            }
+        });
+
+        // Initialize with Uzbek language
+        setLanguage('uz');
+    </script>
+</body>
+</html>

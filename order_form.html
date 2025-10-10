@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Your existing CSS remains unchanged */
         * {
             margin: 0;
             padding: 0;
@@ -396,10 +397,7 @@
                 ✓ Buyurtmangiz qabul qilindi! Tez orada aloqaga chiqamiz.
             </div>
 
-            <form id="orderForm"
-            action="https://formspree.io/f/xeorrzkq" method="POST"
-            >
-
+            <form id="orderForm" action="https://formspree.io/f/xjkaaoaa" method="POST">
                 <!-- Ism -->
                 <div class="form-group">
                     <label class="form-label">
@@ -414,6 +412,7 @@
                         type="text" 
                         class="form-input" 
                         id="name"
+                        name="name"
                         placeholder="To'liq ismingizni kiriting"
                         required
                     >
@@ -432,6 +431,7 @@
                         type="tel" 
                         class="form-input" 
                         id="phone"
+                        name="phone"
                         placeholder="+998 (90) 123-45-67"
                         required
                     >
@@ -451,6 +451,7 @@
                         type="text" 
                         class="form-input" 
                         id="address"
+                        name="address"
                         placeholder="Shahar, tuman, ko'cha va uy raqami"
                         required
                     >
@@ -505,6 +506,7 @@
                     <textarea 
                         class="form-textarea" 
                         id="comment"
+                        name="comment"
                         placeholder="Qo'shimcha ma'lumot, o'lchamlar, rang tanlovi yoki boshqa xohishlaringizni yozing..."
                     ></textarea>
                 </div>
@@ -553,33 +555,50 @@
         });
 
         // Form submission
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            // Get form data
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                address: document.getElementById('address').value,
-                stone: document.querySelector('input[name="stone"]:checked').value,
-                comment: document.getElementById('comment').value
-            };
-            
-            console.log('Buyurtma ma\'lumotlari:', formData);
-            
-            // Show success message
-            successMessage.classList.add('show');
-            
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Reset form
-            form.reset();
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
+
+            // Disable the submit button to prevent multiple submissions
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'not-allowed';
+
+            try {
+                // Send form data to Formspree
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Show success message
+                    successMessage.classList.add('show');
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Reset form
+                    form.reset();
+
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    // Handle error
+                    alert('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.');
+                }
+            } catch (error) {
+                console.error('Form submission error:', error);
+                alert('Xatolik yuz berdi. Iltimos, qaytadan urinib ko\'ring.');
+            } finally {
+                // Re-enable the submit button
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+            }
         });
 
         // Input animations

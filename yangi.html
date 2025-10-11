@@ -117,27 +117,27 @@
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;
             justify-content: center;
         }
 
         .btn-primary {
             background: var(--primary);
             color: white;
-            padding: 14px 32px;
+            padding: 16px 40px;
             border-radius: 12px;
             border: none;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             gap: 8px;
             position: relative;
             overflow: hidden;
             width: 100%;
-            max-width: 300px;
+            max-width: 350px;
             justify-content: center;
         }
 
@@ -150,17 +150,17 @@
         .btn-secondary {
             background: white;
             color: var(--dark);
-            padding: 14px 32px;
+            padding: 16px 40px;
             border-radius: 12px;
             border: 2px solid var(--border);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1rem;
+            font-size: 1.1rem;
             position: relative;
             overflow: hidden;
             width: 100%;
-            max-width: 300px;
+            max-width: 350px;
             justify-content: center;
         }
 
@@ -231,11 +231,16 @@
             margin: 0 auto;
         }
 
+        .gallery-container {
+            overflow: hidden;
+            position: relative;
+        }
+
         .gallery-track {
             display: flex;
             gap: 20px;
-            animation: scroll 40s linear infinite;
             width: max-content;
+            animation: scroll 40s linear infinite;
         }
 
         .gallery-item {
@@ -962,11 +967,16 @@
             }
             .hero-buttons {
                 flex-direction: column;
+                gap: 20px;
             }
             .btn-primary,
             .btn-secondary {
-                padding: 12px 24px;
-                font-size: 0.95rem;
+                padding: 18px 32px;
+                font-size: 1.2rem;
+                max-width: 400px;
+            }
+            .hero-visual {
+                display: none;
             }
             .section-header h2 {
                 font-size: 1.8rem;
@@ -1015,10 +1025,7 @@
                 font-size: 0.9rem;
             }
             .hero-image-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero-image-card {
-                aspect-ratio: 4/3;
+                display: none;
             }
             .gallery-item {
                 width: 100%;
@@ -1111,61 +1118,63 @@
             <h2>Bizning tosh gilamlar</h2>
             <p>Mustahkam, estetik va uzoq muddatli chidamli materiallar</p>
         </div>
-        <div class="gallery-track">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="Marmar">
-                <div class="gallery-overlay">
-                    <h3>Marmar</h3>
-                    <p>Zamonaviy va nafis dizayn</p>
+        <div class="gallery-container">
+            <div class="gallery-track">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="Marmar">
+                    <div class="gallery-overlay">
+                        <h3>Marmar</h3>
+                        <p>Zamonaviy va nafis dizayn</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" alt="Granit">
-                <div class="gallery-overlay">
-                    <h3>Granit</h3>
-                    <p>Mustahkam va bardoshli</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" alt="Granit">
+                    <div class="gallery-overlay">
+                        <h3>Granit</h3>
+                        <p>Mustahkam va bardoshli</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="Oniks">
-                <div class="gallery-overlay">
-                    <h3>Oniks</h3>
-                    <p>Eksklyuziv va yorqin</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="Oniks">
+                    <div class="gallery-overlay">
+                        <h3>Oniks</h3>
+                        <p>Eksklyuziv va yorqin</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600" alt="Travertin">
-                <div class="gallery-overlay">
-                    <h3>Travertin</h3>
-                    <p>Tabiiy va issiq ko'rinish</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600" alt="Travertin">
+                    <div class="gallery-overlay">
+                        <h3>Travertin</h3>
+                        <p>Tabiiy va issiq ko'rinish</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600" alt="Marmar">
-                <div class="gallery-overlay">
-                    <h3>Marmar</h3>
-                    <p>Zamonaviy va nafis dizayn</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600" alt="Marmar">
+                    <div class="gallery-overlay">
+                        <h3>Marmar</h3>
+                        <p>Zamonaviy va nafis dizayn</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="Granit">
-                <div class="gallery-overlay">
-                    <h3>Granit</h3>
-                    <p>Mustahkam va bardoshli</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="Granit">
+                    <div class="gallery-overlay">
+                        <h3>Granit</h3>
+                        <p>Mustahkam va bardoshli</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" alt="Oniks">
-                <div class="gallery-overlay">
-                    <h3>Oniks</h3>
-                    <p>Eksklyuziv va yorqin</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" alt="Oniks">
+                    <div class="gallery-overlay">
+                        <h3>Oniks</h3>
+                        <p>Eksklyuziv va yorqin</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="Travertin">
-                <div class="gallery-overlay">
-                    <h3>Travertin</h3>
-                    <p>Tabiiy va issiq ko'rinish</p>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="Travertin">
+                    <div class="gallery-overlay">
+                        <h3>Travertin</h3>
+                        <p>Tabiiy va issiq ko'rinish</p>
+                    </div>
                 </div>
             </div>
         </div>

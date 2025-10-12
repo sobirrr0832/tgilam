@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdVision - Zamonaviy Reklama Platformasi</title>
+    <title>AdVision - Professional Header</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,950 +26,424 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
             color: var(--dark);
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Scrolling Gallery */
-        .scrolling-gallery {
-            padding: 100px 0;
-            background: white;
-            overflow: hidden;
-        }
-
-        .gallery-header {
-            max-width: 1400px;
-            margin: 0 auto 60px;
-            padding: 0 40px;
-            text-align: center;
-        }
-
-        .gallery-header h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-        }
-
-        .gallery-header p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .gallery-track {
-            display: flex;
-            gap: 24px;
-            animation: scroll 40s linear infinite;
-            width: max-content;
-        }
-
-        .gallery-item {
-            width: 400px;
-            height: 280px;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            flex-shrink: 0;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 24px;
-            z-index: 1;
-            color: white;
-        }
-
-        .gallery-overlay h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        .gallery-overlay p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Advantages Section */
-        .advantages-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 100px 40px;
-            background: white;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .section-header h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-            color: var(--dark);
-        }
-
-        .section-header p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .advantage-card {
-            background: white;
-            border-radius: 24px;
-            padding: 40px 32px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .advantage-card::before {
-            content: '';
-            position: absolute;
+        /* Navigation */
+        .navbar {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0;
+            animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
         }
 
-        .advantage-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .advantage-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .icon-wrapper {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-            position: relative;
-            transition: all 0.4s ease;
-        }
-
-        .advantage-card:hover .icon-wrapper {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .icon-wrapper svg {
-            width: 40px;
-            height: 40px;
-            transition: all 0.4s ease;
-        }
-
-        .advantage-card:hover .icon-wrapper svg {
-            filter: brightness(0) invert(1);
-        }
-
-        .advantage-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
-            line-height: 1.3;
-        }
-
-        .advantage-card p {
-            color: var(--gray);
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        /* Individual card colors */
-        .advantage-card:nth-child(1) .icon-wrapper {
-            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-        }
-
-        .advantage-card:nth-child(2) .icon-wrapper {
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-        }
-
-        .advantage-card:nth-child(3) .icon-wrapper {
-            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
-        }
-
-        .advantage-card:nth-child(4) .icon-wrapper {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-        }
-
-        .advantage-card:nth-child(5) .icon-wrapper {
-            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-        }
-
-        /* Static Gallery */
-        .static-gallery {
-            padding: 100px 0;
-            background: var(--light);
-        }
-
-        .container {
+        .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: padding 0.3s ease;
         }
 
-        .section-header {
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-menu.active a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu.active a:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .mobile-menu.active a:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .mobile-menu.active a:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .mobile-menu.active a:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .mobile-menu.active .nav-btn {
+            transition-delay: 0.5s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .mobile-menu .nav-btn {
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-menu.active .nav-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Demo Content */
+        .demo-content {
+            margin-top: 100px;
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
             text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 0.8s ease;
         }
 
-        .section-header h2 {
+        .demo-content h1 {
             font-size: 3rem;
             font-weight: 800;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
         }
 
-        .section-header p {
+        .demo-content p {
             font-size: 1.2rem;
             color: var(--gray);
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .gallery-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .gallery-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .gallery-card-image {
-            width: 100%;
-            height: 280px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .gallery-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-        }
-
-        .gallery-card:hover .gallery-card-image img {
-            transform: scale(1.1);
-        }
-
-        .gallery-card-content {
-            padding: 28px;
-        }
-
-        .gallery-card-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
-        }
-
-        .gallery-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
-        }
-
-        .gallery-card p {
-            color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .gallery-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .card-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .card-btn {
-            background: var(--light);
-            color: var(--dark);
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .card-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Categories */
-        .categories {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            margin-bottom: 60px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .category-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 24px;
-            padding: 40px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s;
-            min-height: 280px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .category-card:nth-child(2) {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .category-card:nth-child(3) {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .category-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .category-card:hover::before {
-            opacity: 1;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-        }
-
-        .category-icon {
-            width: 70px;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 24px;
-            backdrop-filter: blur(10px);
-        }
-
-        .category-card h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .category-card p {
-            font-size: 1rem;
-            opacity: 0.9;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .category-stats {
-            display: flex;
-            gap: 24px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        .view-all-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin: 0 auto;
-            background: var(--primary);
-            color: white;
-            padding: 18px 48px;
-            border-radius: 14px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.05rem;
-        }
-
-        .view-all-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--dark);
-            color: white;
-            padding: 80px 0 30px;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .footer-brand h3 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .footer-brand p {
-            color: var(--gray);
             line-height: 1.8;
-            margin-bottom: 24px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 12px;
-        }
-
-        .social-btn {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            color: white;
-            text-decoration: none;
-        }
-
-        .social-btn:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .footer-links h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 40px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: var(--gray);
-            font-size: 0.9rem;
         }
 
         /* Animations */
-        @keyframes fadeInUp {
+        @keyframes slideDown {
             from {
+                transform: translateY(-100%);
                 opacity: 0;
-                transform: translateY(40px);
             }
             to {
-                opacity: 1;
                 transform: translateY(0);
+                opacity: 1;
             }
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .gallery-grid,
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
+        /* Scrolled State */
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
         }
 
-        @media (max-width: 768px) {
-            .section-header h2 {
+        .navbar.scrolled .nav-container {
+            padding: 16px 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-container {
+                padding: 16px 24px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .demo-content {
+                padding: 40px 24px;
+            }
+
+            .demo-content h1 {
                 font-size: 2rem;
             }
 
-            .advantages-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .advantage-card {
-                padding: 32px 24px;
+            .demo-content p {
+                font-size: 1rem;
             }
         }
 
         @media (max-width: 640px) {
-            .section-header h2 {
-                font-size: 2rem;
+            .nav-container {
+                padding: 14px 20px;
             }
 
-            .view-all-btn {
-                width: 100%;
+            .logo {
+                font-size: 1.3rem;
             }
+
+            .mobile-menu a {
+                font-size: 1.2rem;
+            }
+
+            .demo-content h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <!-- Scrolling Gallery -->
-    <section class="scrolling-gallery">
-        <div class="gallery-header">
-            <h2>Bizning toshgilamlar</h2>
-            <p>Bu matreallar mustahkam, estetik va uzoq muddatli, chidamli</p>
-        </div>
-        <div class="gallery-track">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="Store">
-                <div class="gallery-overlay">
-                    <h3>Premium Fashion</h3>
-                    <p>Zamonaviy kiyimlar kolleksiyasi</p>
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">AdVision</div>
+            
+            <!-- Desktop Menu -->
+            <div class="nav-links">
+                <a href="#home">Bosh sahifa</a>
+                <a href="#gallery">Galereya</a>
+                <a href="#categories">Kategoriyalar</a>
+                <a href="#contact">Aloqa</a>
+                <button class="nav-btn">Boshlash</button>
             </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" alt="Tech">
-                <div class="gallery-overlay">
-                    <h3>Tech Solutions</h3>
-                    <p>Innovatsion texnologiyalar</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="Food">
-                <div class="gallery-overlay">
-                    <h3>Gourmet Kitchen</h3>
-                    <p>Shinam taomlar va ichimliklar</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600" alt="Travel">
-                <div class="gallery-overlay">
-                    <h3>Travel Agency</h3>
-                    <p>Sayohat va turlar</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=600" alt="Interior">
-                <div class="gallery-overlay">
-                    <h3>Interior Design</h3>
-                    <p>Zamonaviy interer yechimlar</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600" alt="Store">
-                <div class="gallery-overlay">
-                    <h3>Premium Fashion</h3>
-                    <p>Zamonaviy kiyimlar kolleksiyasi</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" alt="Tech">
-                <div class="gallery-overlay">
-                    <h3>Tech Solutions</h3>
-                    <p>Innovatsion texnologiyalar</p>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600" alt="Food">
-                <div class="gallery-overlay">
-                    <h3>Gourmet Kitchen</h3>
-                    <p>Shinam taomlar va ichimliklar</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Advantages Section -->
-    <section class="advantages-section">
-        <div class="section-header">
-            <h2>Bizning afzalliklarimiz</h2>
-            <p>Tosh gilam mahsulotlarimiz nima uchun eng yaxshi tanlov ekanligi haqida</p>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <div class="advantages-grid">
-            <!-- Card 1: Tabiiy Materiallar -->
-            <div class="advantage-card">
-                <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                </div>
-                <h3>Tabiiy materiallar</h3>
-                <p>100% tabiiy tosh va ekologik toza materiallardan tayyorlangan. Sizning salomatligingiz va atrof-muhit uchun xavfsiz.</p>
-            </div>
-            <!-- Card 2: Chidamlilik -->
-            <div class="advantage-card">
-                <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                </div>
-                <h3>Chidamlilik</h3>
-                <p>Namlik, issiqlik va mexanik ta'sirlarga bardoshli.</p>
-            </div>
-            <!-- Card 5: Kafolat -->
-            <div class="advantage-card">
-                <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                </div>
-                <h3>Kafolat</h3>
-                <p>Ishonchli va sifatli xizmat ko'rsatish kafolati.</p>
-            </div>
-            <!-- Card 3: Dizayn -->
-            <div class="advantage-card">
-                <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path>
-                    </svg>
-                </div>
-                <h3>Zamonaviy dizayn</h3>
-                <p>Har bir mahsulot noyob va eksklyuziv dizaynga ega. Har qanday interyerga mos keluvchi ranglar va naqshlar.</p>
-            </div>
-            <!-- Card 4: Professional O'rnatish -->
-            <div class="advantage-card">
-                <div class="icon-wrapper">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-                    </svg>
-                </div>
-                <h3>Professional o'rnatish</h3>
-                <p>Tajribali mutaxassislar tomonidan sifatli o'rnatish xizmati. Tez va mukammal bajariladigan ish kafolati.</p>
-            </div>
-        </div>
-    </section>
+    </nav>
 
-    <!-- Static Gallery -->
-    <section class="static-gallery" id="gallery">
-        <div class="container">
-            <div class="section-header">
-                <h2>Ommabop Mahsulotlar</h2>
-                <p>Eng ko'p sotilgan va mashhur mahsulotlar to'plami</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600" alt="Product">
-                    </div>
-                    <div class="gallery-card-content">
-                        <h3>Premium Soat</h3>
-                        <p>Yuqori sifatli shveytsariya soati, zamonaviy dizayn va uzoq xizmat muddati bilan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">$299</div>
-                            <button class="card-btn">Ko'rish</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" alt="Product">
-                    </div>
-                    <div class="gallery-card-content">
-                        <h3>Wireless Quloqchin</h3>
-                        <p>Premium audio tajriba, shovqinni bekor qilish va 30 soatgacha batareya muddati.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">$199</div>
-                            <button class="card-btn">Ko'rish</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600" alt="Product">
-                    </div>
-                    <div class="gallery-card-content">
-                        <h3>Elegant Sumka</h3>
-                        <p>Yuqori sifatli teri sumka, keng sig'im va zamonaviy dizayn bilan jihozlangan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">$149</div>
-                            <button class="card-btn">Ko'rish</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600" alt="Product">
-                    </div>
-                    <div class="gallery-card-content">
-                        <h3>Sport Krossovka</h3>
-                        <p>Eng qulay va bardoshli sport poyabzal, har qanday mashg'ulot uchun ideal.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">$129</div>
-                            <button class="card-btn">Ko'rish</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600" alt="Product">
-                    </div>
-                    <div class="gallery-card-content">
-                        <h3>Professional Kamera</h3>
-                        <p>4K video va 50MP rasmlar uchun professional kamera, keng funksiyalar bilan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">$899</div>
-                            <button class="card-btn">Ko'rish</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600" alt="Product">
-                    </div>
-                    <div class="gallery-card-content">
-                        <h3>Smartwatch Pro</h3>
-                        <p>Salomatligingizni kuzatish, fitnes va uzil-kesil aloqa uchun aqlli soat.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">$349</div>
-                            <button class="card-btn">Ko'rish</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br><br>
-        <button class="view-all-btn">
-            Barchasini ko'rish
-            <span>→</span>
-        </button>
-    </section>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Bosh sahifa</a>
+        <a href="#gallery">Galereya</a>
+        <a href="#categories">Kategoriyalar</a>
+        <a href="#contact">Aloqa</a>
+        <button class="nav-btn">Boshlash</button>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>AdVision</h3>
-                <p>
-                    Biz sizning biznesingizni rivojlantirishga yordam beramiz. 
-                    Professional reklama yechimlar va maksimal natijalar bilan 
-                    mahsulotlaringizni dunyoga taqdim eting.
-                </p>
-                <div class="social-links">
-                    <a href="#" class="social-btn">📘</a>
-                    <a href="#" class="social-btn">📷</a>
-                    <a href="#" class="social-btn">🐦</a>
-                    <a href="#" class="social-btn">💼</a>
-                </div>
-            </div>
-            <div class="footer-links">
-                <h4>Platforma</h4>
-                <ul>
-                    <li><a href="#">Xizmatlar</a></li>
-                    <li><a href="#">Narxlar</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Kompaniya</h4>
-                <ul>
-                    <li><a href="#">Biz haqimizda</a></li>
-                    <li><a href="#">Jamoa</a></li>
-                    <li><a href="#">Aloqa</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 AdVision. Barcha huquqlar himoyalangan. | Zamonaviy reklama platformasi</p>
-        </div>
-    </footer>
+    <!-- Demo Content -->
+    <div class="demo-content">
+        <h1>Professional Header Demo</h1>
+        <p>Zamonaviy, responsive va smooth animatsiyalar bilan jihozlangan professional header. Barcha qurilmalarda mukammal ishlaydi.</p>
+    </div>
 
     <script>
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.gallery-card, .category-card, .advantage-card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(card);
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         });
 
-        // Button click effects
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                ripple.style.cssText = `
-                    position: absolute;
-                    width: 100px;
-                    height: 100px;
-                    background: rgba(255, 255, 255, 0.6);
-                    border-radius: 50%;
-                    transform: translate(-50%, -50%) scale(0);
-                    animation: ripple 0.6s ease-out;
-                    pointer-events: none;
-                    left: ${x}px;
-                    top: ${y}px;
-                `;
-                
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
 
-        // Add ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(4);
-                    opacity: 0;
-                }
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
-        `;
-        document.head.appendChild(style);
+            
+            lastScroll = currentScroll;
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
     </script>
 </body>
 </html>

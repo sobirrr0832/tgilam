@@ -11,29 +11,17 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --dark: #0f172a;
-            --gray: #64748b;
-            --light: #f8fafc;
-            --border: #e2e8f0;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f3f5f8; /* Updated background color */
-            color: var(--dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            color: #2c3e50;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 20px;
         }
 
         header {
@@ -46,32 +34,31 @@
         }
 
         h1 {
-            font-size: 3rem;
-            font-weight: 800;
+            font-size: 2.5em;
+            color: #1a1a1a;
             margin-bottom: 16px;
-            letter-spacing: -1px;
-            color: var(--dark);
+            font-weight: 700;
         }
 
         h2 {
             font-size: 1.5em;
-            color: var(--gray);
+            color: #555;
             margin-bottom: 12px;
             font-weight: 600;
         }
 
         h3 {
             font-size: 1.2em;
-            color: var(--gray);
+            color: #666;
             margin-bottom: 20px;
             font-weight: 500;
         }
 
         .description {
-            color: var(--gray);
-            max-width: 600px;
+            color: #7f8c8d;
+            max-width: 800px;
             margin: 0 auto 40px;
-            font-size: 1.2rem;
+            font-size: 1.05em;
         }
 
         .search-container {
@@ -84,7 +71,7 @@
             width: 100%;
             padding: 16px 60px 16px 50px;
             font-size: 16px;
-            border: 2px solid var(--border);
+            border: 2px solid #e0e0e0;
             border-radius: 50px;
             outline: none;
             transition: all 0.3s ease;
@@ -92,8 +79,8 @@
         }
 
         #searchInput:focus {
-            border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+            border-color: #3498db;
+            box-shadow: 0 4px 20px rgba(52, 152, 219, 0.15);
         }
 
         .search-icon {
@@ -101,7 +88,7 @@
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--gray);
+            color: #95a5a6;
             font-size: 20px;
             pointer-events: none;
         }
@@ -111,8 +98,8 @@
             right: 16px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--light);
-            color: var(--dark);
+            background: #e74c3c;
+            color: white;
             border: none;
             width: 36px;
             height: 36px;
@@ -129,7 +116,6 @@
 
         .clear-btn:hover {
             background: #c0392b;
-            color: white;
             transform: translateY(-50%) scale(1.1);
             box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
         }
@@ -161,7 +147,7 @@
             padding: 14px 20px;
             cursor: pointer;
             transition: all 0.2s;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .suggestion-item:last-child {
@@ -169,31 +155,31 @@
         }
 
         .suggestion-item:hover {
-            background: var(--light);
+            background: #f8f9fa;
             padding-left: 25px;
         }
 
         .suggestion-item strong {
-            color: var(--primary);
+            color: #3498db;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            animation: fadeInUp 0.8s ease 0.2s both;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
         }
 
         .product-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: box-shadow 0.3s ease;
         }
 
         .product-card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
 
         .product-card.hidden {
@@ -206,15 +192,15 @@
 
         @keyframes highlight {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); box-shadow: 0 8px 40px rgba(99, 102, 241, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 40px rgba(52, 152, 219, 0.3); }
         }
 
         .image-slider {
-            width: 100%;
-            height: 280px;
-            overflow: hidden;
             position: relative;
-            touch-action: pan-y;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: #f8f9fa;
         }
 
         .slider-container {
@@ -227,11 +213,12 @@
             min-width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s;
         }
 
-        .product-card:hover .slider-image {
-            transform: scale(1.1);
+        .single-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .slider-dots {
@@ -261,69 +248,44 @@
         }
 
         .product-info {
-            padding: 28px;
-            min-height: 140px; /* Reserve space for two lines of text + footer */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 20px;
         }
 
         .product-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
-            line-height: 1.4; /* Fixed line height for consistency */
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
         }
 
         .product-description {
-            color: var(--gray);
-            line-height: 1.4; /* Fixed line height for consistency */
-            font-size: 1rem;
-            min-height: 2.8rem; /* Reserve space for two lines (1.4rem * 2) */
-            margin-bottom: 20px;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
+            color: #7f8c8d;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         .product-price {
-            font-size: 1.5rem;
+            font-size: 1.5em;
             font-weight: 700;
-            color: var(--primary);
-        }
-
-        .product-btn {
-            background: var(--light);
-            color: var(--dark);
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            text-decoration: none;
-        }
-
-        .product-btn:hover {
-            background: var(--primary);
-            color: white;
+            color: #27ae60;
+            margin-bottom: 12px;
         }
 
         .product-category {
-            display: none;
+            display: inline-block;
+            padding: 6px 14px;
+            background: #ecf0f1;
+            color: #7f8c8d;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
         }
 
         .no-results {
             text-align: center;
             padding: 60px 20px;
-            color: var(--gray);
+            color: #95a5a6;
             font-size: 1.2em;
             display: none;
         }
@@ -332,68 +294,9 @@
             display: block;
         }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin: 40px 0;
-            padding: 20px;
-        }
-
-        .pagination button {
-            padding: 8px 16px;
-            border: none;
-            background: var(--light);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .pagination button:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .pagination button.active {
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-        }
-
-        .pagination button:disabled {
-            background: #f0f0f0;
-            color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .pagination .dots {
-            padding: 8px 16px;
-            font-size: 16px;
-            color: var(--gray);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 1200px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2em;
             }
 
             .products-grid {
@@ -458,197 +361,180 @@
         </div>
 
         <div class="products-grid" id="productsGrid">
-            <!-- Telefon 1 (2 images) -->
+            <!-- Telefon 1 -->
             <div class="product-card" data-name="iPhone 14 Pro" data-id="phone1">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/gultoj.webp" alt="iPhone 14 Pro" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500" alt="iPhone 14 Pro" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1695048064928-1ac99e1cd782?w=500" alt="iPhone 14 Pro" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">iPhone 14 Pro</h3>
-                    <p class="product-description">128GB, Deep Purple, A16 Bionic chip, ProMotion display</p>
-                    <div class="product-footer">
-                        <div class="product-price">14,999,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">iPhone 14 Pro</div>
+                    <div class="product-description">128GB, Deep Purple, A16 Bionic chip, ProMotion display</div>
+                    <div class="product-price">14,999,000 so'm</div>
+                    <span class="product-category">Telefonlar</span>
                 </div>
             </div>
 
-            <!-- Telefon 2 (1 image) -->
+            <!-- Telefon 2 -->
             <div class="product-card" data-name="Samsung Galaxy S23 Ultra" data-id="phone2">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/kohinur.webp" alt="Samsung Galaxy" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500" alt="Samsung Galaxy" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500" alt="Samsung Galaxy" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Samsung Galaxy S23 Ultra</h3>
-                    <p class="product-description">256GB, Phantom Black, S Pen, 200MP camera</p>
-                    <div class="product-footer">
-                        <div class="product-price">13,499,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">Samsung Galaxy S23 Ultra</div>
+                    <div class="product-description">256GB, Phantom Black, S Pen, 200MP camera</div>
+                    <div class="product-price">13,499,000 so'm</div>
+                    <span class="product-category">Telefonlar</span>
                 </div>
             </div>
 
-            <!-- Noutbuk 1 (2 images) -->
+            <!-- Noutbuk 1 -->
             <div class="product-card" data-name="MacBook Pro 14" data-id="laptop1">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/marg'ub.webp" alt="MacBook Pro" class="slider-image">
                         <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500" alt="MacBook Pro" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1602080858428-57174f9431cf?w=500" alt="MacBook Pro" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">MacBook Pro 14"</h3>
-                    <p class="product-description">M3 Pro chip, 18GB RAM, 512GB SSD, Space Gray</p>
-                    <div class="product-footer">
-                        <div class="product-price">28,999,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">MacBook Pro 14"</div>
+                    <div class="product-description">M3 Pro chip, 18GB RAM, 512GB SSD, Space Gray</div>
+                    <div class="product-price">28,999,000 so'm</div>
+                    <span class="product-category">Noutbuklar</span>
                 </div>
             </div>
 
-            <!-- Noutbuk 2 (2 images) -->
+            <!-- Noutbuk 2 -->
             <div class="product-card" data-name="Dell XPS 15" data-id="laptop2">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/mushtarak.webp" alt="Dell XPS" class="slider-image">
                         <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500" alt="Dell XPS" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500" alt="Dell XPS" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Dell XPS 15</h3>
-                    <p class="product-description">Intel i7, 16GB RAM, 1TB SSD, 4K OLED display</p>
-                    <div class="product-footer">
-                        <div class="product-price">18,999,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">Dell XPS 15</div>
+                    <div class="product-description">Intel i7, 16GB RAM, 1TB SSD, 4K OLED display</div>
+                    <div class="product-price">18,999,000 so'm</div>
+                    <span class="product-category">Noutbuklar</span>
                 </div>
             </div>
 
-            <!-- Naushnik 1 (2 images) -->
+            <!-- Naushnik 1 -->
             <div class="product-card" data-name="AirPods Pro 2" data-id="earphone1">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/roshin.webp" alt="AirPods Pro" class="slider-image">
                         <img src="https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=500" alt="AirPods Pro" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=500" alt="AirPods Pro" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">AirPods Pro 2</h3>
-                    <p class="product-description">Active Noise Cancellation, USB-C, MagSafe charging</p>
-                    <div class="product-footer">
-                        <div class="product-price">3,299,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">AirPods Pro 2</div>
+                    <div class="product-description">Active Noise Cancellation, USB-C, MagSafe charging</div>
+                    <div class="product-price">3,299,000 so'm</div>
+                    <span class="product-category">Naushniklar</span>
                 </div>
             </div>
 
-            <!-- Naushnik 2 (2 images) -->
+            <!-- Naushnik 2 -->
             <div class="product-card" data-name="Sony WH-1000XM5" data-id="earphone2">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/safir.webp" alt="Sony headphones" class="slider-image">
                         <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Sony headphones" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500" alt="Sony headphones" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Sony WH-1000XM5</h3>
-                    <p class="product-description">Premium noise cancellation, 30hr battery, multipoint</p>
-                    <div class="product-footer">
-                        <div class="product-price">4,599,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">Sony WH-1000XM5</div>
+                    <div class="product-description">Premium noise cancellation, 30hr battery, multipoint</div>
+                    <div class="product-price">4,599,000 so'm</div>
+                    <span class="product-category">Naushniklar</span>
                 </div>
             </div>
 
-            <!-- Soat 1 (2 images) -->
+            <!-- Soat 1 -->
             <div class="product-card" data-name="Apple Watch Series 9" data-id="watch1">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/safo.webp" alt="Apple Watch" class="slider-image">
                         <img src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=500" alt="Apple Watch" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1510017803434-a899398421b3?w=500" alt="Apple Watch" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Apple Watch Series 9</h3>
-                    <p class="product-description">45mm, GPS + Cellular, Always-On Retina display</p>
-                    <div class="product-footer">
-                        <div class="product-price">6,299,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">Apple Watch Series 9</div>
+                    <div class="product-description">45mm, GPS + Cellular, Always-On Retina display</div>
+                    <div class="product-price">6,299,000 so'm</div>
+                    <span class="product-category">Smart soatlar</span>
                 </div>
             </div>
 
-            <!-- Soat 2 (2 images) -->
+            <!-- Soat 2 -->
             <div class="product-card" data-name="Samsung Galaxy Watch 6" data-id="watch2">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/safonur.webp" alt="Samsung Watch" class="slider-image">
                         <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500" alt="Samsung Watch" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1617625802912-cef60d6b08e4?w=500" alt="Samsung Watch" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Samsung Galaxy Watch 6</h3>
-                    <p class="product-description">44mm, Bluetooth, Sleep tracking, Fitness monitoring</p>
-                    <div class="product-footer">
-                        <div class="product-price">3,999,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">Samsung Galaxy Watch 6</div>
+                    <div class="product-description">44mm, Bluetooth, Sleep tracking, Fitness monitoring</div>
+                    <div class="product-price">3,999,000 so'm</div>
+                    <span class="product-category">Smart soatlar</span>
                 </div>
             </div>
 
-            <!-- Planshet 1 (2 images) -->
+            <!-- Planshet 1 -->
             <div class="product-card" data-name="iPad Pro 12.9" data-id="tablet1">
                 <div class="image-slider">
                     <div class="slider-container">
                         <img src="mimg/sangob.webp" alt="iPad Pro" class="slider-image">
                         <img src="https://images.unsplash.com/photo-1585790050230-5dd28404f869?w=500" alt="iPad Pro" class="slider-image">
+                        <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500" alt="iPad Pro" class="slider-image">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">iPad Pro 12.9"</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16,999,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">iPad Pro 12.9"</div>
+                    <div class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</div>
+                    <div class="product-price">16,999,000 so'm</div>
+                    <span class="product-category">Planshetlar</span>
                 </div>
             </div>
 
-            <!-- Kamera (2 images) -->
+            <!-- Kamera -->
             <div class="product-card" data-name="Canon EOS R6" data-id="camera1">
                 <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="mimg/sangravon.webp" alt="Canon Camera" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1606933248010-63831c31d60f?w=500" alt="Canon Camera" class="slider-image">
-                    </div>
-                    <div class="slider-dots"></div>
+                    <img src="mimg/sangravon.webp" alt="Canon Camera" class="single-image">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Canon EOS R6</h3>
-                    <p class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</p>
-                    <div class="product-footer">
-                        <div class="product-price">22,999,000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
+                    <div class="product-name">Canon EOS R6</div>
+                    <div class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</div>
+                    <div class="product-price">22,999,000 so'm</div>
+                    <span class="product-category">Kameralar</span>
                 </div>
             </div>
         </div>
-
-        <div class="pagination" id="pagination"></div>
     </div>
 
     <script>
@@ -657,7 +543,6 @@
         const suggestionsDiv = document.getElementById('suggestions');
         const productsGrid = document.getElementById('productsGrid');
         const noResults = document.getElementById('noResults');
-        const pagination = document.getElementById('pagination');
         const allCards = document.querySelectorAll('.product-card');
 
         let products = [];
@@ -669,13 +554,12 @@
             });
         });
 
-        const itemsPerPage = 9;
-        let currentPage = 1;
-        const totalPages = Math.ceil(products.length / itemsPerPage);
-
         // Initialize sliders
         function initSlider(card) {
             const container = card.querySelector('.slider-container');
+            // Skip initialization for cards without a slider-container (single image)
+            if (!container) return;
+
             const images = card.querySelectorAll('.slider-image');
             const dotsContainer = card.querySelector('.slider-dots');
             let currentIndex = 0;
@@ -710,17 +594,14 @@
                 goToSlide(currentIndex);
             }
 
-            // Touch events
             container.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
                 isDragging = true;
-                e.preventDefault();
-            }, { passive: false });
+            });
 
             container.addEventListener('touchmove', (e) => {
                 if (!isDragging) return;
-                e.preventDefault();
-            }, { passive: false });
+            });
 
             container.addEventListener('touchend', (e) => {
                 if (!isDragging) return;
@@ -737,7 +618,6 @@
                 isDragging = false;
             });
 
-            // Mouse events
             container.addEventListener('mousedown', (e) => {
                 startX = e.clientX;
                 isDragging = true;
@@ -746,7 +626,6 @@
 
             container.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
-                e.preventDefault();
             });
 
             container.addEventListener('mouseup', (e) => {
@@ -767,104 +646,17 @@
             container.addEventListener('mouseleave', () => {
                 isDragging = false;
             });
-
-            // Prevent context menu on long press
-            container.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-            });
         }
 
         allCards.forEach(card => initSlider(card));
 
-        // Pagination
-        function renderPagination() {
-            pagination.innerHTML = '';
-            
-            const prevBtn = document.createElement('button');
-            prevBtn.textContent = '⟵';
-            prevBtn.disabled = currentPage === 1;
-            prevBtn.addEventListener('click', () => changePage(currentPage - 1));
-            pagination.appendChild(prevBtn);
-
-            const maxVisiblePages = 5;
-            let startPage = Math.max(1, currentPage - 2);
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-            if (endPage - startPage + 1 < maxVisiblePages) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
-            }
-
-            if (startPage > 1) {
-                const firstPage = document.createElement('button');
-                firstPage.textContent = '1';
-                firstPage.addEventListener('click', () => changePage(1));
-                pagination.appendChild(firstPage);
-
-                if (startPage > 2) {
-                    const dots = document.createElement('span');
-                    dots.className = 'dots';
-                    dots.textContent = '...';
-                    pagination.appendChild(dots);
-                }
-            }
-
-            for (let i = startPage; i <= endPage; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.textContent = i;
-                pageBtn.classList.toggle('active', i === currentPage);
-                pageBtn.addEventListener('click', () => changePage(i));
-                pagination.appendChild(pageBtn);
-            }
-
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) {
-                    const dots = document.createElement('span');
-                    dots.className = 'dots';
-                    dots.textContent = '...';
-                    pagination.appendChild(dots);
-                }
-
-                const lastPage = document.createElement('button');
-                lastPage.textContent = totalPages;
-                lastPage.addEventListener('click', () => changePage(totalPages));
-                pagination.appendChild(lastPage);
-            }
-
-            const nextBtn = document.createElement('button');
-            nextBtn.textContent = '⟶';
-            nextBtn.disabled = currentPage === totalPages;
-            nextBtn.addEventListener('click', () => changePage(currentPage + 1));
-            pagination.appendChild(nextBtn);
-        }
-
-        function changePage(page) {
-            currentPage = page;
-            updateProductVisibility();
-            renderPagination();
-            productsGrid.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function updateProductVisibility() {
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-
-            allCards.forEach((card, index) => {
-                card.classList.toggle('hidden', index < startIndex || index >= endIndex);
-            });
-
-            noResults.classList.toggle('show', products.length === 0);
-        }
-
-        // Search functionality
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.trim();
             
             if (query === '') {
                 clearBtn.classList.remove('show');
                 suggestionsDiv.style.display = 'none';
-                currentPage = 1;
-                updateProductVisibility();
-                renderPagination();
+                showAllProducts();
                 return;
             }
 
@@ -882,17 +674,13 @@
                 suggestionsDiv.style.display = 'none';
                 filterProducts(queryLower);
             }
-
-            pagination.style.display = query ? 'none' : 'flex';
         });
 
         clearBtn.addEventListener('click', () => {
             searchInput.value = '';
             clearBtn.classList.remove('show');
             suggestionsDiv.style.display = 'none';
-            currentPage = 1;
-            updateProductVisibility();
-            renderPagination();
+            showAllProducts();
             searchInput.focus();
         });
 
@@ -938,7 +726,16 @@
                 }
             });
 
-            noResults.classList.toggle('show', visibleCount === 0);
+            if (visibleCount === 0) {
+                noResults.classList.add('show');
+            } else {
+                noResults.classList.remove('show');
+            }
+        }
+
+        function showAllProducts() {
+            allCards.forEach(card => card.classList.remove('hidden'));
+            noResults.classList.remove('show');
         }
 
         function scrollToProduct(id) {
@@ -950,58 +747,13 @@
 
         function highlightProduct(id) {
             const product = document.querySelector(`[data-id="${id}"]`);
-            if (product) { 
+            if (product) {
                 product.classList.add('highlight');
                 setTimeout(() => {
                     product.classList.remove('highlight');
                 }, 1000);
             }
         }
-
-        // Button click ripple effect
-        document.querySelectorAll('.product-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                ripple.style.cssText = `
-                    position: absolute;
-                    width: 100px;
-                    height: 100px;
-                    background: rgba(255, 255, 255, 0.6);
-                    border-radius: 50%;
-                    transform: translate(-50%, -50%) scale(0);
-                    animation: ripple 0.6s ease-out;
-                    pointer-events: none;
-                    left: ${x}px;
-                    top: ${y}px;
-                `;
-                
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-                
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
-
-        // Add ripple animation
-        const rippleStyle = document.createElement('style');
-        rippleStyle.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(rippleStyle);
-
-        // Initial render
-        updateProductVisibility();
-        renderPagination();
     </script>
 </body>
 </html>

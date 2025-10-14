@@ -25,9 +25,10 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f3f5f8; /* Updated background color */
+            background: #f3f5f8;
             color: var(--dark);
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -227,11 +228,7 @@
             min-width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s;
-        }
-
-        .product-card:hover .slider-image {
-            transform: scale(1.1);
+            loading: lazy; /* Lazy loading qo'shildi */
         }
 
         .slider-dots {
@@ -262,7 +259,7 @@
 
         .product-info {
             padding: 28px;
-            min-height: 140px; /* Reserve space for two lines of text + footer */
+            min-height: 140px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -273,14 +270,14 @@
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--dark);
-            line-height: 1.4; /* Fixed line height for consistency */
+            line-height: 1.4;
         }
 
         .product-description {
             color: var(--gray);
-            line-height: 1.4; /* Fixed line height for consistency */
+            line-height: 1.4;
             font-size: 1rem;
-            min-height: 2.8rem; /* Reserve space for two lines (1.4rem * 2) */
+            min-height: 2.8rem;
             margin-bottom: 20px;
         }
 
@@ -462,8 +459,8 @@
             <div class="product-card" data-name="iPhone 14 Pro" data-id="phone1">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/gultoj.webp" alt="iPhone 14 Pro" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500" alt="iPhone 14 Pro" class="slider-image">
+                        <img src="mimg/gultoj.webp" alt="iPhone 14 Pro" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500" alt="iPhone 14 Pro" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -481,7 +478,7 @@
             <div class="product-card" data-name="Samsung Galaxy S23 Ultra" data-id="phone2">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/kohinur.webp" alt="Samsung Galaxy" class="slider-image">
+                        <img src="mimg/kohinur.webp" alt="Samsung Galaxy" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -499,8 +496,8 @@
             <div class="product-card" data-name="MacBook Pro 14" data-id="laptop1">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/marg'ub.webp" alt="MacBook Pro" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500" alt="MacBook Pro" class="slider-image">
+                        <img src="mimg/marg'ub.webp" alt="MacBook Pro" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500" alt="MacBook Pro" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -518,8 +515,8 @@
             <div class="product-card" data-name="Dell XPS 15" data-id="laptop2">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/mushtarak.webp" alt="Dell XPS" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500" alt="Dell XPS" class="slider-image">
+                        <img src="mimg/mushtarak.webp" alt="Dell XPS" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500" alt="Dell XPS" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -537,8 +534,8 @@
             <div class="product-card" data-name="AirPods Pro 2" data-id="earphone1">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/roshin.webp" alt="AirPods Pro" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=500" alt="AirPods Pro" class="slider-image">
+                        <img src="mimg/roshin.webp" alt="AirPods Pro" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=500" alt="AirPods Pro" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -556,8 +553,8 @@
             <div class="product-card" data-name="Sony WH-1000XM5" data-id="earphone2">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/safir.webp" alt="Sony headphones" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Sony headphones" class="slider-image">
+                        <img src="mimg/safir.webp" alt="Sony headphones" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Sony headphones" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -575,8 +572,8 @@
             <div class="product-card" data-name="Apple Watch Series 9" data-id="watch1">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/safo.webp" alt="Apple Watch" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=500" alt="Apple Watch" class="slider-image">
+                        <img src="mimg/safo.webp" alt="Apple Watch" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=500" alt="Apple Watch" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -594,8 +591,8 @@
             <div class="product-card" data-name="Samsung Galaxy Watch 6" data-id="watch2">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/safonur.webp" alt="Samsung Watch" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500" alt="Samsung Watch" class="slider-image">
+                        <img src="mimg/safonur.webp" alt="Samsung Watch" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500" alt="Samsung Watch" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -613,8 +610,8 @@
             <div class="product-card" data-name="iPad Pro 12.9" data-id="tablet1">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/sangob.webp" alt="iPad Pro" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1585790050230-5dd28404f869?w=500" alt="iPad Pro" class="slider-image">
+                        <img src="mimg/sangob.webp" alt="iPad Pro" class="slider-image" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1585790050230-5dd28404f869?w=500" alt="iPad Pro" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -628,12 +625,11 @@
                 </div>
             </div>
 
-            <!-- Kamera (2 images) -->
+            <!-- Kamera (1 image) -->
             <div class="product-card" data-name="Canon EOS R6" data-id="camera1">
                 <div class="image-slider">
                     <div class="slider-container">
-                        <img src="mimg/sangravon.webp" alt="Canon Camera" class="slider-image">
-                        <img src="https://images.unsplash.com/photo-1606933248010-63831c31d60f?w=500" alt="Canon Camera" class="slider-image">
+                        <img src="mimg/sangravon.webp" alt="Canon Camera" class="slider-image" loading="lazy">
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -681,6 +677,12 @@
             let currentIndex = 0;
             let startX = 0;
             let isDragging = false;
+
+            // Canon EOS R6 uchun faqat bitta rasm bo'lsa, nuqtalarni ko'rsatma
+            if (card.dataset.id === 'camera1') {
+                dotsContainer.style.display = 'none';
+                return;
+            }
 
             images.forEach((_, i) => {
                 const dot = document.createElement('div');
@@ -1002,7 +1004,23 @@
         // Initial render
         updateProductVisibility();
         renderPagination();
+
+        // Intersection Observer for lazy loading
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    observer.unobserve(img);
+                }
+            });
+        }, { rootMargin: '100px' });
+
+        document.querySelectorAll('.slider-image').forEach(img => {
+            img.dataset.src = img.src;
+            img.src = '';
+            observer.observe(img);
+        });
     </script>
 </body>
 </html>
-

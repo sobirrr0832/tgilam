@@ -25,7 +25,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
+            background: #f3f5f8; /* Updated background color */
             color: var(--dark);
             line-height: 1.6;
         }
@@ -189,11 +189,11 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.4s ease; /* Removed transform */
+            transition: box-shadow 0.4s ease;
         }
 
         .product-card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); /* Only shadow on hover */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
         .product-card.hidden {
@@ -262,6 +262,10 @@
 
         .product-info {
             padding: 28px;
+            min-height: 140px; /* Reserve space for two lines of text + footer */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .product-name {
@@ -269,13 +273,15 @@
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--dark);
+            line-height: 1.4; /* Fixed line height for consistency */
         }
 
         .product-description {
             color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 20px;
+            line-height: 1.4; /* Fixed line height for consistency */
             font-size: 1rem;
+            min-height: 2.8rem; /* Reserve space for two lines (1.4rem * 2) */
+            margin-bottom: 20px;
         }
 
         .product-footer {
@@ -302,7 +308,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.9rem;
-            text-decoration: none; /* Added for link */
+            text-decoration: none;
         }
 
         .product-btn:hover {

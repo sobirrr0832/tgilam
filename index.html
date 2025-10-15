@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -50,7 +51,7 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px 40px;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -58,7 +59,7 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
@@ -74,7 +75,7 @@
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 25px;
             align-items: center;
             transition: all 0.3s ease;
         }
@@ -111,7 +112,7 @@
         .nav-btn {
             background: var(--primary);
             color: white;
-            padding: 12px 28px;
+            padding: 10px 24px;
             border-radius: 12px;
             border: none;
             font-weight: 600;
@@ -456,6 +457,11 @@
             width: max-content;
         }
 
+        .gallery-item-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
         .gallery-item {
             width: 400px;
             height: 280px;
@@ -688,55 +694,103 @@
             animation: fadeInUp 0.8s ease 0.2s both;
         }
 
-        .gallery-card {
+        .product-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: box-shadow 0.4s ease;
         }
 
-        .gallery-card:hover {
-            transform: translateY(-12px);
+        .product-card:hover {
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
-        .gallery-card-image {
+        .product-card.hidden {
+            display: none;
+        }
+
+        .product-card.highlight {
+            animation: highlight 1s ease;
+        }
+
+        @keyframes highlight {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 40px rgba(99, 102, 241, 0.3); }
+        }
+
+        .image-slider {
             width: 100%;
             height: 280px;
             overflow: hidden;
             position: relative;
+            touch-action: pan-y;
         }
 
-        .gallery-card-image img {
-            width: 100%;
+        .slider-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slider-image {
+            min-width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s;
+            /* Lazy loading HTML atributi orqali qo'llaniladi */
         }
 
-        .gallery-card:hover .gallery-card-image img {
-            transform: scale(1.1);
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
         }
 
-        .gallery-card-content {
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .product-info {
             padding: 28px;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .gallery-card h3 {
+        .product-name {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--dark);
+            line-height: 1.4;
         }
 
-        .gallery-card p {
+        .product-description {
             color: var(--gray);
-            line-height: 1.7;
+            line-height: 1.4;
+            font-size: 1rem;
+            min-height: 2.8rem;
             margin-bottom: 20px;
         }
 
-        .gallery-card-footer {
+        .product-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -744,13 +798,13 @@
             border-top: 1px solid var(--border);
         }
 
-        .card-price {
+        .product-price {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
         }
 
-        .card-btn {
+        .product-btn {
             background: var(--light);
             color: var(--dark);
             padding: 10px 20px;
@@ -760,9 +814,10 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.9rem;
+            text-decoration: none;
         }
 
-        .card-btn:hover {
+        .product-btn:hover {
             background: var(--primary);
             color: white;
         }
@@ -879,6 +934,80 @@
             opacity: 0.9;
         }
 
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .contact-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .contact-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .contact-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .contact-item p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .contact-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
         /* Footer */
         .footer {
             background: var(--dark);
@@ -891,7 +1020,7 @@
             margin: 0 auto;
             padding: 0 40px;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: repeat(4, 1fr);
             gap: 60px;
             margin-bottom: 60px;
         }
@@ -928,6 +1057,7 @@
             transition: all 0.3s;
             color: white;
             text-decoration: none;
+            font-size: 1.2rem;
         }
 
         .social-btn:hover {
@@ -957,6 +1087,27 @@
         }
 
         .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact p {
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .footer-contact a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
             color: white;
         }
 
@@ -1080,6 +1231,11 @@
                 padding: 14px 30px;
                 font-size: 1rem;
             }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
         }
 
         @media (max-width: 640px) {
@@ -1114,6 +1270,13 @@
         /* Smooth Scrolling */
         html {
             scroll-behavior: smooth;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: translate(-50%, -50%) scale(4);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -1198,62 +1361,78 @@
             <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
         </div>
         <div class="gallery-track">
-            <div class="gallery-item">
-                <img src="gimg/g01.webp" alt="">
-                <div class="gallery-overlay">
-                    <h3>Shabnam</h3>
-                    <p>ertalab shabnamday tiniq</p>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g01.webp" alt="">
+                    <div class="gallery-overlay">
+                        <h3>Shabnam</h3>
+                        <p>ertalab shabnamday tiniq</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g02.webp" alt="Tech">
-                <div class="gallery-overlay">
-                    <h3>Temuriy</h3>
-                    <p>aralash rangdagi silliq yuvilgan toshlar </p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g02.webp" alt="Tech">
+                    <div class="gallery-overlay">
+                        <h3>Temuriy</h3>
+                        <p>aralash rangdagi silliq yuvilgan toshlar </p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g03.webp" alt="Food">
-                <div class="gallery-overlay">
-                    <h3>Oytog'</h3>
-                    <p>tabiatning mutanosib va sokin go'zalligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g03.webp" alt="Food">
+                    <div class="gallery-overlay">
+                        <h3>Oytog'</h3>
+                        <p>tabiatning mutanosib va sokin go'zalligi</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g04.webp" alt="Travel">
-                <div class="gallery-overlay">
-                    <h3>Kohinur</h3>
-                    <p>juda mayda va silliqlangan toshlar</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g04.webp" alt="Travel">
+                    <div class="gallery-overlay">
+                        <h3>Kohinur</h3>
+                        <p>juda mayda va silliqlangan toshlar</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g05.webp" alt="Interior">
-                <div class="gallery-overlay">
-                    <h3>Zarnigor</h3>
-                    <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g05.webp" alt="Interior">
+                    <div class="gallery-overlay">
+                        <h3>Zarnigor</h3>
+                        <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g06.webp" alt="Store">
-                <div class="gallery-overlay">
-                    <h3>Safonur</h3>
-                    <p>nafislik va kontrastninig uyg'unligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g06.webp" alt="Store">
+                    <div class="gallery-overlay">
+                        <h3>Safonur</h3>
+                        <p>nafislik va kontrastninig uyg'unligi</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g07.webp" alt="Tech">
-                <div class="gallery-overlay">
-                    <h3>Suvoriy</h3>
-                    <p>tabiatda yaralgan noziklik</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g07.webp" alt="Tech">
+                    <div class="gallery-overlay">
+                        <h3>Suvoriy</h3>
+                        <p>tabiatda yaralgan noziklik</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g08.webp" alt="Food">
-                <div class="gallery-overlay">
-                    <h3>Safir</h3>
-                    <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g08.webp" alt="Food">
+                    <div class="gallery-overlay">
+                        <h3>Safir</h3>
+                        <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -1328,81 +1507,117 @@
                 <p>Biz sifat, bardoshlilik va estetikani birlashtirib, sizga mukammal mahsulotlarni taqdim etamiz.</p>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530" alt="Product">
+                <!-- Telefon 1 (2 images) -->
+                <div class="product-card" data-name="Bodom" data-id="bodom">
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530" alt="Bodom" class="slider-image" loading="lazy">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040" alt="Bodom" class="slider-image" loading="lazy">
+                        </div>
+                        <div class="slider-dots"></div>
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Bodom</h3>
-                        <p>Yuqori sifatli shveytsariya soati, zamonaviy dizayn va uzoq xizmat muddati bilan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">120 000 so'm</div>
-                            <button class="card-btn">buyurtma</button>
+                    <div class="product-info">
+                        <h3 class="product-name">Bodom</h3>
+                        <p class="product-description">128GB, Deep Purple, A16 Bionic chip, ProMotion display</p>
+                        <div class="product-footer">
+                            <div class="product-price">120 000 so'm</div>
+                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/shabnam.webp" alt="Product">
+
+                <!-- Telefon 2 (1 image) -->
+                <div class="product-card" data-name="Dezarte" data-id="Dezarte">
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156" alt="Dezarte" class="slider-image" loading="lazy">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358" alt="Dezarte" class="slider-image" loading="lazy">
+                      
+                        </div>
+                        <div class="slider-dots"></div>
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Safir</h3>
-                        <p>Premium audio tajriba, shovqinni bekor qilish va 30 soatgacha batareya muddati.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">130 000</div>
-                            <button class="card-btn">buyurtma</button>
+                    <div class="product-info">
+                        <h3 class="product-name">Dezarte</h3>
+                        <p class="product-description">256GB, Phantom Black, S Pen, 200MP camera</p>
+                        <div class="product-footer">
+                            <div class="product-price">13 499 so'm</div>
+                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/shabnam.webp" alt="Product">
+
+                <!-- Noutbuk 1 (2 images) -->
+                <div class="product-card" data-name="Gultoj" data-id="Dezarte">
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656" alt="Gultoj" class="slider-image" loading="lazy">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226" alt="Gultoj" class="slider-image" loading="lazy">
+                        </div>
+                        <div class="slider-dots"></div>
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Suvoriy</h3>
-                        <p>Yuqori sifatli teri sumka, keng sig'im va zamonaviy dizayn bilan jihozlangan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">120 000</div>
-                            <button class="card-btn">buyurtma</button>
+                    <div class="product-info">
+                        <h3 class="product-name">Gultoj</h3>
+                        <p class="product-description">M3 Pro chip, 18GB RAM, 512GB SSD, Space Gray</p>
+                        <div class="product-footer">
+                            <div class="product-price">28 999 so'm</div>
+                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/shabnam.webp" alt="Product">
+
+                <!-- Noutbuk 2 (2 images) -->
+                <div class="product-card" data-name="Jilozor" data-id="Jilozor">
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/jilozor.webp?updatedAt=1760467036045" alt="Jilozor" class="slider-image" loading="lazy">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/jiloor02.webp?updatedAt=1760467034224" alt="Jilozor" class="slider-image" loading="lazy">
+                        </div>
+                        <div class="slider-dots"></div>
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Shabnam</h3>
-                        <p>Eng qulay va bardoshli sport poyabzal, har qanday mashg'ulot uchun ideal.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">130 000</div>
-                            <button class="card-btn">buyurtma</button>
+                    <div class="product-info">
+                        <h3 class="product-name">Jilozor</h3>
+                        <p class="product-description">Intel i7, 16GB RAM, 1TB SSD, 4K OLED display</p>
+                        <div class="product-footer">
+                            <div class="product-price">18 999 so'm</div>
+                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/zafaron.webp" alt="Product">
+
+                <!-- Naushnik 1 (2 images) -->
+                <div class="product-card" data-name="Kohinur" data-id="Kohinur">
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur.webp?updatedAt=1760467036639" alt="Kohinur" class="slider-image" loading="lazy">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur02.webp?updatedAt=1760467034847" alt="Kohinur" class="slider-image" loading="lazy">
+                        </div>
+                        <div class="slider-dots"></div>
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Zafaron</h3>
-                        <p>4K video va 50MP rasmlar uchun professional kamera, keng funksiyalar bilan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">130 000</div>
-                            <button class="card-btn">buyurtma</button>
+                    <div class="product-info">
+                        <h3 class="product-name">Kohinur</h3>
+                        <p class="product-description">Active Noise Cancellation, USB-C, MagSafe charging</p>
+                        <div class="product-footer">
+                            <div class="product-price">30 299 so'm</div>
+                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/zarnigor.webp" alt="Product">
+
+                <!-- Naushnik 2 (2 images) -->
+                <div class="product-card" data-name="Mehroj" data-id="Mehroj">
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj.webp?updatedAt=1760467036855" alt="Mehroj" class="slider-image" loading="lazy">
+                            <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj02.webp?updatedAt=1760467033691" alt="Mehroj" class="slider-image" loading="lazy">
+                        </div>
+                        <div class="slider-dots"></div>
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Zarnigor</h3>
-                        <p>Salomatligingizni kuzatish, fitnes va uzil-kesil aloqa uchun aqlli soat.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">120 000</div>
-                            <button class="card-btn">buyurtma</button>
+                    <div class="product-info">
+                        <h3 class="product-name">Mehroj</h3>
+                        <p class="product-description">Premium noise cancellation, 30hr battery, multipoint</p>
+                        <div class="product-footer">
+                            <div class="product-price">40 599 so'm</div>
+                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                         </div>
                     </div>
                 </div>
@@ -1416,6 +1631,33 @@
         </button></a> 
     </section>
 
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2>Biz bilan aloqa</h2>
+                <p>Biz bilan bog'laning va buyurtma bering</p>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <h3>Telefon raqam</h3>
+                    <p><a href="tel:+998901234567">+998 90 123 45 67</a></p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Gmail</h3>
+                    <p><a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a></p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3>Joylashuv</h3>
+                    <p>Toshkent sh., Chilanzor tumani, 1-uy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -1425,10 +1667,10 @@
                     Eng sifatli va zamonaviy tosh gilam mahsulotlari siz uchun
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-btn">📘</a>
-                    <a href="#" class="social-btn">📷</a>
-                    <a href="#" class="social-btn">🐦</a>
-                    <a href="#" class="social-btn">💼</a>
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1445,6 +1687,12 @@
                     <li><a href="#">Jamoa</a></li>
                     <li><a href="aloqa.html">Aloqa</a></li>
                 </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Biz bilan aloqa</h4>
+                <p>Telefon: <a href="tel:+998901234567">+998 90 123 45 67</a></p>
+                <p>Email: <a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a></p>
+                <p>Manzil: Toshkent sh., Chilanzor tumani, 1-uy</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -1619,6 +1867,149 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Slider initialization for product cards
+        function initSlider(card) {
+            const container = card.querySelector('.slider-container');
+            const images = card.querySelectorAll('.slider-image');
+            const dotsContainer = card.querySelector('.slider-dots');
+            let currentIndex = 0;
+            let startX = 0;
+            let isDragging = false;
+
+            // Canon EOS R6 uchun faqat bitta rasm bo'lsa, nuqtalarni ko'rsatma
+            if (card.dataset.id === 'camera1') {
+                dotsContainer.style.display = 'none';
+                return;
+            }
+
+            images.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.slider-dot');
+
+            function goToSlide(index) {
+                currentIndex = index;
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % images.length;
+                goToSlide(currentIndex);
+            }
+
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                goToSlide(currentIndex);
+            }
+
+            // Touch events
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+                e.preventDefault();
+            }, { passive: false });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            }, { passive: false });
+
+            container.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                isDragging = false;
+            });
+
+            // Mouse events
+            container.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                isDragging = true;
+                e.preventDefault();
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+
+            container.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                const endX = e.clientX;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                isDragging = false;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                isDragging = false;
+            });
+
+            // Prevent context menu on long press
+            container.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+        }
+
+        // Initialize sliders for product cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const allCards = document.querySelectorAll('.product-card');
+            allCards.forEach(card => initSlider(card));
+        });
+
+        // Button click ripple effect for product buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('product-btn')) {
+                const button = e.target;
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+                
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                button.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            }
+        });
     </script>
 </body>
 </html>

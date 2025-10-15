@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bizning Mahsulotlar</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Mahsulotlar</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
         :root {
             --primary: #6366f1;
@@ -26,15 +25,14 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
+            background: #f3f5f8;
             color: var(--dark);
-            overflow-x: hidden;
-        }
-
-        /* Static Gallery */
-        .static-gallery {
-            padding: 100px 0;
-            background: var(--light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            user-select: none; /* Matnlardan nusxa olishni oldini olish */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .container {
@@ -43,82 +41,267 @@
             padding: 0 40px;
         }
 
-        .section-header {
+        header {
             text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 0.8s ease;
+            padding: 60px 20px 40px;
+            background: white;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
-        .section-header h2 {
+        h1 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 16px;
             letter-spacing: -1px;
+            color: var(--dark);
         }
 
-        .section-header p {
-            font-size: 1.2rem;
+        h2 {
+            font-size: 1.5em;
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .description {
             color: var(--gray);
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
         }
 
-        .gallery-grid {
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 16px 60px 16px 50px;
+            font-size: 16px;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            outline: none;
+            transition: all 0.3s ease;
+            background: white;
+            user-select: text; /* Qidiruv maydonida nusxa olishga ruxsat */
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+        }
+
+        #searchInput:focus {
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+        }
+
+        .clear-btn:hover {
+            background: #c0392b;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+        }
+
+        .clear-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .clear-btn.show {
+            display: flex;
+        }
+
+        #suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 16px;
+            margin-top: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+
+        .suggestion-item {
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid var(--border);
+            user-select: none; /* Suggestion larda nusxa olishni oldini olish */
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: var(--light);
+            padding-left: 25px;
+        }
+
+        .suggestion-item strong {
+            color: var(--primary);
+        }
+
+        .products-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 32px;
             animation: fadeInUp 0.8s ease 0.2s both;
         }
 
-        .gallery-card {
+        .product-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: box-shadow 0.4s ease;
+            user-select: none; /* Kartalarda nusxa olishni oldini olish */
         }
 
-        .gallery-card:hover {
-            transform: translateY(-12px);
+        .product-card:hover {
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
-        .gallery-card-image {
+        .product-card.hidden {
+            display: none;
+        }
+
+        .product-card.highlight {
+            animation: highlight 1s ease;
+        }
+
+        @keyframes highlight {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 40px rgba(99, 102, 241, 0.3); }
+        }
+
+        .image-slider {
             width: 100%;
             height: 280px;
             overflow: hidden;
             position: relative;
+            touch-action: pan-y; /* Faqat vertikal scrollga ruxsat, horizontal swipe ni bloklamaydi */
+            user-select: none;
         }
 
-        .gallery-card-image img {
-            width: 100%;
+        .slider-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+        }
+
+        .slider-image {
+            min-width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s;
+            user-select: none;
+            pointer-events: none; /* Rasm ustida pointer events ni o'chirish, faqat swipe uchun */
+            -webkit-user-drag: none; /* Rasmni drag qilishni oldini olish */
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
         }
 
-        .gallery-card:hover .gallery-card-image img {
-            transform: scale(1.1);
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
         }
 
-        .gallery-card-content {
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            user-select: none;
+        }
+
+        .dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .product-info {
             padding: 28px;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .gallery-card h3 {
+        .product-name {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--dark);
+            line-height: 1.4;
+            user-select: none;
         }
 
-        .gallery-card p {
+        .product-description {
             color: var(--gray);
-            line-height: 1.7;
+            line-height: 1.4;
+            font-size: 1rem;
+            min-height: 2.8rem;
             margin-bottom: 20px;
+            user-select: none;
         }
 
-        .gallery-card-footer {
+        .product-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -126,13 +309,14 @@
             border-top: 1px solid var(--border);
         }
 
-        .card-price {
+        .product-price {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
+            user-select: none;
         }
 
-        .card-btn {
+        .product-btn {
             background: var(--light);
             color: var(--dark);
             padding: 10px 20px;
@@ -142,37 +326,76 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.9rem;
+            text-decoration: none;
+            user-select: none;
         }
 
-        .card-btn:hover {
+        .product-btn:hover {
             background: var(--primary);
             color: white;
         }
 
-        .view-all-btn {
+        .product-category {
+            display: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+            font-size: 1.2em;
+            display: none;
+            user-select: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .pagination {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin: 0 auto;
+            align-items: center;
+            gap: 10px;
+            margin: 40px 0;
+            padding: 20px;
+        }
+
+        .pagination button {
+            padding: 8px 16px;
+            border: none;
+            background: var(--light);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .pagination button:hover {
             background: var(--primary);
             color: white;
-            padding: 18px 48px;
-            border-radius: 14px;
-            border: none;
+        }
+
+        .pagination button.active {
+            background: var(--primary);
+            color: white;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.05rem;
         }
 
-        .view-all-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        .pagination button:disabled {
+            background: #f0f0f0;
+            color: #ccc;
+            cursor: not-allowed;
         }
 
-        /* Animations */
+        .pagination .dots {
+            padding: 8px 16px;
+            font-size: 16px;
+            color: var(--gray);
+            user-select: none;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -184,170 +407,829 @@
             }
         }
 
-        /* Responsive */
         @media (max-width: 1200px) {
-            .gallery-grid {
+            .products-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .section-header h2 {
+            h1 {
                 font-size: 2rem;
             }
 
-            .gallery-grid {
+            .products-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 640px) {
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .view-all-btn {
-                padding: 14px 24px;
-                font-size: 0.9rem;
-                width: auto;
-                max-width: 200px;
-            }
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        /* Smooth Scrolling */
-        html {
-            scroll-behavior: smooth;
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+
+        /* Rasm yuklab olish va nusxa olishni oldini olish uchun qo'shimcha CSS */
+        .image-slider,
+        .slider-container,
+        .slider-image,
+        .product-card {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .slider-image {
+            pointer-events: none; /* Rasm ustida barcha events ni o'chirish, faqat container swipe uchun */
+        }
+
+        /* Context menu ni disable qilish rasmlar uchun */
+        .image-slider * {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
         }
     </style>
 </head>
 <body>
-    <!-- Static Gallery -->
-    <section class="static-gallery" id="gallery">
-        <div class="container">
-            <div class="section-header">
-                <h2>Bizning mahsulotlar</h2>
-                <p>Biz sifat, bardoshlilik va estetikani birlashtirib, sizga mukammal mahsulotlarni taqdim etamiz.</p>
+    <div class="container">
+        <header>
+            <h1>Mahsulotlar katalogi</h1>
+            <h2>Sifatli va arzon mahsulotlar</h2>
+            <h3>Barcha toifalar bir joyda</h3>
+            <p class="description">
+                Bizning katalogimizda turli xil mahsulotlarni topishingiz mumkin. 
+                Qidirish maydonidan foydalanib, kerakli mahsulotingizni tez va oson toping. 
+                Har bir mahsulot haqida batafsil ma'lumot va arzon narxlar.
+            </p>
+        </header>
+
+        <div class="search-container">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Mahsulot qidirish..."
+                autocomplete="off"
+            >
+            <button class="clear-btn" id="clearBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div id="suggestions"></div>
+        </div>
+
+        <div class="no-results" id="noResults">
+            Hech qanday mahsulot topilmadi 😔
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+            <!-- Telefon 1 (2 images) -->
+            <div class="product-card" data-name="Bodom" data-id="bodom">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530" alt="Bodom" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040" alt="Bodom" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bodom</h3>
+                    <p class="product-description">128GB, Deep Purple, A16 Bionic chip, ProMotion display</p>
+                    <div class="product-footer">
+                        <div class="product-price">120 000 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/shabnam.webp" alt="Product">
+
+            <!-- Telefon 2 (1 image) -->
+            <div class="product-card" data-name="Dezarte" data-id="Dezarte">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156" alt="Dezarte" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358" alt="Dezarte" class="slider-image" loading="lazy">
+                  
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Termux</h3>
-                        <p>Yuqori sifatli shveytsariya soati, zamonaviy dizayn va uzoq xizmat muddati bilan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">120 000 so'm</div>
-                            <button class="card-btn">buyurtma</button>
-                        </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Dezarte</h3>
+                    <p class="product-description">256GB, Phantom Black, S Pen, 200MP camera</p>
+                    <div class="product-footer">
+                        <div class="product-price">13 499 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/shabnam.webp" alt="Product">
+            </div>
+
+            <!-- Noutbuk 1 (2 images) -->
+            <div class="product-card" data-name="Gultoj" data-id="Dezarte">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656" alt="Gultoj" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226" alt="Gultoj" class="slider-image" loading="lazy">
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Safir</h3>
-                        <p>Premium audio tajriba, shovqinni bekor qilish va 30 soatgacha batareya muddati.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">130 000</div>
-                            <button class="card-btn">buyurtma</button>
-                        </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Gultoj</h3>
+                    <p class="product-description">M3 Pro chip, 18GB RAM, 512GB SSD, Space Gray</p>
+                    <div class="product-footer">
+                        <div class="product-price">28 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/shabnam.webp" alt="Product">
+            </div>
+
+            <!-- Noutbuk 2 (2 images) -->
+            <div class="product-card" data-name="Jilozor" data-id="Jilozor">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/jilozor.webp?updatedAt=1760467036045" alt="Jilozor" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/jiloor02.webp?updatedAt=1760467034224" alt="Jilozor" class="slider-image" loading="lazy">
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Suvoriy</h3>
-                        <p>Yuqori sifatli teri sumka, keng sig'im va zamonaviy dizayn bilan jihozlangan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">120 000</div>
-                            <button class="card-btn">buyurtma</button>
-                        </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Jilozor</h3>
+                    <p class="product-description">Intel i7, 16GB RAM, 1TB SSD, 4K OLED display</p>
+                    <div class="product-footer">
+                        <div class="product-price">18 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/shabnam.webp" alt="Product">
+            </div>
+
+            <!-- Naushnik 1 (2 images) -->
+            <div class="product-card" data-name="Kohinur" data-id="Kohinur">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur.webp?updatedAt=1760467036639" alt="Kohinur" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur02.webp?updatedAt=1760467034847" alt="Kohinur" class="slider-image" loading="lazy">
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Shabnam</h3>
-                        <p>Eng qulay va bardoshli sport poyabzal, har qanday mashg'ulot uchun ideal.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">130 000</div>
-                            <button class="card-btn">buyurtma</button>
-                        </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Kohinur</h3>
+                    <p class="product-description">Active Noise Cancellation, USB-C, MagSafe charging</p>
+                    <div class="product-footer">
+                        <div class="product-price">30 299 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/zafaron.webp" alt="Product">
+            </div>
+
+            <!-- Naushnik 2 (2 images) -->
+            <div class="product-card" data-name="Mehroj" data-id="Mehroj">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj.webp?updatedAt=1760467036855" alt="Mehroj" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj02.webp?updatedAt=1760467033691" alt="Mehroj" class="slider-image" loading="lazy">
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Zafaron</h3>
-                        <p>4K video va 50MP rasmlar uchun professional kamera, keng funksiyalar bilan.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">130 000</div>
-                            <button class="card-btn">buyurtma</button>
-                        </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Mehroj</h3>
+                    <p class="product-description">Premium noise cancellation, 30hr battery, multipoint</p>
+                    <div class="product-footer">
+                        <div class="product-price">40 599 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                     </div>
                 </div>
-                <div class="gallery-card">
-                    <div class="gallery-card-image">
-                        <img src="gimg/zarnigor.webp" alt="Product">
+            </div>
+
+            <!-- Soat 1 (2 images) -->
+            <div class="product-card" data-name="Oytog'" data-id="oytog">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/oytog.webp?updatedAt=1760467036235" alt="Oytog" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/oytog02.webp?updatedAt=1760467034872" alt="Oytog" class="slider-image" loading="lazy">
                     </div>
-                    <div class="gallery-card-content">
-                        <h3>Zarnigor</h3>
-                        <p>Salomatligingizni kuzatish, fitnes va uzil-kesil aloqa uchun aqlli soat.</p>
-                        <div class="gallery-card-footer">
-                            <div class="card-price">120 000</div>
-                            <button class="card-btn">buyurtma</button>
-                        </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Oytog</h3>
+                    <p class="product-description">45mm, GPS + Cellular, Always-On Retina display</p>
+                    <div class="product-footer">
+                        <div class="product-price">60 000 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soat 2 (2 images) -->
+            <div class="product-card" data-name="Safir" data-id="Safir">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/safir.webp?updatedAt=1760467036680" alt="Safir" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/safir02.webp?updatedAt=1760467035332" alt="Safir" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Safir</h3>
+                    <p class="product-description">44mm, Bluetooth, Sleep tracking, Fitness monitoring</p>
+                    <div class="product-footer">
+                        <div class="product-price">39 000 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Safonur" data-id="Safonur">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/safonur.webp?updatedAt=1760467036645" alt="Safonur" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/safonur02.webp?updatedAt=1760467034062" alt="Safonur" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Safonur</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 000 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Shabnam" data-id="tablet1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam.webp?updatedAt=1760467036202" alt="Shabnam" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam02.webp?updatedAt=1760467034588" alt="Shabnam" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Shabnam</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Suvoriy" data-id="tablet1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy.webp?updatedAt=1760467035507" alt="Suvoriy" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy02.webp?updatedAt=1760467035321" alt="Suvoriy" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Suvoriy</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Temuriy" data-id="tablet1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy.webp?updatedAt=1760467037010" alt="temuriy" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy02.webp?updatedAt=1760467034640" alt="temuriy" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Temuriy</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Veluna" data-id="tablet1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/veluna.webp?updatedAt=1760467037314" alt="Veluna" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/veluna02.webp?updatedAt=1760467034641" alt="Veluna" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Veluna</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Zarchashma" data-id="tablet1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarchashma.webp?updatedAt=1760467036726" alt="zarchashma" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarchashma%20(2).webp?updatedAt=1760467035988" alt="zarchashma" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Zarchashma</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Zarnavo" data-id="tablet1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnavo.webp?updatedAt=1760467036915" alt="zarnavo" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnavo02.webp?updatedAt=1760467035834" alt="zarnavo" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Zarnavo</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Planshet 1 (2 images) -->
+            <div class="product-card" data-name="Zarnigor" data-id="tablet1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor.webp?updatedAt=1760467036692" alt="zarnigor" class="slider-image" loading="lazy">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor02.webp?updatedAt=1760467035558" alt="zarnigor" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Zarnigor</h3>
+                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
+                    <div class="product-footer">
+                        <div class="product-price">16 999 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+                        
+
+            <!-- Kamera (1 image) -->
+            <div class="product-card" data-name="Zinnur" data-id="camera1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/zinnur.webp?updatedAt=1760467035912" alt="zinnur" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Zinnur</h3>
+                    <p class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</p>
+                    <div class="product-footer">
+                        <div class="product-price">29 000 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                    </div>
+                </div>
+            </div>
+            
+                        <!-- Kamera (1 image) -->
+            <div class="product-card" data-name="Mushtarak" data-id="camera1">
+                <div class="image-slider">
+                    <div class="slider-container">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/mushtarak.webp?updatedAt=1760467035330" alt="mushtarak" class="slider-image" loading="lazy">
+                    </div>
+                    <div class="slider-dots"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Mushtarak</h3>
+                    <p class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</p>
+                    <div class="product-footer">
+                        <div class="product-price">29 000 so'm</div>
+                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
                     </div>
                 </div>
             </div>
         </div>
-        <br><br>
-        <button class="view-all-btn">
-            Barchasini ko'rish
-            <span>→</span>
-        </button>
-        <br><br>
-        <a href="kalcul.html">
-            <button class="view-all-btn">
-                Kalkulyatorni ochish
-                <span>→</span>
-            </button>
-        </a>
-    </section>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
 
     <script>
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearBtn');
+        const suggestionsDiv = document.getElementById('suggestions');
+        const productsGrid = document.getElementById('productsGrid');
+        const noResults = document.getElementById('noResults');
+        const pagination = document.getElementById('pagination');
+        const allCards = document.querySelectorAll('.product-card');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+        let products = [];
+        allCards.forEach(card => {
+            products.push({
+                name: card.dataset.name,
+                id: card.dataset.id,
+                element: card
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.gallery-card').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(card);
         });
 
-        // Button click effects
-        document.querySelectorAll('button').forEach(button => {
+        const itemsPerPage = 9;
+        let currentPage = 1;
+        const totalPages = Math.ceil(products.length / itemsPerPage);
+
+        // Initialize sliders
+        function initSlider(card) {
+            const container = card.querySelector('.slider-container');
+            const images = card.querySelectorAll('.slider-image');
+            const dotsContainer = card.querySelector('.slider-dots');
+            let currentIndex = 0;
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+            let startTime = 0;
+
+            // Bitta rasm bo'lsa, slider ni o'chirish
+            if (images.length <= 1) {
+                dotsContainer.style.display = 'none';
+                return;
+            }
+
+            // Dots yaratish
+            images.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(i);
+                });
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            function goToSlide(index) {
+                currentIndex = index;
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((d, i) => d.classList.toggle('active', i === currentIndex));
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % images.length;
+                goToSlide(currentIndex);
+            }
+
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                goToSlide(currentIndex);
+            }
+
+            // Touch events - yaxshilangan swipe
+            let touchStartY = 0; // Vertikal harakatni tekshirish uchun
+
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                currentX = startX;
+                isDragging = true;
+                startTime = Date.now();
+                // preventDefault ni faqat horizontal swipe uchun ishlatmaymiz, scrollga ruxsat
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                currentX = e.touches[0].clientX;
+                const touchCurrentY = e.touches[0].clientY;
+                const deltaY = Math.abs(touchCurrentY - touchStartY);
+                const deltaX = Math.abs(currentX - startX);
+
+                // Agar vertikal harakat ko'p bo'lsa (scroll), preventDefault qilmaymiz
+                if (deltaY > deltaX) {
+                    return; // Scrollga ruxsat berish
+                }
+
+                // Horizontal swipe uchun container ni harakatlantirish (live drag)
+                const translateX = (currentX - startX) / container.offsetWidth * 100;
+                container.style.transform = `translateX(calc(-${currentIndex * 100}% + ${translateX}%))`;
+            }, { passive: false });
+
+            container.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+                const diff = startX - currentX;
+                const absDiff = Math.abs(diff);
+                const velocity = absDiff / duration; // Tezlik
+
+                isDragging = false;
+
+                // Threshold ni oshirish (80px) va tezlik tekshirish
+                if (absDiff > 80 || (velocity > 0.5 && absDiff > 40)) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                } else {
+                    // Kichik harakat bo'lsa, orqaga qaytarish
+                    goToSlide(currentIndex);
+                }
+
+                // Transform ni tozalash
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }, { passive: true });
+
+            // Mouse events - yaxshilangan
+            container.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                currentX = startX;
+                isDragging = true;
+                startTime = Date.now();
+                e.preventDefault(); // Mouse da preventDefault
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                currentX = e.clientX;
+                const translateX = (currentX - startX) / container.offsetWidth * 100;
+                container.style.transform = `translateX(calc(-${currentIndex * 100}% + ${translateX}%))`;
+                e.preventDefault();
+            });
+
+            container.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+                const diff = startX - currentX;
+                const absDiff = Math.abs(diff);
+                const velocity = absDiff / duration;
+
+                isDragging = false;
+
+                if (absDiff > 80 || (velocity > 0.5 && absDiff > 40)) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                } else {
+                    goToSlide(currentIndex);
+                }
+
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                if (isDragging) {
+                    isDragging = false;
+                    goToSlide(currentIndex);
+                    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }
+            });
+
+            // Context menu ni oldini olish (rasm yuklab olish)
+            container.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+        }
+
+        allCards.forEach(card => initSlider(card));
+
+        // Global contextmenu prevent rasmlar uchun
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.closest('.slider-image')) {
+                e.preventDefault();
+            }
+        });
+
+        // Copy event prevent matnlar uchun
+        document.addEventListener('copy', (e) => {
+            if (!e.target.closest('#searchInput')) {
+                e.preventDefault();
+            }
+        });
+
+        // Pagination
+        function renderPagination() {
+            pagination.innerHTML = '';
+            
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = '⟵';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.addEventListener('click', () => changePage(currentPage - 1));
+            pagination.appendChild(prevBtn);
+
+            const maxVisiblePages = 5;
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+            if (endPage - startPage + 1 < maxVisiblePages) {
+                startPage = Math.max(1, endPage - maxVisiblePages + 1);
+            }
+
+            if (startPage > 1) {
+                const firstPage = document.createElement('button');
+                firstPage.textContent = '1';
+                firstPage.addEventListener('click', () => changePage(1));
+                pagination.appendChild(firstPage);
+
+                if (startPage > 2) {
+                    const dots = document.createElement('span');
+                    dots.className = 'dots';
+                    dots.textContent = '...';
+                    pagination.appendChild(dots);
+                }
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                pageBtn.classList.toggle('active', i === currentPage);
+                pageBtn.addEventListener('click', () => changePage(i));
+                pagination.appendChild(pageBtn);
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    const dots = document.createElement('span');
+                    dots.className = 'dots';
+                    dots.textContent = '...';
+                    pagination.appendChild(dots);
+                }
+
+                const lastPage = document.createElement('button');
+                lastPage.textContent = totalPages;
+                lastPage.addEventListener('click', () => changePage(totalPages));
+                pagination.appendChild(lastPage);
+            }
+
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = '⟶';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.addEventListener('click', () => changePage(currentPage + 1));
+            pagination.appendChild(nextBtn);
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            updateProductVisibility();
+            renderPagination();
+            productsGrid.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateProductVisibility() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+
+            allCards.forEach((card, index) => {
+                card.classList.toggle('hidden', index < startIndex || index >= endIndex);
+            });
+
+            noResults.classList.toggle('show', products.length === 0);
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            
+            if (query === '') {
+                clearBtn.classList.remove('show');
+                suggestionsDiv.style.display = 'none';
+                currentPage = 1;
+                updateProductVisibility();
+                renderPagination();
+                return;
+            }
+
+            clearBtn.classList.add('show');
+            
+            const queryLower = query.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(queryLower)
+            );
+
+            if (filtered.length > 0) {
+                showSuggestions(filtered, queryLower);
+                filterProducts(queryLower);
+            } else {
+                suggestionsDiv.style.display = 'none';
+                filterProducts(queryLower);
+            }
+
+            pagination.style.display = query ? 'none' : 'flex';
+        });
+
+        clearBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            clearBtn.classList.remove('show');
+            suggestionsDiv.style.display = 'none';
+            currentPage = 1;
+            updateProductVisibility();
+            renderPagination();
+            pagination.style.display = 'flex';
+            searchInput.focus();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                suggestionsDiv.style.display = 'none';
+            }
+        });
+
+        function showSuggestions(filtered, query) {
+            suggestionsDiv.innerHTML = '';
+            filtered.forEach(product => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                
+                const name = product.name;
+                const index = name.toLowerCase().indexOf(query);
+                const before = name.substring(0, index);
+                const match = name.substring(index, index + query.length);
+                const after = name.substring(index + query.length);
+                
+                div.innerHTML = `${before}<strong>${match}</strong>${after}`;
+                div.addEventListener('click', () => {
+                    searchInput.value = product.name;
+                    suggestionsDiv.style.display = 'none';
+                    scrollToProduct(product.id);
+                    highlightProduct(product.id);
+                });
+                suggestionsDiv.appendChild(div);
+            });
+            suggestionsDiv.style.display = 'block';
+        }
+
+        function filterProducts(query) {
+            let visibleCount = 0;
+            allCards.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                if (name.includes(query)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            noResults.classList.toggle('show', visibleCount === 0);
+        }
+
+        function scrollToProduct(id) {
+            const product = document.querySelector(`[data-id="${id}"]`);
+            if (product) {
+                product.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function highlightProduct(id) {
+            const product = document.querySelector(`[data-id="${id}"]`);
+            if (product) { 
+                product.classList.add('highlight');
+                setTimeout(() => {
+                    product.classList.remove('highlight');
+                }, 1000);
+            }
+        }
+
+        // Button click ripple effect
+        document.querySelectorAll('.product-btn').forEach(button => {
             button.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
                 const rect = this.getBoundingClientRect();
@@ -376,8 +1258,8 @@
         });
 
         // Add ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
             @keyframes ripple {
                 to {
                     transform: translate(-50%, -50%) scale(4);
@@ -385,7 +1267,28 @@
                 }
             }
         `;
-        document.head.appendChild(style);
+        document.head.appendChild(rippleStyle);
+
+        // Initial render
+        updateProductVisibility();
+        renderPagination();
+
+        // Intersection Observer for lazy loading
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    observer.unobserve(img);
+                }
+            });
+        }, { rootMargin: '100px' });
+
+        document.querySelectorAll('.slider-image').forEach(img => {
+            img.dataset.src = img.src;
+            img.src = '';
+            observer.observe(img);
+        });
     </script>
 </body>
 </html>

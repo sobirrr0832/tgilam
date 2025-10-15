@@ -530,7 +530,6 @@
                     <div class="slider-container">
                         <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156" alt="Dezarte" class="slider-image" loading="lazy">
                         <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358" alt="Dezarte" class="slider-image" loading="lazy">
-                  
                     </div>
                     <div class="slider-dots"></div>
                 </div>
@@ -810,7 +809,6 @@
                 </div>
             </div>
                         
-
             <!-- Kamera (1 image) -->
             <div class="product-card" data-name="Zinnur" data-id="camera1">
                 <div class="image-slider">
@@ -829,7 +827,7 @@
                 </div>
             </div>
             
-                        <!-- Kamera (1 image) -->
+            <!-- Kamera (1 image) -->
             <div class="product-card" data-name="Mushtarak" data-id="camera1">
                 <div class="image-slider">
                     <div class="slider-container">
@@ -929,7 +927,6 @@
                 currentX = startX;
                 isDragging = true;
                 startTime = Date.now();
-                // preventDefault ni faqat horizontal swipe uchun ishlatmaymiz, scrollga ruxsat
             }, { passive: true });
 
             container.addEventListener('touchmove', (e) => {
@@ -959,12 +956,14 @@
 
                 isDragging = false;
 
-                // Threshold ni oshirish (80px) va tezlik tekshirish
+                // Threshold va tezlik tekshirish
                 if (absDiff > 80 || (velocity > 0.5 && absDiff > 40)) {
                     if (diff > 0) {
-                        nextSlide();
+                        nextSlide(); // O'ngdan chapga
+                    } else if (diff < 0) {
+                        prevSlide(); // Chapdan o'nga
                     } else {
-                        prevSlide();
+                        goToSlide(currentIndex); // Hech qanday harakat bo'lmasa
                     }
                 } else {
                     // Kichik harakat bo'lsa, orqaga qaytarish
@@ -1004,9 +1003,11 @@
 
                 if (absDiff > 80 || (velocity > 0.5 && absDiff > 40)) {
                     if (diff > 0) {
-                        nextSlide();
+                        nextSlide(); // O'ngdan chapga
+                    } else if (diff < 0) {
+                        prevSlide(); // Chapdan o'nga
                     } else {
-                        prevSlide();
+                        goToSlide(currentIndex); // Hech qanday harakat bo'lmasa
                     }
                 } else {
                     goToSlide(currentIndex);

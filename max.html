@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -454,6 +455,11 @@
             gap: 24px;
             animation: scroll 40s linear infinite;
             width: max-content;
+        }
+
+        .gallery-item-link {
+            text-decoration: none;
+            color: inherit;
         }
 
         .gallery-item {
@@ -965,7 +971,7 @@
             margin: 0 auto;
             padding: 0 40px;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: repeat(4, 1fr);
             gap: 60px;
             margin-bottom: 60px;
         }
@@ -1032,6 +1038,27 @@
         }
 
         .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-contact p {
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .footer-contact a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
             color: white;
         }
 
@@ -1278,62 +1305,78 @@
             <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
         </div>
         <div class="gallery-track">
-            <div class="gallery-item">
-                <img src="gimg/g01.webp" alt="">
-                <div class="gallery-overlay">
-                    <h3>Shabnam</h3>
-                    <p>ertalab shabnamday tiniq</p>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g01.webp" alt="">
+                    <div class="gallery-overlay">
+                        <h3>Shabnam</h3>
+                        <p>ertalab shabnamday tiniq</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g02.webp" alt="Tech">
-                <div class="gallery-overlay">
-                    <h3>Temuriy</h3>
-                    <p>aralash rangdagi silliq yuvilgan toshlar </p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g02.webp" alt="Tech">
+                    <div class="gallery-overlay">
+                        <h3>Temuriy</h3>
+                        <p>aralash rangdagi silliq yuvilgan toshlar </p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g03.webp" alt="Food">
-                <div class="gallery-overlay">
-                    <h3>Oytog'</h3>
-                    <p>tabiatning mutanosib va sokin go'zalligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g03.webp" alt="Food">
+                    <div class="gallery-overlay">
+                        <h3>Oytog'</h3>
+                        <p>tabiatning mutanosib va sokin go'zalligi</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g04.webp" alt="Travel">
-                <div class="gallery-overlay">
-                    <h3>Kohinur</h3>
-                    <p>juda mayda va silliqlangan toshlar</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g04.webp" alt="Travel">
+                    <div class="gallery-overlay">
+                        <h3>Kohinur</h3>
+                        <p>juda mayda va silliqlangan toshlar</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g05.webp" alt="Interior">
-                <div class="gallery-overlay">
-                    <h3>Zarnigor</h3>
-                    <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g05.webp" alt="Interior">
+                    <div class="gallery-overlay">
+                        <h3>Zarnigor</h3>
+                        <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g06.webp" alt="Store">
-                <div class="gallery-overlay">
-                    <h3>Safonur</h3>
-                    <p>nafislik va kontrastninig uyg'unligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g06.webp" alt="Store">
+                    <div class="gallery-overlay">
+                        <h3>Safonur</h3>
+                        <p>nafislik va kontrastninig uyg'unligi</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g07.webp" alt="Tech">
-                <div class="gallery-overlay">
-                    <h3>Suvoriy</h3>
-                    <p>tabiatda yaralgan noziklik</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g07.webp" alt="Tech">
+                    <div class="gallery-overlay">
+                        <h3>Suvoriy</h3>
+                        <p>tabiatda yaralgan noziklik</p>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <img src="gimg/g08.webp" alt="Food">
-                <div class="gallery-overlay">
-                    <h3>Safir</h3>
-                    <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+            </a>
+            <a href="galereya.html" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="gimg/g08.webp" alt="Food">
+                    <div class="gallery-overlay">
+                        <h3>Safir</h3>
+                        <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -1532,10 +1575,10 @@
                     Eng sifatli va zamonaviy tosh gilam mahsulotlari siz uchun
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-btn" title="Facebook">f</a>
-                    <a href="#" class="social-btn" title="Instagram">i</a>
-                    <a href="#" class="social-btn" title="Twitter">t</a>
-                    <a href="#" class="social-btn" title="LinkedIn">in</a>
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1552,6 +1595,12 @@
                     <li><a href="#">Jamoa</a></li>
                     <li><a href="aloqa.html">Aloqa</a></li>
                 </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Biz bilan aloqa</h4>
+                <p>Telefon: <a href="tel:+998901234567">+998 90 123 45 67</a></p>
+                <p>Email: <a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a></p>
+                <p>Manzil: Toshkent sh., Chilanzor tumani, 1-uy</p>
             </div>
         </div>
         <div class="footer-bottom">

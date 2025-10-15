@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahsulotlar</title>
+    <link rel="icon" href="gimg/icon.webp" type="image/x-icon">
+    <title>Toshgilam - Zamonaviy Tosh Gilamlar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
         :root {
             --primary: #6366f1;
@@ -25,10 +28,632 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f3f5f8;
+            background: #ffffff;
             color: var(--dark);
-            line-height: 1.6;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0;
+            animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 40px; /* Reduced padding to make it shorter */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: padding 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.6rem; /* Slightly smaller for better fit */
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px; /* Reduced gap */
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem; /* Slightly smaller font */
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            padding: 10px 24px; /* Reduced padding */
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-menu.active a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu.active a:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .mobile-menu.active a:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .mobile-menu.active a:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        .mobile-menu.active a:nth-child(4) {
+            transition-delay: 0.4s;
+        }
+
+        .mobile-menu.active .nav-btn {
+            transition-delay: 0.5s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .mobile-menu .nav-btn {
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-menu.active .nav-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Carousel Section */
+        .carousel-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1; /* Navbar ostida bo'lishi uchun */
+        }
+
+        .carousel-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .carousel-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            will-change: transform, opacity;
+        }
+
+        .carousel-image.active {
+            opacity: 1;
+        }
+
+        .carousel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transform: scale(1.15);
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 2;
+        }
+
+        .carousel-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            text-align: center;
+            color: white;
+        }
+
+        .carousel-title {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .carousel-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 0.8s ease-out;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .carousel-buttons {
+            display: flex;
+            gap: 20px;
+            animation: fadeInUp 1s ease-out;
+            animation-delay: 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(-1px);
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 4;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Scrolling Gallery */
+        .scrolling-gallery {
+            padding: 100px 0;
+            background: white;
+            overflow: hidden;
+        }
+
+        .gallery-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .gallery-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .gallery-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gallery-track {
+            display: flex;
+            gap: 24px;
+            animation: scroll 40s linear infinite;
+            width: max-content;
+        }
+
+        .gallery-item {
+            width: 400px;
+            height: 280px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            z-index: 1;
+            color: white;
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Advantages Section */
+        .advantages-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            color: var(--dark);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .advantage-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .advantage-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .advantage-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .advantage-card:hover .icon-wrapper {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .icon-wrapper svg {
+            width: 40px;
+            height: 40px;
+            transition: all 0.4s ease;
+        }
+
+        .advantage-card:hover .icon-wrapper svg {
+            filter: brightness(0) invert(1);
+        }
+
+        .advantage-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+
+        .advantage-card p {
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Individual card colors */
+        .advantage-card:nth-child(1) .icon-wrapper {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+        }
+
+        .advantage-card:nth-child(2) .icon-wrapper {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        }
+
+        .advantage-card:nth-child(3) .icon-wrapper {
+            background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+        }
+
+        .advantage-card:nth-child(4) .icon-wrapper {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+        }
+
+        .advantage-card:nth-child(5) .icon-wrapper {
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+        }
+
+        /* Static Gallery */
+        .static-gallery {
+            padding: 100px 0;
+            background: var(--light);
         }
 
         .container {
@@ -37,251 +662,82 @@
             padding: 0 40px;
         }
 
-        header {
+        .section-header {
             text-align: center;
-            padding: 60px 20px 40px;
-            background: white;
-            margin-bottom: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease;
         }
 
-        h1 {
+        .section-header h2 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 16px;
             letter-spacing: -1px;
-            color: var(--dark);
         }
 
-        h2 {
-            font-size: 1.5em;
-            color: var(--gray);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        h3 {
-            font-size: 1.2em;
-            color: var(--gray);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .description {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto 40px;
+        .section-header p {
             font-size: 1.2rem;
-        }
-
-        .search-container {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        #searchInput {
-            width: 100%;
-            padding: 16px 60px 16px 50px;
-            font-size: 16px;
-            border: 2px solid var(--border);
-            border-radius: 50px;
-            outline: none;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        #searchInput:focus {
-            border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
             color: var(--gray);
-            font-size: 20px;
-            pointer-events: none;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .clear-btn {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--light);
-            color: var(--dark);
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
-        }
-
-        .clear-btn:hover {
-            background: #c0392b;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
-        }
-
-        .clear-btn:active {
-            transform: translateY(-50%) scale(0.95);
-        }
-
-        .clear-btn.show {
-            display: flex;
-        }
-
-        #suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: white;
-            border-radius: 16px;
-            margin-top: 10px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            z-index: 1000;
-        }
-
-        .suggestion-item {
-            padding: 14px 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
-
-        .suggestion-item:hover {
-            background: var(--light);
-            padding-left: 25px;
-        }
-
-        .suggestion-item strong {
-            color: var(--primary);
-        }
-
-        .products-grid {
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 32px;
             animation: fadeInUp 0.8s ease 0.2s both;
         }
 
-        .product-card {
+        .gallery-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .product-card:hover {
+        .gallery-card:hover {
+            transform: translateY(-12px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
-        .product-card.hidden {
-            display: none;
-        }
-
-        .product-card.highlight {
-            animation: highlight 1s ease;
-        }
-
-        @keyframes highlight {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); box-shadow: 0 8px 40px rgba(99, 102, 241, 0.3); }
-        }
-
-        .image-slider {
+        .gallery-card-image {
             width: 100%;
             height: 280px;
             overflow: hidden;
             position: relative;
-            touch-action: pan-y;
         }
 
-        .slider-container {
-            display: flex;
-            height: 100%;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .slider-image {
-            min-width: 100%;
+        .gallery-card-image img {
+            width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Lazy loading HTML atributi orqali qo'llaniladi */
+            transition: transform 0.4s;
         }
 
-        .slider-dots {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 10;
+        .gallery-card:hover .gallery-card-image img {
+            transform: scale(1.1);
         }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .dot.active {
-            background: white;
-            width: 24px;
-            border-radius: 4px;
-        }
-
-        .product-info {
+        .gallery-card-content {
             padding: 28px;
-            min-height: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
-        .product-name {
+        .gallery-card h3 {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 12px;
             color: var(--dark);
-            line-height: 1.4;
         }
 
-        .product-description {
+        .gallery-card p {
             color: var(--gray);
-            line-height: 1.4;
-            font-size: 1rem;
-            min-height: 2.8rem;
+            line-height: 1.7;
             margin-bottom: 20px;
         }
 
-        .product-footer {
+        .gallery-card-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -289,13 +745,13 @@
             border-top: 1px solid var(--border);
         }
 
-        .product-price {
+        .card-price {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
         }
 
-        .product-btn {
+        .card-btn {
             background: var(--light);
             color: var(--dark);
             padding: 10px 20px;
@@ -305,72 +761,261 @@
             cursor: pointer;
             transition: all 0.3s;
             font-size: 0.9rem;
-            text-decoration: none;
         }
 
-        .product-btn:hover {
+        .card-btn:hover {
             background: var(--primary);
             color: white;
         }
 
-        .product-category {
-            display: none;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray);
-            font-size: 1.2em;
-            display: none;
-        }
-
-        .no-results.show {
-            display: block;
-        }
-
-        .pagination {
+        .view-all-btn {
             display: flex;
+            align-items: center;
             justify-content: center;
+            gap: 12px;
+            margin: 0 auto;
+            background: var(--primary);
+            color: white;
+            padding: 18px 48px;
+            border-radius: 14px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05rem;
+        }
+
+        .view-all-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.35);
+        }
+
+        /* Categories */
+        .categories {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 24px;
+            padding: 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .category-card:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .category-card:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .category-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .category-stats {
+            display: flex;
+            gap: 24px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .social-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .contact-section {
+            grid-column: 1 / -1;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+
+        .contact-section h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
-            margin: 40px 0;
-            padding: 20px;
         }
 
-        .pagination button {
-            padding: 8px 16px;
-            border: none;
-            background: var(--light);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
         }
 
-        .pagination button:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .pagination button.active {
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-        }
-
-        .pagination button:disabled {
-            background: #f0f0f0;
-            color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .pagination .dots {
-            padding: 8px 16px;
-            font-size: 16px;
+        .contact-item a {
             color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
+        .contact-item a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -382,741 +1027,651 @@
             }
         }
 
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
         @media (max-width: 1200px) {
-            .products-grid {
+            .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-container {
+                padding: 16px 24px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
             }
         }
 
         @media (max-width: 768px) {
-            h1 {
+            .section-header h2 {
                 font-size: 2rem;
             }
 
-            .products-grid {
+            .advantages-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .advantage-card {
+                padding: 32px 24px;
+            }
+
+            .mobile-menu a {
+                font-size: 1.2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-title {
+                font-size: 2.5rem;
+            }
+
+            .carousel-subtitle {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+
+            .carousel-buttons {
+                flex-direction: column;
+                gap: 15px;
+                width: 80%;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+
+            .contact-info {
                 grid-template-columns: 1fr;
             }
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
+        @media (max-width: 640px) {
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                padding: 14px 20px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .view-all-btn {
+                padding: 14px 24px;
+                font-size: 0.9rem;
+                width: auto;
+                max-width: 200px;
+            }
+
+            .carousel-title {
+                font-size: 2rem;
+            }
+
+            .carousel-subtitle {
+                font-size: 0.9rem;
+            }
         }
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e0;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0;
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Mahsulotlar katalogi</h1>
-            <h2>Sifatli va arzon mahsulotlar</h2>
-            <h3>Barcha toifalar bir joyda</h3>
-            <p class="description">
-                Bizning katalogimizda turli xil mahsulotlarni topishingiz mumkin. 
-                Qidirish maydonidan foydalanib, kerakli mahsulotingizni tez va oson toping. 
-                Har bir mahsulot haqida batafsil ma'lumot va arzon narxlar.
-            </p>
-        </header>
-
-        <div class="search-container">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-            </svg>
-            <input 
-                type="text" 
-                id="searchInput" 
-                placeholder="Mahsulot qidirish..."
-                autocomplete="off"
-            >
-            <button class="clear-btn" id="clearBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Toshgilam</div>
+            <!-- Desktop Menu -->
+            <div class="nav-links">
+            <a href="index.html">Bosh sahifa</a>
+            <a href="galereya.html">Galereya</a>
+            <a href="kalcul.html">Kalkulyator</a>
+            <a href="mahsulotlar.html">Mahsulotlar</a>
+            <a href="aloqa.html">Aloqa</a>
+            <a href="order.html"><button class="nav-btn">Buyurtma</button></a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
-            <div id="suggestions"></div>
         </div>
+    </nav>
 
-        <div class="no-results" id="noResults">
-            Hech qanday mahsulot topilmadi 😔
-        </div>
-
-        <div class="products-grid" id="productsGrid">
-            <!-- Telefon 1 (2 images) -->
-            <div class="product-card" data-name="Bodom" data-id="bodom">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530" alt="Bodom" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040" alt="Bodom" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Bodom</h3>
-                    <p class="product-description">128GB, Deep Purple, A16 Bionic chip, ProMotion display</p>
-                    <div class="product-footer">
-                        <div class="product-price">120 000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Telefon 2 (1 image) -->
-            <div class="product-card" data-name="Dezarte" data-id="Dezarte">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156" alt="Dezarte" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358" alt="Dezarte" class="slider-image" loading="lazy">
-                  
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Dezarte</h3>
-                    <p class="product-description">256GB, Phantom Black, S Pen, 200MP camera</p>
-                    <div class="product-footer">
-                        <div class="product-price">13 499 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Noutbuk 1 (2 images) -->
-            <div class="product-card" data-name="Gultoj" data-id="Dezarte">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656" alt="Gultoj" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226" alt="Gultoj" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Gultoj</h3>
-                    <p class="product-description">M3 Pro chip, 18GB RAM, 512GB SSD, Space Gray</p>
-                    <div class="product-footer">
-                        <div class="product-price">28 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Noutbuk 2 (2 images) -->
-            <div class="product-card" data-name="Jilozor" data-id="Jilozor">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/jilozor.webp?updatedAt=1760467036045" alt="Jilozor" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/jiloor02.webp?updatedAt=1760467034224" alt="Jilozor" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Jilozor</h3>
-                    <p class="product-description">Intel i7, 16GB RAM, 1TB SSD, 4K OLED display</p>
-                    <div class="product-footer">
-                        <div class="product-price">18 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Naushnik 1 (2 images) -->
-            <div class="product-card" data-name="Kohinur" data-id="Kohinur">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur.webp?updatedAt=1760467036639" alt="Kohinur" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur02.webp?updatedAt=1760467034847" alt="Kohinur" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Kohinur</h3>
-                    <p class="product-description">Active Noise Cancellation, USB-C, MagSafe charging</p>
-                    <div class="product-footer">
-                        <div class="product-price">30 299 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Naushnik 2 (2 images) -->
-            <div class="product-card" data-name="Mehroj" data-id="Mehroj">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj.webp?updatedAt=1760467036855" alt="Mehroj" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj02.webp?updatedAt=1760467033691" alt="Mehroj" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Mehroj</h3>
-                    <p class="product-description">Premium noise cancellation, 30hr battery, multipoint</p>
-                    <div class="product-footer">
-                        <div class="product-price">40 599 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Soat 1 (2 images) -->
-            <div class="product-card" data-name="Oytog'" data-id="oytog">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/oytog.webp?updatedAt=1760467036235" alt="Oytog" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/oytog02.webp?updatedAt=1760467034872" alt="Oytog" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Oytog</h3>
-                    <p class="product-description">45mm, GPS + Cellular, Always-On Retina display</p>
-                    <div class="product-footer">
-                        <div class="product-price">60 000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Soat 2 (2 images) -->
-            <div class="product-card" data-name="Safir" data-id="Safir">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safir.webp?updatedAt=1760467036680" alt="Safir" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safir02.webp?updatedAt=1760467035332" alt="Safir" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Safir</h3>
-                    <p class="product-description">44mm, Bluetooth, Sleep tracking, Fitness monitoring</p>
-                    <div class="product-footer">
-                        <div class="product-price">39 000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Safonur" data-id="Safonur">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safonur.webp?updatedAt=1760467036645" alt="Safonur" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safonur02.webp?updatedAt=1760467034062" alt="Safonur" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Safonur</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Shabnam" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam.webp?updatedAt=1760467036202" alt="Shabnam" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam02.webp?updatedAt=1760467034588" alt="Shabnam" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Shabnam</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Suvoriy" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy.webp?updatedAt=1760467035507" alt="Suvoriy" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy02.webp?updatedAt=1760467035321" alt="Suvoriy" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Suvoriy</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Temuriy" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy.webp?updatedAt=1760467037010" alt="temuriy" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy02.webp?updatedAt=1760467034640" alt="temuriy" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Temuriy</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Veluna" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/veluna.webp?updatedAt=1760467037314" alt="Veluna" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/veluna02.webp?updatedAt=1760467034641" alt="Veluna" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Veluna</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Zarchashma" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarchashma.webp?updatedAt=1760467036726" alt="zarchashma" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarchashma%20(2).webp?updatedAt=1760467035988" alt="zarchashma" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zarchashma</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Zarnavo" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnavo.webp?updatedAt=1760467036915" alt="zarnavo" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnavo02.webp?updatedAt=1760467035834" alt="zarnavo" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zarnavo</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Zarnigor" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor.webp?updatedAt=1760467036692" alt="zarnigor" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor02.webp?updatedAt=1760467035558" alt="zarnigor" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zarnigor</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <div class="product-price">16 999 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-                        
-
-            <!-- Kamera (1 image) -->
-            <div class="product-card" data-name="Zinnur" data-id="camera1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zinnur.webp?updatedAt=1760467035912" alt="zinnur" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zinnur</h3>
-                    <p class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</p>
-                    <div class="product-footer">
-                        <div class="product-price">29 000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-                        <!-- Kamera (1 image) -->
-            <div class="product-card" data-name="Mushtarak" data-id="camera1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/mushtarak.webp?updatedAt=1760467035330" alt="mushtarak" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Mushtarak</h3>
-                    <p class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</p>
-                    <div class="product-footer">
-                        <div class="product-price">29 000 so'm</div>
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="pagination" id="pagination"></div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Bosh sahifa</a>
+        <a href="galereya.html">Galereya</a>
+        <a href="kalcul.html">Kalkulyator</a>
+        <a href="mahsulotlar.html">Mahsulotlar</a>
+        <a href="aloqa.html">Aloqa</a>
+        <a href="order.html"><button class="nav-btn">Buyurtma berish</button></a>
     </div>
 
+    <!-- Carousel Section -->
+    <div class="carousel-container" id="home">
+        <div class="carousel-background">
+            <div class="carousel-image active">
+                <img src="cimg/01.webp" alt="Tosh Gilam 1">
+            </div>
+            <div class="carousel-image">
+                <img src="cimg/02.webp" alt="Tosh Gilam 2">
+            </div>
+            <div class="carousel-image">
+                <img src="cimg/03.webp" alt="Tosh Gilam 3">
+            </div>
+            <div class="carousel-image">
+                <img src="cimg/04.webp" alt="Tosh Gilam 4">
+            </div>
+            
+            <div class="carousel-image">
+                <img src="cimg/05.webp" alt="Tosh Gilam 4">
+            </div>
+        </div>
+
+        <div class="carousel-overlay"></div>
+
+        <div class="carousel-content">
+            <h1 class="carousel-title">TOSH GILAM</h1>
+            <p class="carousel-subtitle">Eng sifatli va davamlı tosh gilam mahsulotlari siz uchun</p>
+            <div class="carousel-buttons">
+                <a href="mahsulotlar.html"><button class="btn btn-secondary">Mahsulotlar</button></a>
+                <a href="order.html"><button class="btn btn-primary">Buyurtma berish</button></a>
+            </div>
+        </div>
+
+        <div class="carousel-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div>
+
+    <!-- Scrolling Gallery -->
+    <section class="scrolling-gallery">
+        <div class="gallery-header">
+            <h2>Bizning toshgilamlar galereyasi</h2>
+            <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
+        </div>
+        <div class="gallery-track">
+            <div class="gallery-item">
+                <img src="gimg/g01.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Shabnam</h3>
+                    <p>ertalab shabnamday tiniq</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="gimg/g02.webp" alt="Tech">
+                <div class="gallery-overlay">
+                    <h3>Temuriy</h3>
+                    <p>aralash rangdagi silliq yuvilgan toshlar </p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="gimg/g03.webp" alt="Food">
+                <div class="gallery-overlay">
+                    <h3>Oytog'</h3>
+                    <p>tabiatning mutanosib va sokin go'zalligi</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="gimg/g04.webp" alt="Travel">
+                <div class="gallery-overlay">
+                    <h3>Kohinur</h3>
+                    <p>juda mayda va silliqlangan toshlar</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="gimg/g05.webp" alt="Interior">
+                <div class="gallery-overlay">
+                    <h3>Zarnigor</h3>
+                    <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="gimg/g06.webp" alt="Store">
+                <div class="gallery-overlay">
+                    <h3>Safonur</h3>
+                    <p>nafislik va kontrastninig uyg'unligi</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="gimg/g07.webp" alt="Tech">
+                <div class="gallery-overlay">
+                    <h3>Suvoriy</h3>
+                    <p>tabiatda yaralgan noziklik</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="gimg/g08.webp" alt="Food">
+                <div class="gallery-overlay">
+                    <h3>Safir</h3>
+                    <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="advantages-section">
+        <div class="section-header">
+            <h2>Bizning afzalliklarimiz</h2>
+            <p>Tosh gilam mahsulotlarimiz nima uchun eng yaxshi tanlov ekanligi haqida</p>
+        </div>
+        <div class="advantages-grid">
+            <!-- Card 1: Tabiiy Materiallar -->
+            <div class="advantage-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <h3>Tabiiy materiallar</h3>
+                <p>100% tabiiy tosh va ekologik toza materiallardan tayyorlangan. Sizning salomatligingiz va atrof-muhit uchun xavfsiz.</p>
+            </div>
+            <!-- Card 2: Chidamlilik -->
+            <div class="advantage-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <h3>Chidamlilik</h3>
+                <p>Namlik, issiqlik va mexanik ta'sirlarga bardoshli.</p>
+            </div>
+            <!-- Card 5: Kafolat -->
+            <div class="advantage-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h3>Kafolat</h3>
+                <p>7 yildan 15 yilgacha.</p>
+            </div>
+            <!-- Card 3: Dizayn -->
+            <div class="advantage-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path>
+                    </svg>
+                </div>
+                <h3>Zamonaviy dizayn</h3>
+                <p>Har bir mahsulot noyob va eksklyuziv dizaynga ega. Har qanday interyerga mos keluvchi ranglar va naqshlar.</p>
+            </div>
+            <!-- Card 4: Professional O'rnatish -->
+            <div class="advantage-card">
+                <div class="icon-wrapper">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                    </svg>
+                </div>
+                <h3>Professional o'rnatish</h3>
+                <p>Tajribali mutaxassislar tomonidan sifatli o'rnatish xizmati. Tez va mukammal bajariladigan ish kafolati.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Static Gallery -->
+    <section class="static-gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Bizning mahsulotlar</h2>
+                <p>Biz sifat, bardoshlilik va estetikani birlashtirib, sizga mukammal mahsulotlarni taqdim etamiz.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530" alt="Product">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Bodom</h3>
+                        <p>Yuqori sifatli shveytsariya soati, zamonaviy dizayn va uzoq xizmat muddati bilan.</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">120 000 so'm</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/shabnam.webp" alt="Product">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Safir</h3>
+                        <p>Premium audio tajriba, shovqinni bekor qilish va 30 soatgacha batareya muddati.</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">130 000</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/shabnam.webp" alt="Product">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Suvoriy</h3>
+                        <p>Yuqori sifatli teri sumka, keng sig'im va zamonaviy dizayn bilan jihozlangan.</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">120 000</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/shabnam.webp" alt="Product">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Shabnam</h3>
+                        <p>Eng qulay va bardoshli sport poyabzal, har qanday mashg'ulot uchun ideal.</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">130 000</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/zafaron.webp" alt="Product">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Zafaron</h3>
+                        <p>4K video va 50MP rasmlar uchun professional kamera, keng funksiyalar bilan.</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">130 000</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/zarnigor.webp" alt="Product">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Zarnigor</h3>
+                        <p>Salomatligingizni kuzatish, fitnes va uzil-kesil aloqa uchun aqlli soat.</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">120 000</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <!-- Additional 6 cards from scrolling gallery placed here as static -->
+        <div class="container">
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/g01.webp" alt="Shabnam">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Shabnam</h3>
+                        <p>Ertalab shabnamday tiniq</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">120 000 so'm</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/g02.webp" alt="Temuriy">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Temuriy</h3>
+                        <p>Aralash rangdagi silliq yuvilgan toshlar</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">130 000 so'm</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/g03.webp" alt="Oytog'">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Oytog'</h3>
+                        <p>Tabiatning mutanosib va sokin go'zalligi</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">120 000 so'm</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/g04.webp" alt="Kohinur">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Kohinur</h3>
+                        <p>Juda mayda va silliqlangan toshlar</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">130 000 so'm</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/g05.webp" alt="Zarnigor">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Zarnigor</h3>
+                        <p>Tabiiy toshlar va oq kristal uyg'unligi</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">120 000 so'm</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-card-image">
+                        <img src="gimg/g06.webp" alt="Safonur">
+                    </div>
+                    <div class="gallery-card-content">
+                        <h3>Safonur</h3>
+                        <p>Nafislik va kontrastninig uyg'unligi</p>
+                        <div class="gallery-card-footer">
+                            <div class="card-price">130 000 so'm</div>
+                            <button class="card-btn">buyurtma</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <a href="mahsulotlar.html">
+        <button class="view-all-btn">
+            Barchasini ko'rish
+            <span>→</span>
+        </button></a> 
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Toshgilamlar</h3>
+                <p>
+                    Eng sifatli va zamonaviy tosh gilam mahsulotlari siz uchun
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Platforma</h4>
+                <ul>
+                    <li><a href="#">Xizmatlar</a></li>
+                    <li><a href="#">Narxlar</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Kompaniya</h4>
+                <ul>
+                    <li><a href="bizhaqimizda.html">Biz haqimizda</a></li>
+                    <li><a href="#">Jamoa</a></li>
+                    <li><a href="aloqa.html">Aloqa</a></li>
+                </ul>
+            </div>
+            <div class="contact-section">
+                <h4>Biz bilan aloqa</h4>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+998901234567">+998 90 123 45 67</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>Toshkent sh., Chilanzor tumani</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Toshgilam. Barcha huquqlar himoyalangan. | Zamonaviy toshgilamlar</p>
+        </div>
+    </footer>
+
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const clearBtn = document.getElementById('clearBtn');
-        const suggestionsDiv = document.getElementById('suggestions');
-        const productsGrid = document.getElementById('productsGrid');
-        const noResults = document.getElementById('noResults');
-        const pagination = document.getElementById('pagination');
-        const allCards = document.querySelectorAll('.product-card');
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
 
-        let products = [];
-        allCards.forEach(card => {
-            products.push({
-                name: card.dataset.name,
-                id: card.dataset.id,
-                element: card
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
             });
         });
 
-        const itemsPerPage = 9;
-        let currentPage = 1;
-        const totalPages = Math.ceil(products.length / itemsPerPage);
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
 
-        // Initialize sliders
-        function initSlider(card) {
-            const container = card.querySelector('.slider-container');
-            const images = card.querySelectorAll('.slider-image');
-            const dotsContainer = card.querySelector('.slider-dots');
-            let currentIndex = 0;
-            let startX = 0;
-            let isDragging = false;
-
-            // Canon EOS R6 uchun faqat bitta rasm bo'lsa, nuqtalarni ko'rsatma
-            if (card.dataset.id === 'camera1') {
-                dotsContainer.style.display = 'none';
-                return;
-            }
-
-            images.forEach((_, i) => {
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(i));
-                dotsContainer.appendChild(dot);
-            });
-
-            const dots = dotsContainer.querySelectorAll('.dot');
-
-            function goToSlide(index) {
-                currentIndex = index;
-                container.style.transform = `translateX(-${currentIndex * 100}%)`;
-                dots.forEach((d, i) => {
-                    d.classList.toggle('active', i === currentIndex);
-                });
-            }
-
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % images.length;
-                goToSlide(currentIndex);
-            }
-
-            function prevSlide() {
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                goToSlide(currentIndex);
-            }
-
-            // Touch events
-            container.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                isDragging = true;
-                e.preventDefault();
-            }, { passive: false });
-
-            container.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-            }, { passive: false });
-
-            container.addEventListener('touchend', (e) => {
-                if (!isDragging) return;
-                const endX = e.changedTouches[0].clientX;
-                const diff = startX - endX;
-
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        nextSlide();
-                    } else {
-                        prevSlide();
-                    }
-                }
-                isDragging = false;
-            });
-
-            // Mouse events
-            container.addEventListener('mousedown', (e) => {
-                startX = e.clientX;
-                isDragging = true;
-                e.preventDefault();
-            });
-
-            container.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-            });
-
-            container.addEventListener('mouseup', (e) => {
-                if (!isDragging) return;
-                const endX = e.clientX;
-                const diff = startX - endX;
-
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        nextSlide();
-                    } else {
-                        prevSlide();
-                    }
-                }
-                isDragging = false;
-            });
-
-            container.addEventListener('mouseleave', () => {
-                isDragging = false;
-            });
-
-            // Prevent context menu on long press
-            container.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-            });
-        }
-
-        allCards.forEach(card => initSlider(card));
-
-        // Pagination
-        function renderPagination() {
-            pagination.innerHTML = '';
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
             
-            const prevBtn = document.createElement('button');
-            prevBtn.textContent = '⟵';
-            prevBtn.disabled = currentPage === 1;
-            prevBtn.addEventListener('click', () => changePage(currentPage - 1));
-            pagination.appendChild(prevBtn);
-
-            const maxVisiblePages = 5;
-            let startPage = Math.max(1, currentPage - 2);
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-
-            if (endPage - startPage + 1 < maxVisiblePages) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
-            }
-
-            if (startPage > 1) {
-                const firstPage = document.createElement('button');
-                firstPage.textContent = '1';
-                firstPage.addEventListener('click', () => changePage(1));
-                pagination.appendChild(firstPage);
-
-                if (startPage > 2) {
-                    const dots = document.createElement('span');
-                    dots.className = 'dots';
-                    dots.textContent = '...';
-                    pagination.appendChild(dots);
-                }
-            }
-
-            for (let i = startPage; i <= endPage; i++) {
-                const pageBtn = document.createElement('button');
-                pageBtn.textContent = i;
-                pageBtn.classList.toggle('active', i === currentPage);
-                pageBtn.addEventListener('click', () => changePage(i));
-                pagination.appendChild(pageBtn);
-            }
-
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) {
-                    const dots = document.createElement('span');
-                    dots.className = 'dots';
-                    dots.textContent = '...';
-                    pagination.appendChild(dots);
-                }
-
-                const lastPage = document.createElement('button');
-                lastPage.textContent = totalPages;
-                lastPage.addEventListener('click', () => changePage(totalPages));
-                pagination.appendChild(lastPage);
-            }
-
-            const nextBtn = document.createElement('button');
-            nextBtn.textContent = '⟶';
-            nextBtn.disabled = currentPage === totalPages;
-            nextBtn.addEventListener('click', () => changePage(currentPage + 1));
-            pagination.appendChild(nextBtn);
-        }
-
-        function changePage(page) {
-            currentPage = page;
-            updateProductVisibility();
-            renderPagination();
-            productsGrid.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function updateProductVisibility() {
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-
-            allCards.forEach((card, index) => {
-                card.classList.toggle('hidden', index < startIndex || index >= endIndex);
-            });
-
-            noResults.classList.toggle('show', products.length === 0);
-        }
-
-        // Search functionality
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.trim();
-            
-            if (query === '') {
-                clearBtn.classList.remove('show');
-                suggestionsDiv.style.display = 'none';
-                currentPage = 1;
-                updateProductVisibility();
-                renderPagination();
-                return;
-            }
-
-            clearBtn.classList.add('show');
-            
-            const queryLower = query.toLowerCase();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(queryLower)
-            );
-
-            if (filtered.length > 0) {
-                showSuggestions(filtered, queryLower);
-                filterProducts(queryLower);
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
             } else {
-                suggestionsDiv.style.display = 'none';
-                filterProducts(queryLower);
+                navbar.classList.remove('scrolled');
             }
-
-            pagination.style.display = query ? 'none' : 'flex';
+            
+            lastScroll = currentScroll;
         });
 
-        clearBtn.addEventListener('click', () => {
-            searchInput.value = '';
-            clearBtn.classList.remove('show');
-            suggestionsDiv.style.display = 'none';
-            currentPage = 1;
-            updateProductVisibility();
-            renderPagination();
-            pagination.style.display = 'flex';
-            searchInput.focus();
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-container')) {
-                suggestionsDiv.style.display = 'none';
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
 
-        function showSuggestions(filtered, query) {
-            suggestionsDiv.innerHTML = '';
-            filtered.forEach(product => {
-                const div = document.createElement('div');
-                div.className = 'suggestion-item';
-                
-                const name = product.name;
-                const index = name.toLowerCase().indexOf(query);
-                const before = name.substring(0, index);
-                const match = name.substring(index, index + query.length);
-                const after = name.substring(index + query.length);
-                
-                div.innerHTML = `${before}<strong>${match}</strong>${after}`;
-                div.addEventListener('click', () => {
-                    searchInput.value = product.name;
-                    suggestionsDiv.style.display = 'none';
-                    scrollToProduct(product.id);
-                    highlightProduct(product.id);
-                });
-                suggestionsDiv.appendChild(div);
-            });
-            suggestionsDiv.style.display = 'block';
-        }
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        function filterProducts(query) {
-            let visibleCount = 0;
-            allCards.forEach(card => {
-                const name = card.dataset.name.toLowerCase();
-                if (name.includes(query)) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
+        }, observerOptions);
 
-            noResults.classList.toggle('show', visibleCount === 0);
-        }
+        document.querySelectorAll('.gallery-card, .category-card, .advantage-card, .carousel-content').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
 
-        function scrollToProduct(id) {
-            const product = document.querySelector(`[data-id="${id}"]`);
-            if (product) {
-                product.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-
-        function highlightProduct(id) {
-            const product = document.querySelector(`[data-id="${id}"]`);
-            if (product) { 
-                product.classList.add('highlight');
-                setTimeout(() => {
-                    product.classList.remove('highlight');
-                }, 1000);
-            }
-        }
-
-        // Button click ripple effect
-        document.querySelectorAll('.product-btn').forEach(button => {
+        // Button click effects
+        document.querySelectorAll('button').forEach(button => {
             button.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
                 const rect = this.getBoundingClientRect();
@@ -1144,9 +1699,68 @@
             });
         });
 
+        // Carousel functionality
+        const images = document.querySelectorAll('.carousel-image');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let zoomStartTime = Date.now();
+        const ZOOM_DURATION = 8000;
+        const MIN_SCALE = 1;
+        const MAX_SCALE = 1.15;
+
+        function getCurrentScale() {
+            const elapsed = Date.now() - zoomStartTime;
+            const progress = Math.min(elapsed / ZOOM_DURATION, 1);
+            return MIN_SCALE + (MAX_SCALE - MIN_SCALE) * progress;
+        }
+
+        function animateZoom() {
+            const currentScale = getCurrentScale();
+            const activeImage = images[currentIndex].querySelector('img');
+            if (activeImage) {
+                activeImage.style.transform = `scale(${currentScale})`;
+            }
+            requestAnimationFrame(animateZoom);
+        }
+
+        function showImage(index) {
+            const currentScale = getCurrentScale();
+            
+            images.forEach((img, i) => {
+                const imgElement = img.querySelector('img');
+                if (i === index) {
+                    imgElement.style.transform = `scale(${currentScale})`;
+                    img.classList.add('active');
+                } else {
+                    imgElement.style.transform = `scale(${currentScale})`;
+                    img.classList.remove('active');
+                }
+            });
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            currentIndex = index;
+            zoomStartTime = Date.now() - (currentScale - MIN_SCALE) / (MAX_SCALE - MIN_SCALE) * ZOOM_DURATION;
+        }
+
+        function nextImage() {
+            const nextIndex = (currentIndex + 1) % images.length;
+            showImage(nextIndex);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showImage(index);
+            });
+        });
+
+        animateZoom();
+        setInterval(nextImage, 8000);
+
         // Add ripple animation
-        const rippleStyle = document.createElement('style');
-        rippleStyle.textContent = `
+        const style = document.createElement('style');
+        style.textContent = `
             @keyframes ripple {
                 to {
                     transform: translate(-50%, -50%) scale(4);
@@ -1154,28 +1768,7 @@
                 }
             }
         `;
-        document.head.appendChild(rippleStyle);
-
-        // Initial render
-        updateProductVisibility();
-        renderPagination();
-
-        // Intersection Observer for lazy loading
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    observer.unobserve(img);
-                }
-            });
-        }, { rootMargin: '100px' });
-
-        document.querySelectorAll('.slider-image').forEach(img => {
-            img.dataset.src = img.src;
-            img.src = '';
-            observer.observe(img);
-        });
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

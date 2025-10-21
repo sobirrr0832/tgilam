@@ -59,16 +59,30 @@
         }
 
         .logo {
-            width: 160px; /* logoning kengligi */
-            height: 50px; /* logoning balandligi */
-            background-image: url('cimg/logo.png'); /* rasm manzili */
-            background-size: contain; /* rasm to‘liq sig‘adi */
-            background-repeat: no-repeat; /* takrorlanmaydi */
-            background-position: center; /* markazda joylashadi */
-            text-indent: -9999px; /* matnni yashirish (SEO uchun qoldiriladi) */
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+        width: 240px; /* kattalashtirilgan logoning kengligi */
+        height: 75px; /* kattalashtirilgan logoning balandligi */
+        background-image: url('cimg/logo.png'); /* rasm manzili */
+        background-size: contain; /* rasm to‘liq sig‘adi */
+        background-repeat: no-repeat; /* takrorlanmaydi */
+        background-position: center; /* markazda joylashadi */
+        text-indent: -9999px; /* matnni yashirish (SEO uchun qoldiriladi) */
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                width: 180px; /* kichik ekranlar uchun kichraytirilgan kenglik */
+                height: 56px; /* kichik ekranlar uchun kichraytirilgan balandlik */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                width: 140px; /* juda kichik ekranlar uchun kichraytirilgan kenglik */
+                height: 44px; /* juda kichik ekranlar uchun kichraytirilgan balandlik */
+            }
         }
 
         .logo:hover {

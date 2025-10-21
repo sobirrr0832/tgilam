@@ -214,9 +214,9 @@
 
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(5, 1fr);
             gap: 24px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -270,6 +270,10 @@
             background: var(--hammasi);
         }
 
+        .category-card[data-category="toshgilam"].active::before {
+            background: var(--toshgilam);
+        }
+
         .category-card[data-category="maroqand"].active::before {
             background: var(--maroqand);
         }
@@ -280,10 +284,6 @@
 
         .category-card[data-category="hitech"].active::before {
             background: var(--hitech);
-        }
-
-        .category-card[data-category="toshgilam"].active::before {
-            background: var(--toshgilam);
         }
 
         .category-icon-wrapper {
@@ -306,6 +306,10 @@
             background: var(--hammasi);
         }
 
+        .category-card[data-category="toshgilam"] .category-icon-wrapper {
+            background: var(--toshgilam);
+        }
+
         .category-card[data-category="maroqand"] .category-icon-wrapper {
             background: var(--maroqand);
         }
@@ -316,10 +320,6 @@
 
         .category-card[data-category="hitech"] .category-icon-wrapper {
             background: var(--hitech);
-        }
-
-        .category-card[data-category="toshgilam"] .category-icon-wrapper {
-            background: var(--toshgilam);
         }
 
         .category-icon-wrapper svg {
@@ -704,6 +704,21 @@
             },
             { 
                 id: 1, 
+                name: 'Toshgilam', 
+                slug: 'toshgilam',
+                description: 'Tabiiy tosh va ekologik materiallar',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 10c0-1 1-2 2-2h14c1 0 2 1 2 2v9c0 1-1 2-2 2H5c-1 0-2-1-2-2v-9z"></path>
+                    <path d="M7 8V6c0-1.5 1-3 3-3h4c2 0 3 1.5 3 3v2"></path>
+                    <circle cx="9" cy="14" r="1"></circle>
+                    <circle cx="15" cy="14" r="1"></circle>
+                    <circle cx="12" cy="17" r="1"></circle>
+                    <path d="M8 3L6 8"></path>
+                    <path d="M16 3l2 5"></path>
+                </svg>`
+            },
+            { 
+                id: 2, 
                 name: 'Maroqand', 
                 slug: 'maroqand',
                 description: 'An\'anaviy naqshli gilam dizaynlari',
@@ -720,7 +735,7 @@
                 </svg>`
             },
             { 
-                id: 2, 
+                id: 3, 
                 name: 'Klassika', 
                 slug: 'klassika',
                 description: 'Davrdan-davrga o\'tmagan nafis uslub',
@@ -738,7 +753,7 @@
                 </svg>`
             },
             { 
-                id: 3, 
+                id: 4, 
                 name: 'Hi-tech', 
                 slug: 'hitech',
                 description: 'Zamonaviy minimalistik dizayn',
@@ -749,54 +764,12 @@
                     <path d="M9 9l12 12"></path>
                     <path d="M9 21l12-12"></path>
                 </svg>`
-            },
-            { 
-                id: 4, 
-                name: 'Toshgilam', 
-                slug: 'toshgilam',
-                description: 'Tabiiy tosh va ekologik materiallar',
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path d="M3 10c0-1 1-2 2-2h14c1 0 2 1 2 2v9c0 1-1 2-2 2H5c-1 0-2-1-2-2v-9z"></path>
-                    <path d="M7 8V6c0-1.5 1-3 3-3h4c2 0 3 1.5 3 3v2"></path>
-                    <circle cx="9" cy="14" r="1"></circle>
-                    <circle cx="15" cy="14" r="1"></circle>
-                    <circle cx="12" cy="17" r="1"></circle>
-                    <path d="M8 3L6 8"></path>
-                    <path d="M16 3l2 5"></path>
-                </svg>`
             }
         ];
 
         // Mahsulotlar ma'lumotlari (kategoriyalar bo'yicha)
         const productsData = {
             'hammasi': [],
-            'maroqand': [
-                {
-                    name: 'Maroqand Test Mahsulot',
-                    id: 'maroqand-test',
-                    images: ['https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530', 'https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040'],
-                    description: 'Test mahsulot for Maroqand',
-                    category: 'maroqand'
-                }
-            ],
-            'klassika': [
-                {
-                    name: 'Klassika Test Mahsulot',
-                    id: 'klassika-test',
-                    images: ['https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156', 'https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358'],
-                    description: 'Test mahsulot for Klassika',
-                    category: 'klassika'
-                }
-            ],
-            'hitech': [
-                {
-                    name: 'Hi-tech Test Mahsulot',
-                    id: 'hitech-test',
-                    images: ['https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656', 'https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226'],
-                    description: 'Test mahsulot for Hi-tech',
-                    category: 'hitech'
-                }
-            ],
             'toshgilam': [
                 {
                     name: 'Bodom',
@@ -924,15 +897,42 @@
                     description: 'Mirrorless, 20MP, 4K video, In-body stabilization',
                     category: 'toshgilam'
                 }
+            ],
+            'maroqand': [
+                {
+                    name: 'Maroqand Test Mahsulot',
+                    id: 'maroqand-test',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530', 'https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040', 'https://ik.imagekit.io/kwnpz8tu8/jilozor.webp?updatedAt=1760467036045'],
+                    description: 'Test mahsulot for Maroqand',
+                    category: 'maroqand'
+                }
+            ],
+            'klassika': [
+                {
+                    name: 'Klassika Test Mahsulot',
+                    id: 'klassika-test',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156', 'https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358', 'https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656'],
+                    description: 'Test mahsulot for Klassika',
+                    category: 'klassika'
+                }
+            ],
+            'hitech': [
+                {
+                    name: 'Hi-tech Test Mahsulot',
+                    id: 'hitech-test',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656', 'https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226', 'https://ik.imagekit.io/kwnpz8tu8/kohinur.webp?updatedAt=1760467036639'],
+                    description: 'Test mahsulot for Hi-tech',
+                    category: 'hitech'
+                }
             ]
         };
 
         // Hammasi uchun barcha mahsulotlarni birlashtirish
         productsData['hammasi'] = [
+            ...productsData['toshgilam'],
             ...productsData['maroqand'],
             ...productsData['klassika'],
-            ...productsData['hitech'],
-            ...productsData['toshgilam']
+            ...productsData['hitech']
         ];
 
         // Qidirish elementlari
@@ -1028,9 +1028,6 @@
                 productsGrid.appendChild(card);
                 initSlider(card);
             });
-
-            const allCards = document.querySelectorAll('.product-card');
-            allCards.forEach(card => initSlider(card));
 
             currentPage = 1;
             updateProductVisibility();

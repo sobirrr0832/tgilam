@@ -1247,9 +1247,17 @@
                 padding: 14px 20px;
             }
 
-            .logo {
-                font-size: 1.3rem;
+           .logo {
+            width: 160px; /* logoning kengligi */
+            height: 50px; /* logoning balandligi */
+            background-image: url('cimg/logo.png'); /* rasm manzili */
+            background-size: contain; /* rasm to‘liq sig‘adi */
+            background-repeat: no-repeat; /* takrorlanmaydi */
+            background-position: center; /* markazda joylashadi */
+            text-indent: -9999px; /* matnni yashirish (SEO uchun qoldiriladi) */
+            overflow: hidden;
             }
+
 
             .view-all-btn {
                 padding: 14px 24px;
@@ -1285,6 +1293,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="logo">Toshgilam</div>
+            
             <!-- Desktop Menu -->
             <div class="nav-links">
             <a href="index.html">Bosh sahifa</a>

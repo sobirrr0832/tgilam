@@ -59,12 +59,14 @@
         }
 
         .logo {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+            width: 160px; /* logoning kengligi */
+            height: 50px; /* logoning balandligi */
+            background-image: url('cimg/logo.png'); /* rasm manzili */
+            background-size: contain; /* rasm to‘liq sig‘adi */
+            background-repeat: no-repeat; /* takrorlanmaydi */
+            background-position: center; /* markazda joylashadi */
+            text-indent: -9999px; /* matnni yashirish (SEO uchun qoldiriladi) */
+            overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -1247,18 +1249,6 @@
                 padding: 14px 20px;
             }
 
-           .logo {
-            width: 160px; /* logoning kengligi */
-            height: 50px; /* logoning balandligi */
-            background-image: url('cimg/logo.png'); /* rasm manzili */
-            background-size: contain; /* rasm to‘liq sig‘adi */
-            background-repeat: no-repeat; /* takrorlanmaydi */
-            background-position: center; /* markazda joylashadi */
-            text-indent: -9999px; /* matnni yashirish (SEO uchun qoldiriladi) */
-            overflow: hidden;
-            }
-
-
             .view-all-btn {
                 padding: 14px 24px;
                 font-size: 0.9rem;
@@ -1643,17 +1633,17 @@
             </div>
             <div class="contact-info">
                 <div class="contact-item">
-                    <div class="contact-icon">📞</div>
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
                     <h3>Telefon raqam</h3>
                     <p><a href="tel:+998901234567">+998 90 123 45 67</a></p>
                 </div>
                 <div class="contact-item">
-                    <div class="contact-icon">✉️</div>
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                     <h3>Gmail</h3>
                     <p><a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a></p>
                 </div>
             <div class="contact-item">
-                    <div class="contact-icon">📍</div>
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <h3>Joylashuv</h3>
                     <p>Toshkent sh., Chilanzor tumani, 1-uy</p>
                 </div>

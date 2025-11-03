@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahsulotlar</title>
+    <title>Mahsulotlar Katalogi</title>
     <style>
         * {
             margin: 0;
@@ -14,13 +14,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
+            --primary: #1E90FF;
+            --primary-dark: #104E8B;
             --secondary: #ec4899;
             --dark: #0f172a;
             --gray: #64748b;
             --light: #f8fafc;
             --border: #e2e8f0;
+            --maroqand: linear-gradient(135deg, #8B7355 0%, #A0826D 100%);
+            --klassika: linear-gradient(135deg, #5D4E37 0%, #8B7355 100%);
+            --hitech: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+            --toshgilam: linear-gradient(135deg, #7F8C8D 0%, #95A5A6 100%);
+            --hammasi: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
         }
 
         body {
@@ -34,7 +39,7 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 20px;
         }
 
         header {
@@ -47,7 +52,7 @@
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
             margin-bottom: 16px;
             letter-spacing: -1px;
@@ -55,14 +60,14 @@
         }
 
         h2 {
-            font-size: 1.5em;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             color: var(--gray);
             margin-bottom: 12px;
             font-weight: 600;
         }
 
         h3 {
-            font-size: 1.2em;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--gray);
             margin-bottom: 20px;
             font-weight: 500;
@@ -72,9 +77,10 @@
             color: var(--gray);
             max-width: 600px;
             margin: 0 auto 40px;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2vw, 1.2rem);
         }
 
+        /* Qidirish qismi */
         .search-container {
             position: relative;
             max-width: 600px;
@@ -94,7 +100,7 @@
 
         #searchInput:focus {
             border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+            box-shadow: 0 4px 20px rgba(30, 144, 255, 0.15);
         }
 
         .search-icon {
@@ -125,14 +131,12 @@
             font-size: 20px;
             transition: all 0.3s ease;
             font-weight: bold;
-            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
         }
 
         .clear-btn:hover {
-            background: #c0392b;
+            background: #ef4444;
             color: white;
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+            transform: translateY(-50%) scale(1.05);
         }
 
         .clear-btn:active {
@@ -163,6 +167,9 @@
             cursor: pointer;
             transition: all 0.2s;
             border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .suggestion-item:last-child {
@@ -176,6 +183,186 @@
 
         .suggestion-item strong {
             color: var(--primary);
+        }
+
+        .suggestion-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Kategoriyalar qismi */
+        .categories-section {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+        }
+
+        .categories-title {
+            text-align: center;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .category-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(30, 144, 255, 0.15);
+            transform: translateY(-6px);
+        }
+
+        .category-card.active {
+            border-color: transparent;
+            box-shadow: 0 12px 32px rgba(30, 144, 255, 0.25);
+            transform: translateY(-6px);
+        }
+
+        .category-card.active::before {
+            transform: scaleX(1);
+            height: 100%;
+            opacity: 0.08;
+        }
+
+        .category-card[data-category="hammasi"].active::before {
+            background: var(--hammasi);
+        }
+
+        .category-card[data-category="toshgilam"].active::before {
+            background: var(--toshgilam);
+        }
+
+        .category-card[data-category="maroqand"].active::before {
+            background: var(--maroqand);
+        }
+
+        .category-card[data-category="klassika"].active::before {
+            background: var(--klassika);
+        }
+
+        .category-card[data-category="hitech"].active::before {
+            background: var(--hitech);
+        }
+
+        .category-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .category-card:hover .category-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .category-card[data-category="hammasi"] .category-icon-wrapper {
+            background: var(--hammasi);
+        }
+
+        .category-card[data-category="toshgilam"] .category-icon-wrapper {
+            background: var(--toshgilam);
+        }
+
+        .category-card[data-category="maroqand"] .category-icon-wrapper {
+            background: var(--maroqand);
+        }
+
+        .category-card[data-category="klassika"] .category-icon-wrapper {
+            background: var(--klassika);
+        }
+
+        .category-card[data-category="hitech"] .category-icon-wrapper {
+            background: var(--hitech);
+        }
+
+        .category-icon-wrapper svg {
+            width: 40px;
+            height: 40px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .category-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .category-card:hover .category-name,
+        .category-card.active .category-name {
+            color: var(--primary);
+        }
+
+        .category-description {
+            font-size: 0.95rem;
+            color: var(--gray);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        /* Mahsulotlar qismi */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+            font-size: 1.2em;
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
         }
 
         .products-grid {
@@ -228,7 +415,6 @@
             min-width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Lazy loading HTML atributi orqali qo'llaniladi */
         }
 
         .slider-dots {
@@ -313,22 +499,6 @@
             color: white;
         }
 
-        .product-category {
-            display: none;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray);
-            font-size: 1.2em;
-            display: none;
-        }
-
-        .no-results.show {
-            display: block;
-        }
-
         .pagination {
             display: flex;
             justify-content: center;
@@ -382,6 +552,7 @@
             }
         }
 
+        /* Mobil qurilmalar uchun */
         @media (max-width: 1200px) {
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -389,12 +560,61 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+            .container {
+                padding: 0 15px;
+            }
+
+            header {
+                padding: 40px 15px 30px;
+                margin-bottom: 30px;
+            }
+
+            .categories-section {
+                padding: 30px 15px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 16px;
+            }
+
+            .category-card {
+                padding: 24px 16px;
+            }
+
+            .category-icon-wrapper {
+                width: 64px;
+                height: 64px;
+                margin-bottom: 16px;
+            }
+
+            .category-icon-wrapper svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            .category-name {
+                font-size: 1.1rem;
+            }
+
+            .category-description {
+                font-size: 0.85rem;
+            }
+
+            #searchInput {
+                padding: 14px 50px 14px 45px;
+                font-size: 15px;
             }
 
             .products-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
             }
         }
 
@@ -450,362 +670,372 @@
             <div id="suggestions"></div>
         </div>
 
+        <div class="categories-section">
+            <h2 class="categories-title">Kategoriyalar</h2>
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Kategoriyalar JavaScript orqali yuklanadi -->
+            </div>
+        </div>
+
         <div class="no-results" id="noResults">
             Hech qanday mahsulot topilmadi 😔
         </div>
 
         <div class="products-grid" id="productsGrid">
-            <!-- Telefon 1 (2 images) -->
-            <div class="product-card" data-name="Bodom" data-id="bodom">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530" alt="Bodom" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040" alt="Bodom" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Bodom</h3>
-                    <p class="product-description">128GB, Deep Purple, A16 Bionic chip, ProMotion display</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Telefon 2 (1 image) -->
-            <div class="product-card" data-name="Dezarte" data-id="Dezarte">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156" alt="Dezarte" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358" alt="Dezarte" class="slider-image" loading="lazy">
-                  
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Dezarte</h3>
-                    <p class="product-description">256GB, Phantom Black, S Pen, 200MP camera</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Noutbuk 1 (2 images) -->
-            <div class="product-card" data-name="Gultoj" data-id="Dezarte">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656" alt="Gultoj" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226" alt="Gultoj" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Gultoj</h3>
-                    <p class="product-description">M3 Pro chip, 18GB RAM, 512GB SSD, Space Gray</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Noutbuk 2 (2 images) -->
-            <div class="product-card" data-name="Jilozor" data-id="Jilozor">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/jilozor.webp?updatedAt=1760467036045" alt="Jilozor" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/jiloor02.webp?updatedAt=1760467034224" alt="Jilozor" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Jilozor</h3>
-                    <p class="product-description">Intel i7, 16GB RAM, 1TB SSD, 4K OLED display</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Naushnik 1 (2 images) -->
-            <div class="product-card" data-name="Kohinur" data-id="Kohinur">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur.webp?updatedAt=1760467036639" alt="Kohinur" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur02.webp?updatedAt=1760467034847" alt="Kohinur" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Kohinur</h3>
-                    <p class="product-description">Active Noise Cancellation, USB-C, MagSafe charging</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Naushnik 2 (2 images) -->
-            <div class="product-card" data-name="Mehroj" data-id="Mehroj">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj.webp?updatedAt=1760467036855" alt="Mehroj" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/mehroj02.webp?updatedAt=1760467033691" alt="Mehroj" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Mehroj</h3>
-                    <p class="product-description">Premium noise cancellation, 30hr battery, multipoint</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Soat 1 (2 images) -->
-            <div class="product-card" data-name="Oytog'" data-id="oytog">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/oytog.webp?updatedAt=1760467036235" alt="Oytog" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/oytog02.webp?updatedAt=1760467034872" alt="Oytog" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Oytog</h3>
-                    <p class="product-description">45mm, GPS + Cellular, Always-On Retina display</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Soat 2 (2 images) -->
-            <div class="product-card" data-name="Safir" data-id="Safir">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safir.webp?updatedAt=1760467036680" alt="Safir" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safir02.webp?updatedAt=1760467035332" alt="Safir" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Safir</h3>
-                    <p class="product-description">44mm, Bluetooth, Sleep tracking, Fitness monitoring</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Safonur" data-id="Safonur">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safonur.webp?updatedAt=1760467036645" alt="Safonur" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/safonur02.webp?updatedAt=1760467034062" alt="Safonur" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Safonur</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Shabnam" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam.webp?updatedAt=1760467036202" alt="Shabnam" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam02.webp?updatedAt=1760467034588" alt="Shabnam" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Shabnam</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Suvoriy" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy.webp?updatedAt=1760467035507" alt="Suvoriy" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy02.webp?updatedAt=1760467035321" alt="Suvoriy" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Suvoriy</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Temuriy" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy.webp?updatedAt=1760467037010" alt="temuriy" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy02.webp?updatedAt=1760467034640" alt="temuriy" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Temuriy</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Veluna" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/veluna.webp?updatedAt=1760467037314" alt="Veluna" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/veluna02.webp?updatedAt=1760467034641" alt="Veluna" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Veluna</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Zarchashma" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarchashma.webp?updatedAt=1760467036726" alt="zarchashma" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarchashma%20(2).webp?updatedAt=1760467035988" alt="zarchashma" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zarchashma</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Zarnavo" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnavo.webp?updatedAt=1760467036915" alt="zarnavo" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnavo02.webp?updatedAt=1760467035834" alt="zarnavo" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zarnavo</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Planshet 1 (2 images) -->
-            <div class="product-card" data-name="Zarnigor" data-id="tablet1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor.webp?updatedAt=1760467036692" alt="zarnigor" class="slider-image" loading="lazy">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor02.webp?updatedAt=1760467035558" alt="zarnigor" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zarnigor</h3>
-                    <p class="product-description">M2 chip, 256GB, WiFi + Cellular, Liquid Retina XDR</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-                        
-
-            <!-- Kamera (1 image) -->
-            <div class="product-card" data-name="Zinnur" data-id="camera1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/zinnur.webp?updatedAt=1760467035912" alt="zinnur" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Zinnur</h3>
-                    <p class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
-            
-                        <!-- Kamera (1 image) -->
-            <div class="product-card" data-name="Mushtarak" data-id="camera1">
-                <div class="image-slider">
-                    <div class="slider-container">
-                        <img src="https://ik.imagekit.io/kwnpz8tu8/mushtarak.webp?updatedAt=1760467035330" alt="mushtarak" class="slider-image" loading="lazy">
-                    </div>
-                    <div class="slider-dots"></div>
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Mushtarak</h3>
-                    <p class="product-description">Mirrorless, 20MP, 4K video, In-body stabilization</p>
-                    <div class="product-footer">
-                        <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                    </div>
-                </div>
-            </div>
+            <!-- Mahsulotlar JavaScript orqali yuklanadi va ko'rsatiladi -->
         </div>
 
         <div class="pagination" id="pagination"></div>
     </div>
 
     <script>
+        // Kategoriyalar ma'lumotlari
+        const categories = [
+            { 
+                id: 0, 
+                name: 'Hammasi', 
+                slug: 'hammasi',
+                description: 'Barcha kategoriyalar',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 3h18v18H3z"></path>
+                    <path d="M7 7h10v10H7z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>`
+            },
+            { 
+                id: 1, 
+                name: 'Toshgilam', 
+                slug: 'toshgilam',
+                description: 'Tabiiy tosh va ekologik materiallar',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M3 10c0-1 1-2 2-2h14c1 0 2 1 2 2v9c0 1-1 2-2 2H5c-1 0-2-1-2-2v-9z"></path>
+                    <path d="M7 8V6c0-1.5 1-3 3-3h4c2 0 3 1.5 3 3v2"></path>
+                    <circle cx="9" cy="14" r="1"></circle>
+                    <circle cx="15" cy="14" r="1"></circle>
+                    <circle cx="12" cy="17" r="1"></circle>
+                    <path d="M8 3L6 8"></path>
+                    <path d="M16 3l2 5"></path>
+                </svg>`
+            },
+            { 
+                id: 2, 
+                name: 'Maroqand', 
+                slug: 'maroqand',
+                description: 'An\'anaviy naqshli gilam dizaynlari',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 2c1.5 0 2.5 1 2.5 2.5S13.5 7 12 7s-2.5-1-2.5-2.5S10.5 2 12 2"></path>
+                    <path d="M12 17c1.5 0 2.5 1 2.5 2.5S13.5 22 12 22s-2.5-1-2.5-2.5S10.5 17 12 17"></path>
+                    <path d="M2 12c0-1.5 1-2.5 2.5-2.5S7 10.5 7 12s-1 2.5-2.5 2.5S2 13.5 2 12"></path>
+                    <path d="M17 12c0-1.5 1-2.5 2.5-2.5S22 10.5 22 12s-1 2.5-2.5 2.5S17 13.5 17 12"></path>
+                    <path d="M6 6c.8-.8 2-.8 2.8 0 .8.8.8 2 0 2.8-.8.8-2 .8-2.8 0C5.2 8 5.2 6.8 6 6"></path>
+                    <path d="M15.2 15.2c.8-.8 2-.8 2.8 0 .8.8.8 2 0 2.8-.8.8-2 .8-2.8 0-.8-.8-.8-2 0-2.8"></path>
+                    <path d="M6 18c.8.8.8 2 0 2.8-.8.8-2 .8-2.8 0-.8-.8-.8-2 0-2.8.8-.8 2-.8 2.8 0"></path>
+                    <path d="M18 6c.8.8.8 2 0 2.8-.8.8-2 .8-2.8 0-.8-.8-.8-2 0-2.8.8-.8 2-.8 2.8 0"></path>
+                </svg>`
+            },
+            { 
+                id: 3, 
+                name: 'Klassika', 
+                slug: 'klassika',
+                description: 'Davrdan-davrga o\'tmagan nafis uslub',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                    <rect x="8" y="8" width="8" height="8"></rect>
+                    <line x1="4" y1="12" x2="8" y2="12"></line>
+                    <line x1="16" y1="12" x2="20" y2="12"></line>
+                    <line x1="12" y1="4" x2="12" y2="8"></line>
+                    <line x1="12" y1="16" x2="12" y2="20"></line>
+                    <circle cx="8" cy="8" r="1"></circle>
+                    <circle cx="16" cy="8" r="1"></circle>
+                    <circle cx="8" cy="16" r="1"></circle>
+                    <circle cx="16" cy="16" r="1"></circle>
+                </svg>`
+            },
+            { 
+                id: 4, 
+                name: 'Hi-tech', 
+                slug: 'hitech',
+                description: 'Zamonaviy minimalistik dizayn',
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <path d="M3 9h18"></path>
+                    <path d="M9 3v18"></path>
+                    <path d="M9 9l12 12"></path>
+                    <path d="M9 21l12-12"></path>
+                </svg>`
+            }
+        ];
+
+        // Mahsulotlar ma'lumotlari (kategoriyalar bo'yicha)
+        const productsData = {
+            'hammasi': [],
+            'toshgilam': [
+                {
+                    name: 'Bodom',
+                    id: 'bodom',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530', 'https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040'],
+                    description: 'Yuqori sifatli, ixcham va silliqlangan tabiiy toshlar.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Dezarte',
+                    id: 'Dezarte',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156', 'https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358'],
+                    description: 'Sahro ohangidagi mayda granulali dekarativ tosh aralashmasi.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Gultoj',
+                    id: 'Dezarte',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656', 'https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226'],
+                    description: '"Chuqur kontrast va tabiiy uygunlikni ozida mujassam etgan tosh aralashmasi',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Jilozor',
+                    id: 'Jilozor',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/jilozor.webp?updatedAt=1760467036045', 'https://ik.imagekit.io/kwnpz8tu8/jiloor02.webp?updatedAt=1760467034224'],
+                    description: 'Tabiiy ilohoom va zamonaviy nafislik uygunligidan yaratilgan premium tekistura',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Kohinur',
+                    id: 'Kohinur',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/kohinur.webp?updatedAt=1760467036639', 'https://ik.imagekit.io/kwnpz8tu8/kohinur02.webp?updatedAt=1760467034847'],
+                    description: 'Poklik va sokinlikni ozida aks etiruvchi juda mayda toshlar.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Mehroj',
+                    id: 'Mehroj',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/mehroj.webp?updatedAt=1760467036855', 'https://ik.imagekit.io/kwnpz8tu8/mehroj02.webp?updatedAt=1760467033691'],
+                    description: 'Qum rangidagi yengil, nafis va tabiiy tekistura.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Oytog',
+                    id: 'oytog',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/oytog.webp?updatedAt=1760467036235', 'https://ik.imagekit.io/kwnpz8tu8/oytog02.webp?updatedAt=1760467034872'],
+                    description: 'Tabiatning tiniq, mutanosib va sokin gozalligi ozida jamlagan mayda toshlar',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Safir',
+                    id: 'Safir',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/safir.webp?updatedAt=1760467036680', 'https://ik.imagekit.io/kwnpz8tu8/safir02.webp?updatedAt=1760467035332'],
+                    description: 'Tabiiy iliqlik va ranglar uygumnligi bilan ilhomlanuvchi tosh aralashmasi. ',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Safonur',
+                    id: 'Safonur',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/safonur.webp?updatedAt=1760467036645', 'https://ik.imagekit.io/kwnpz8tu8/safonur02.webp?updatedAt=1760467034062'],
+                    description: 'yorqin oq va chuqur qora zarralar oratsidagi vizual kontrast.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Shabnam',
+                    id: 'tablet1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/shabnam.webp?updatedAt=1760467036202', 'https://ik.imagekit.io/kwnpz8tu8/shabnam02.webp?updatedAt=1760467034588'],
+                    description: 'ushbu tekistura turli olchamdagi, siliqlangan va yaltiragan toshlardan iborat.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Suvoriy',
+                    id: 'tablet1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/suvoriy.webp?updatedAt=1760467035507', 'https://ik.imagekit.io/kwnpz8tu8/suvoriy02.webp?updatedAt=1760467035321'],
+                    description: 'Ushbu tekistura ozida juda mayda, silliqlangan va yaltirib turuvchi toshlarni jamlagan.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Temuriy',
+                    id: 'tablet1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/temuriy.webp?updatedAt=1760467037010', 'https://ik.imagekit.io/kwnpz8tu8/temuriy02.webp?updatedAt=1760467034640'],
+                    description: 'Yuqori sifatli, ixcham va silliqlangan tabiiy toshlardan tashkil topgan.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Veluna',
+                    id: 'tablet1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/veluna.webp?updatedAt=1760467037314', 'https://ik.imagekit.io/kwnpz8tu8/veluna02.webp?updatedAt=1760467034641'],
+                    description: 'Chuqur qora va oppoq toshlar ozaro mukammla kontrast hosil qilgan.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Zarchashma',
+                    id: 'tablet1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/zarchashma.webp?updatedAt=1760467036726', 'https://ik.imagekit.io/kwnpz8tu8/zarchashma%20(2).webp?updatedAt=1760467035988'],
+                    description: 'Oltin-jigarrang, qora va zaytun yashil toshlarning yaltirib turgan siliq yuzasi bu aralashmaga boy.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Zarnavo',
+                    id: 'tablet1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/zarnavo.webp?updatedAt=1760467036915', 'https://ik.imagekit.io/kwnpz8tu8/zarnavo02.webp?updatedAt=1760467035834'],
+                    description: 'Iliq ranglar uygunligi va tabiiy silliqlik bilan yaratilgan.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Zarnigor',
+                    id: 'tablet1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/zarnigor.webp?updatedAt=1760467036692', 'https://ik.imagekit.io/kwnpz8tu8/zarnigor02.webp?updatedAt=1760467035558'],
+                    description: 'Quyuq jigarrang, qora, oq bej va yengil sargish tuslar mukammal uygunlikda joylashgan. ',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Zinnur',
+                    id: 'camera1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/zinnur.webp?updatedAt=1760467035912'],
+                    description: 'Zamonaviy dizayn talablariga mos, kuchli kontrast va tabiiy estetikani ozida majassam etgan.',
+                    category: 'toshgilam'
+                },
+                {
+                    name: 'Mushtarak',
+                    id: 'camera1',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/mushtarak.webp?updatedAt=1760467035330'],
+                    description: 'har bir tosh oz ornida tabiiy tuygu va jozib yaratadi.',
+                    category: 'toshgilam'
+                }
+            ],
+            'maroqand': [
+                {
+                    name: 'Maroqand Test Mahsulot',
+                    id: 'maroqand-test',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/bodom02.webp?updatedAt=1760467036530', 'https://ik.imagekit.io/kwnpz8tu8/bodom.webp?updatedAt=1760467036040', 'https://ik.imagekit.io/kwnpz8tu8/jilozor.webp?updatedAt=1760467036045'],
+                    description: 'Test mahsulot for Maroqand',
+                    category: 'maroqand'
+                }
+            ],
+            'klassika': [
+                {
+                    name: 'Klassika Test Mahsulot',
+                    id: 'klassika-test',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/dezarte.webp?updatedAt=1760467037156', 'https://ik.imagekit.io/kwnpz8tu8/dezarte02.webp?updatedAt=1760467035358', 'https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656'],
+                    description: 'Test mahsulot for Klassika',
+                    category: 'klassika'
+                }
+            ],
+            'hitech': [
+                {
+                    name: 'Hi-tech Test Mahsulot',
+                    id: 'hitech-test',
+                    images: ['https://ik.imagekit.io/kwnpz8tu8/gultoj.webp?updatedAt=1760467036656', 'https://ik.imagekit.io/kwnpz8tu8/gulto.webp?updatedAt=1760467034226', 'https://ik.imagekit.io/kwnpz8tu8/kohinur.webp?updatedAt=1760467036639'],
+                    description: 'Test mahsulot for Hi-tech',
+                    category: 'hitech'
+                }
+            ]
+        };
+
+        // Hammasi uchun barcha mahsulotlarni birlashtirish
+        productsData['hammasi'] = [
+            ...productsData['toshgilam'],
+            ...productsData['maroqand'],
+            ...productsData['klassika'],
+            ...productsData['hitech']
+        ];
+
+        // Qidirish elementlari
         const searchInput = document.getElementById('searchInput');
         const clearBtn = document.getElementById('clearBtn');
         const suggestionsDiv = document.getElementById('suggestions');
+        const categoriesGrid = document.getElementById('categoriesGrid');
         const productsGrid = document.getElementById('productsGrid');
         const noResults = document.getElementById('noResults');
         const pagination = document.getElementById('pagination');
-        const allCards = document.querySelectorAll('.product-card');
 
-        let products = [];
-        allCards.forEach(card => {
-            products.push({
-                name: card.dataset.name,
-                id: card.dataset.id,
-                element: card
-            });
-        });
-
-        const itemsPerPage = 9;
+        let currentCategory = 'hammasi';
+        let currentProducts = [];
         let currentPage = 1;
-        const totalPages = Math.ceil(products.length / itemsPerPage);
+        const itemsPerPage = 9;
 
-        // Initialize sliders
+        // Kategoriyalarni yuklash
+        function loadCategories() {
+            categories.forEach(category => {
+                const card = document.createElement('div');
+                card.className = 'category-card';
+                card.dataset.categoryId = category.id;
+                card.dataset.category = category.slug;
+                card.innerHTML = `
+                    <div class="category-icon-wrapper">
+                        ${category.icon}
+                    </div>
+                    <div class="category-name">${category.name}</div>
+                    <div class="category-description">${category.description}</div>
+                `;
+                
+                card.addEventListener('click', () => selectCategory(category.id));
+                categoriesGrid.appendChild(card);
+            });
+        }
+
+        // Kategoriya tanlash
+        function selectCategory(categoryId) {
+            const cards = document.querySelectorAll('.category-card');
+            cards.forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            const selectedCard = document.querySelector(`[data-category-id="${categoryId}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('active');
+            }
+
+            const selectedCategory = categories.find(c => c.id === categoryId);
+            currentCategory = selectedCategory.slug;
+            loadProductsForCategory();
+        }
+
+        // Mahsulotlarni yuklash va ko'rsatish
+        function loadProductsForCategory(query = '') {
+            currentProducts = productsData[currentCategory].filter(p => 
+                p.name.toLowerCase().includes(query.toLowerCase())
+            );
+
+            productsGrid.innerHTML = '';
+            currentProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.name = product.name;
+                card.dataset.id = product.id;
+                card.dataset.category = product.category;
+
+                let imagesHtml = product.images.map(img => `
+                    <img src="${img}" alt="${product.name}" class="slider-image" loading="lazy">
+                `).join('');
+
+                let dotsHtml = '';
+                if (product.images.length > 1) {
+                    dotsHtml = '<div class="slider-dots"></div>';
+                }
+
+                card.innerHTML = `
+                    <div class="image-slider">
+                        <div class="slider-container">
+                            ${imagesHtml}
+                        </div>
+                        ${dotsHtml}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <div class="product-footer">
+                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
+                        </div>
+                    </div>
+                `;
+
+                productsGrid.appendChild(card);
+                initSlider(card);
+            });
+
+            currentPage = 1;
+            updateProductVisibility();
+            renderPagination();
+            noResults.classList.toggle('show', currentProducts.length === 0);
+        }
+
+        // Slayder initsializatsiya
         function initSlider(card) {
             const container = card.querySelector('.slider-container');
             const images = card.querySelectorAll('.slider-image');
@@ -814,9 +1044,8 @@
             let startX = 0;
             let isDragging = false;
 
-            // Canon EOS R6 uchun faqat bitta rasm bo'lsa, nuqtalarni ko'rsatma
-            if (card.dataset.id === 'camera1') {
-                dotsContainer.style.display = 'none';
+            if (images.length <= 1) {
+                if (dotsContainer) dotsContainer.style.display = 'none';
                 return;
             }
 
@@ -912,12 +1141,12 @@
             });
         }
 
-        allCards.forEach(card => initSlider(card));
-
         // Pagination
         function renderPagination() {
             pagination.innerHTML = '';
             
+            const totalPages = Math.ceil(currentProducts.length / itemsPerPage);
+
             const prevBtn = document.createElement('button');
             prevBtn.textContent = '⟵';
             prevBtn.disabled = currentPage === 1;
@@ -986,100 +1215,46 @@
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
 
+            const allCards = document.querySelectorAll('.product-card');
             allCards.forEach((card, index) => {
                 card.classList.toggle('hidden', index < startIndex || index >= endIndex);
             });
-
-            noResults.classList.toggle('show', products.length === 0);
         }
 
-        // Search functionality
+        // Qidirish funksiyasi (kategoriyalarga emas, mahsulotlarga)
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.trim();
             
             if (query === '') {
                 clearBtn.classList.remove('show');
                 suggestionsDiv.style.display = 'none';
-                currentPage = 1;
-                updateProductVisibility();
-                renderPagination();
+                loadProductsForCategory('');
                 return;
             }
 
             clearBtn.classList.add('show');
             
-            const queryLower = query.toLowerCase();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(queryLower)
-            );
-
-            if (filtered.length > 0) {
-                showSuggestions(filtered, queryLower);
-                filterProducts(queryLower);
-            } else {
-                suggestionsDiv.style.display = 'none';
-                filterProducts(queryLower);
-            }
-
-            pagination.style.display = query ? 'none' : 'flex';
+            loadProductsForCategory(query);
+            suggestionsDiv.style.display = 'none'; // Mahsulot qidirishda takliflar yo'q, to'g'ridan-to'g'ri filter
         });
 
+        // Tozalash tugmasi
         clearBtn.addEventListener('click', () => {
             searchInput.value = '';
             clearBtn.classList.remove('show');
             suggestionsDiv.style.display = 'none';
-            currentPage = 1;
-            updateProductVisibility();
-            renderPagination();
-            pagination.style.display = 'flex';
+            loadProductsForCategory('');
             searchInput.focus();
         });
 
+        // Tashqariga bosganda yopish
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.search-container')) {
                 suggestionsDiv.style.display = 'none';
             }
         });
 
-        function showSuggestions(filtered, query) {
-            suggestionsDiv.innerHTML = '';
-            filtered.forEach(product => {
-                const div = document.createElement('div');
-                div.className = 'suggestion-item';
-                
-                const name = product.name;
-                const index = name.toLowerCase().indexOf(query);
-                const before = name.substring(0, index);
-                const match = name.substring(index, index + query.length);
-                const after = name.substring(index + query.length);
-                
-                div.innerHTML = `${before}<strong>${match}</strong>${after}`;
-                div.addEventListener('click', () => {
-                    searchInput.value = product.name;
-                    suggestionsDiv.style.display = 'none';
-                    scrollToProduct(product.id);
-                    highlightProduct(product.id);
-                });
-                suggestionsDiv.appendChild(div);
-            });
-            suggestionsDiv.style.display = 'block';
-        }
-
-        function filterProducts(query) {
-            let visibleCount = 0;
-            allCards.forEach(card => {
-                const name = card.dataset.name.toLowerCase();
-                if (name.includes(query)) {
-                    card.classList.remove('hidden');
-                    visibleCount++;
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-
-            noResults.classList.toggle('show', visibleCount === 0);
-        }
-
+        // Mahsulotni scroll qilish va highlight
         function scrollToProduct(id) {
             const product = document.querySelector(`[data-id="${id}"]`);
             if (product) {
@@ -1098,10 +1273,11 @@
         }
 
         // Button click ripple effect
-        document.querySelectorAll('.product-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('product-btn')) {
+                const button = e.target;
                 const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
+                const rect = button.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
@@ -1118,12 +1294,12 @@
                     top: ${y}px;
                 `;
                 
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                button.appendChild(ripple);
                 
                 setTimeout(() => ripple.remove(), 600);
-            });
+            }
         });
 
         // Add ripple animation
@@ -1138,11 +1314,7 @@
         `;
         document.head.appendChild(rippleStyle);
 
-        // Initial render
-        updateProductVisibility();
-        renderPagination();
-
-        // Intersection Observer for lazy loading
+        // Lazy loading observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1153,6 +1325,12 @@
             });
         }, { rootMargin: '100px' });
 
+        // Initial yuklash
+        loadCategories();
+        selectCategory(0); // Default Hammasi
+        loadProductsForCategory('');
+
+        // Lazy loadingni qo'llash uchun sahifa yuklanganda
         document.querySelectorAll('.slider-image').forEach(img => {
             img.dataset.src = img.src;
             img.src = '';

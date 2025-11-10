@@ -45,12 +45,7 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 24px var(--shadow);
-        }
-
-        .navbar-wrapper.hidden {
-            transform: translateY(-100%);
         }
 
         /* Top Row - Logo, Phone, Contact */
@@ -58,6 +53,15 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 12px 0;
             color: white;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 94px;
+            overflow: hidden;
+        }
+
+        .top-navbar.hidden {
+            max-height: 0;
+            padding: 0;
+            opacity: 0;
         }
 
         .top-nav-container {
@@ -82,7 +86,6 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            filter: brightness(0) invert(1);
         }
 
         .logo:hover {
@@ -142,13 +145,23 @@
             height: 70px;
         }
 
+        /* Logo in bottom navbar - hidden by default */
         .bottom-logo {
             width: 180px;
-            height: 56px;
+            height: 55px;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
+            opacity: 0;
+            transform: translateX(-20px);
+            pointer-events: none;
+        }
+
+        .bottom-logo.visible {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
         }
 
         .bottom-logo img {
@@ -165,8 +178,14 @@
             display: flex;
             gap: 35px;
             align-items: center;
-            justify-content: center;
             flex: 1;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links.shifted {
+            justify-content: flex-start;
+            margin-left: 40px;
         }
 
         .nav-links a {
@@ -177,6 +196,14 @@
             font-size: 0.95rem;
             position: relative;
             padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
         }
 
         .nav-links a::after {
@@ -409,13 +436,8 @@
                 gap: 25px;
             }
 
-            .bottom-logo {
-                width: 140px;
-                height: 44px;
-            }
-
             .nav-links {
-                gap: 20px;
+                gap: 25px;
             }
 
             .nav-links a {
@@ -428,8 +450,8 @@
                 padding-top: 120px;
             }
 
-            .nav-links, .nav-btn {
-                display: none;
+            .nav-links, .nav-btn, .bottom-logo {
+                display: none !important;
             }
 
             .mobile-menu-btn {
@@ -442,6 +464,7 @@
 
             .nav-container {
                 padding: 0 20px;
+                justify-content: flex-end;
             }
 
             .contact-info {
@@ -457,8 +480,8 @@
             }
 
             .logo {
-                width: 160px;
-                height: 50px;
+                width: 140px;
+                height: 44px;
             }
         }
 
@@ -494,8 +517,8 @@
             }
 
             .logo {
-                width: 140px;
-                height: 44px;
+                width: 120px;
+                height: 38px;
             }
         }
 
@@ -509,7 +532,7 @@
     <!-- Main Navbar Wrapper -->
     <div class="navbar-wrapper" id="navbarWrapper">
         <!-- Top Row - Logo, Phone, Contact -->
-        <div class="top-navbar">
+        <div class="top-navbar" id="topNavbar">
             <div class="top-nav-container">
                 <div class="logo">
                     <img src="cimg/logo.png" alt="Toshgilam Logo">
@@ -542,17 +565,35 @@
         <!-- Bottom Row - Categories/Navigation -->
         <div class="bottom-navbar">
             <div class="nav-container">
-                <div class="bottom-logo">
+                <div class="bottom-logo" id="bottomLogo">
                     <img src="cimg/logo.png" alt="Toshgilam Logo">
                 </div>
-                <div class="nav-links">
-                    <a href="mahsulotlar.html">Mahsulotlar</a>
-                    <a href="about.html">Biz haqimizda</a>
-                    <a href="galereya.html">Galereya</a>
-                    <a href="kalcul.html">Kalkulyator</a>
-                    <a href="aloqa.html">Aloqa</a>
-                    <a href="order.html">Buyurtma berish</a>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        Bosh sahifa
+                    </a>
+                    <a href="mahsulotlar.html">
+                        <i class="fas fa-box"></i>
+                        Mahsulotlar
+                    </a>
+                    <a href="galereya.html">
+                        <i class="fas fa-images"></i>
+                        Galereya
+                    </a>
+                    <a href="kalcul.html">
+                        <i class="fas fa-calculator"></i>
+                        Kalkulyator
+                    </a>
+                    <a href="aloqa.html">
+                        <i class="fas fa-phone"></i>
+                        Aloqa
+                    </a>
                 </div>
+                <a href="order.html"><button class="nav-btn">
+                    <i class="fas fa-shopping-cart"></i> Buyurtma berish
+                </button></a>
             </div>
         </div>
     </div>
@@ -579,9 +620,6 @@
         <a href="mahsulotlar.html">
             <i class="fas fa-box"></i> Mahsulotlar
         </a>
-        <a href="about.html">
-            <i class="fas fa-info-circle"></i> Biz haqimizda
-        </a>
         <a href="galereya.html">
             <i class="fas fa-images"></i> Galereya
         </a>
@@ -602,7 +640,7 @@
     <div class="demo-content">
         <div class="demo-section">
             <h2>Zamonaviy Tosh Gilamlar</h2>
-            <p>Yuklanishni ko'rish uchun pastga scroll qiling. Pastga scroll qilganda navbar yashirinadi, yuqoriga scroll qilganda yana paydo bo'ladi.</p>
+            <p>Yuklanishni ko'rish uchun pastga scroll qiling. Pastga scroll qilganda 1-qator yashirinadi va 2-qatorda logo paydo bo'ladi.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
         </div>
 
@@ -620,7 +658,7 @@
 
         <div class="demo-section">
             <h2>Pastga Scroll Qiling</h2>
-            <p>Navbar yashirinishi va yuqoriga scroll qilganda paydo bo'lishini ko'ring.</p>
+            <p>1-qator yashirinishi va 2-qatorda logo paydo bo'lishini ko'ring. Yuqoriga scroll qilsangiz 1-qator yana ko'rinadi.</p>
             <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
         </div>
 
@@ -628,6 +666,12 @@
             <h2>Yana Kontent</h2>
             <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
             <p>Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Oxirgi Bo'lim</h2>
+            <p>Yuqoriga scroll qiling va 1-qator yana paydo bo'lishini, 2-qatordagi logo esa yashirinishini ko'ring.</p>
+            <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?</p>
         </div>
     </div>
 
@@ -652,34 +696,37 @@
             });
         });
 
-        // Navbar show/hide on scroll
-        const navbarWrapper = document.getElementById('navbarWrapper');
+        // Navbar scroll functionality
+        const topNavbar = document.getElementById('topNavbar');
+        const bottomLogo = document.getElementById('bottomLogo');
+        const navLinks = document.getElementById('navLinks');
         let lastScrollTop = 0;
-        let scrollTimer = null;
+        let ticking = false;
 
-        window.addEventListener('scroll', () => {
+        function updateNavbar() {
             const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            // Clear any existing timer
-            if (scrollTimer !== null) {
-                clearTimeout(scrollTimer);
-            }
-            
-            // Hide/show navbar based on scroll direction
-            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                // Scrolling down & past 100px
-                navbarWrapper.classList.add('hidden');
+            // When scrolling down past 50px, hide top navbar and show bottom logo
+            if (currentScrollTop > 50) {
+                topNavbar.classList.add('hidden');
+                bottomLogo.classList.add('visible');
+                navLinks.classList.add('shifted');
             } else {
-                // Scrolling up
-                navbarWrapper.classList.remove('hidden');
+                // When scrolling up or at top, show top navbar and hide bottom logo
+                topNavbar.classList.remove('hidden');
+                bottomLogo.classList.remove('visible');
+                navLinks.classList.remove('shifted');
             }
             
             lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-            
-            // Add a small delay before allowing next scroll event
-            scrollTimer = setTimeout(() => {
-                scrollTimer = null;
-            }, 100);
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateNavbar);
+                ticking = true;
+            }
         }, { passive: true });
 
         // Close mobile menu on window resize

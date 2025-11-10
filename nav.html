@@ -142,12 +142,31 @@
             height: 70px;
         }
 
+        .bottom-logo {
+            width: 180px;
+            height: 56px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .bottom-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .bottom-logo:hover {
+            transform: scale(1.05);
+        }
+
         .nav-links {
             display: flex;
             gap: 35px;
             align-items: center;
-            flex: 1;
             justify-content: center;
+            flex: 1;
         }
 
         .nav-links a {
@@ -158,14 +177,6 @@
             font-size: 0.95rem;
             position: relative;
             padding: 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-links a i {
-            font-size: 1rem;
-            transition: transform 0.3s ease;
         }
 
         .nav-links a::after {
@@ -398,8 +409,13 @@
                 gap: 25px;
             }
 
+            .bottom-logo {
+                width: 140px;
+                height: 44px;
+            }
+
             .nav-links {
-                gap: 25px;
+                gap: 20px;
             }
 
             .nav-links a {
@@ -441,8 +457,8 @@
             }
 
             .logo {
-                width: 140px;
-                height: 44px;
+                width: 160px;
+                height: 50px;
             }
         }
 
@@ -478,8 +494,8 @@
             }
 
             .logo {
-                width: 120px;
-                height: 38px;
+                width: 140px;
+                height: 44px;
             }
         }
 
@@ -495,7 +511,9 @@
         <!-- Top Row - Logo, Phone, Contact -->
         <div class="top-navbar">
             <div class="top-nav-container">
-                <div class="logo">Toshgilam</div>
+                <div class="logo">
+                    <img src="cimg/logo.png" alt="Toshgilam Logo">
+                </div>
                 
                 <div class="contact-info">
                     <a href="tel:+998901234567" class="contact-item">
@@ -524,31 +542,17 @@
         <!-- Bottom Row - Categories/Navigation -->
         <div class="bottom-navbar">
             <div class="nav-container">
-                <div class="nav-links">
-                    <a href="index.html">
-                        <i class="fas fa-home"></i>
-                        Bosh sahifa
-                    </a>
-                    <a href="mahsulotlar.html">
-                        <i class="fas fa-box"></i>
-                        Mahsulotlar
-                    </a>
-                    <a href="galereya.html">
-                        <i class="fas fa-images"></i>
-                        Galereya
-                    </a>
-                    <a href="kalcul.html">
-                        <i class="fas fa-calculator"></i>
-                        Kalkulyator
-                    </a>
-                    <a href="aloqa.html">
-                        <i class="fas fa-phone"></i>
-                        Aloqa
-                    </a>
+                <div class="bottom-logo">
+                    <img src="cimg/logo.png" alt="Toshgilam Logo">
                 </div>
-                <a href="order.html"><button class="nav-btn">
-                    <i class="fas fa-shopping-cart"></i> Buyurtma berish
-                </button></a>
+                <div class="nav-links">
+                    <a href="mahsulotlar.html">Mahsulotlar</a>
+                    <a href="about.html">Biz haqimizda</a>
+                    <a href="galereya.html">Galereya</a>
+                    <a href="kalcul.html">Kalkulyator</a>
+                    <a href="aloqa.html">Aloqa</a>
+                    <a href="order.html">Buyurtma berish</a>
+                </div>
             </div>
         </div>
     </div>
@@ -574,6 +578,9 @@
         </a>
         <a href="mahsulotlar.html">
             <i class="fas fa-box"></i> Mahsulotlar
+        </a>
+        <a href="about.html">
+            <i class="fas fa-info-circle"></i> Biz haqimizda
         </a>
         <a href="galereya.html">
             <i class="fas fa-images"></i> Galereya

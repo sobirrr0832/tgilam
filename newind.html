@@ -467,15 +467,7 @@
                 transform: translateX(-50%);
             }
         }
-        /* New Advantages Styles */
-        :root {
-            --dark: #1a1a1a;
-            --gray: #666666;
-            --light-gray: #f5f5f5;
-            --border: #e0e0e0;
-            --white: #ffffff;
-        }
-       
+        /* Advantages Section */
         .advantages-section {
             max-width: 1400px;
             margin: 0 auto;
@@ -483,36 +475,36 @@
         }
        
         .section-header {
-            margin-bottom: 80px;
             text-align: center;
+            margin-bottom: 80px;
         }
        
         .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--dark);
+            font-size: 3rem;
+            font-weight: 800;
             margin-bottom: 16px;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            color: var(--dark);
         }
        
         .section-header p {
-            font-size: 1.125rem;
+            font-size: 1.2rem;
             color: var(--gray);
-            font-weight: 400;
             max-width: 600px;
             margin: 0 auto;
+            line-height: 1.8;
         }
        
         .advantages-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
+            background: #e0e0e0;
+            border: 1px solid #e0e0e0;
         }
        
         .advantage-card {
-            background: var(--white);
+            background: #ffffff;
             padding: 48px 32px;
             transition: all 0.3s ease;
             position: relative;
@@ -525,7 +517,7 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: var(--dark);
+            background: #1a1a1a;
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
@@ -536,7 +528,7 @@
         }
        
         .advantage-card:hover {
-            background: var(--light-gray);
+            background: #f5f5f5;
         }
        
         .icon-wrapper {
@@ -551,7 +543,7 @@
         .icon-wrapper svg {
             width: 48px;
             height: 48px;
-            stroke: var(--dark);
+            stroke: #1a1a1a;
             transition: transform 0.3s ease;
         }
        
@@ -562,14 +554,14 @@
         .advantage-card h3 {
             font-size: 1.25rem;
             font-weight: 600;
-            color: var(--dark);
+            color: #1a1a1a;
             margin-bottom: 16px;
             letter-spacing: -0.3px;
         }
        
         .advantage-card p {
             font-size: 0.9375rem;
-            color: var(--gray);
+            color: #666666;
             line-height: 1.7;
             font-weight: 400;
         }
@@ -618,14 +610,33 @@
             position: relative;
             overflow: hidden;
         }
+        .comparison-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+            text-align: center;
+            color: white;
+        }
+        .comparison-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        .comparison-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
         .comparison-container {
             position: relative;
             width: 100%;
-            height: 80vh;
+            height: 100vh;
             max-width: 1400px;
             margin: 0 auto;
             overflow: hidden;
-            cursor: col-resize;
+            cursor: default;
             user-select: none;
             -webkit-user-select: none;
             border-radius: 20px;
@@ -656,6 +667,7 @@
             transform: translateX(-50%);
             z-index: 10;
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            cursor: col-resize;
         }
         .slider-button {
             position: absolute;
@@ -718,7 +730,7 @@
         }
         @media (max-width: 768px) {
             .comparison-container {
-                height: 60vh;
+                height: 70vh;
             }
             .slider-button {
                 width: 50px;
@@ -734,6 +746,9 @@
             }
             .label-after {
                 right: 15px;
+            }
+            .comparison-header h2 {
+                font-size: 2rem;
             }
         }
         /* Contact Section */
@@ -928,9 +943,6 @@
         }
         /* Responsive */
         @media (max-width: 1200px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
@@ -1162,7 +1174,7 @@
             </a>
         </div>
     </section>
-    <!-- New Advantages Section -->
+    <!-- Advantages Section -->
     <section class="advantages-section">
         <div class="section-header">
             <h2>Bizning afzalliklarimiz</h2>
@@ -1226,6 +1238,10 @@
     </section>
     <!-- Comparison Section -->
     <section class="comparison-section">
+        <div class="comparison-header">
+            <h2>Oldin va Keyin</h2>
+            <p>Tosh gilam o'rnatishdan oldin va keyin taqqoslash. Farqni o'zingiz ko'ring!</p>
+        </div>
         <div class="comparison-container" id="comparisonContainer">
             <div class="image-wrapper before-image">
                 <img src="https://ik.imagekit.io/kwnpz8tu8/pic/oldin.jpg?updatedAt=1762862641438" alt="Oldin">
@@ -1585,7 +1601,7 @@
                 setTimeout(() => ripple.remove(), 600);
             }
         });
-        // Comparison Slider Script
+        // Comparison Slider Script - faqat slider button va line orqali
         const comparisonContainer = document.getElementById('comparisonContainer');
         const slider = document.getElementById('slider');
         const afterImage = document.getElementById('afterImage');
@@ -1618,22 +1634,16 @@
         }
         function stopDrag() {
             isDragging = false;
-            comparisonContainer.style.cursor = 'col-resize';
+            comparisonContainer.style.cursor = 'default';
         }
+        // Faqat slider va slider-button uchun eventlar
         slider.addEventListener('mousedown', startDrag);
-        slider.addEventListener('touchstart', startDrag);
+        slider.addEventListener('touchstart', startDrag, { passive: false });
        
-        comparisonContainer.addEventListener('mousedown', startDrag);
-        comparisonContainer.addEventListener('touchstart', startDrag);
         document.addEventListener('mousemove', handleMove);
         document.addEventListener('touchmove', handleMove, { passive: false });
         document.addEventListener('mouseup', stopDrag);
         document.addEventListener('touchend', stopDrag);
-        comparisonContainer.addEventListener('click', (e) => {
-            if (!isDragging) {
-                updateSliderPosition(e.clientX);
-            }
-        });
     </script>
 </body>
 </html>

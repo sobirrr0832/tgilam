@@ -32,7 +32,7 @@
             background: #ffffff;
             color: var(--dark);
             overflow-x: hidden;
-            padding-top: 150px;
+            padding-top: 115px;
         }
 
         /* Main Navbar Container */
@@ -60,7 +60,7 @@
         /* Top Row - Logo, Phone, Contact */
         .top-navbar {
             background: white;
-            padding: 18px 0;
+            padding: 12px 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -74,30 +74,26 @@
             gap: 30px;
         }
 
-        /* Logo Styling - To'liq qayta yozilgan */
+        /* Logo Styling - Qayta yozilgan */
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: flex-start;
             flex-shrink: 0;
-            min-width: 240px;
         }
 
         .logo {
-            width: 240px;
-            height: 75px;
+            display: block;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: block;
-            position: relative;
+            line-height: 0;
         }
 
         .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: left center;
+            height: 50px;
+            width: auto;
             display: block;
+            object-fit: contain;
         }
 
         .logo:hover {
@@ -321,7 +317,8 @@
         .mobile-menu.active .mobile-menu-links a:nth-child(4) { transition-delay: 0.4s; }
         .mobile-menu.active .mobile-menu-links a:nth-child(5) { transition-delay: 0.5s; }
         .mobile-menu.active .mobile-menu-links a:nth-child(6) { transition-delay: 0.6s; }
-        .mobile-menu.active .mobile-contact-info { transition-delay: 0.7s; }
+        .mobile-menu.active .mobile-menu-links a:nth-child(7) { transition-delay: 0.7s; }
+        .mobile-menu.active .mobile-contact-info { transition-delay: 0.8s; }
 
         .mobile-menu a:hover {
             color: rgba(255, 255, 255, 0.8);
@@ -369,13 +366,8 @@
 
         /* Responsive */
         @media (max-width: 1200px) {
-            .logo-container {
-                min-width: 200px;
-            }
-
-            .logo {
-                width: 200px;
-                height: 65px;
+            .logo img {
+                height: 45px;
             }
 
             .contact-info {
@@ -388,13 +380,8 @@
         }
 
         @media (max-width: 1024px) {
-            .logo-container {
-                min-width: 180px;
-            }
-
-            .logo {
-                width: 180px;
-                height: 58px;
+            .logo img {
+                height: 42px;
             }
 
             .contact-info {
@@ -420,7 +407,7 @@
 
         @media (max-width: 968px) {
             body {
-                padding-top: 85px;
+                padding-top: 70px;
             }
 
             .nav-links, .bottom-navbar {
@@ -433,24 +420,25 @@
 
             .top-nav-container {
                 padding: 0 20px;
+                gap: 15px;
             }
 
             .top-navbar {
-                padding: 15px 0;
+                padding: 12px 0;
             }
 
-            /* Telefonda faqat telefon raqam */
+            /* Telefonda logo, telefon va hamburger */
             .contact-info .contact-item:not(.phone-item) {
                 display: none;
             }
 
-            .logo-container {
-                min-width: 160px;
+            .logo img {
+                height: 40px;
             }
 
-            .logo {
-                width: 160px;
-                height: 52px;
+            .contact-info {
+                flex: 1;
+                justify-content: flex-end;
             }
         }
 
@@ -459,45 +447,36 @@
                 font-size: 1.2rem;
             }
 
-            .logo-container {
-                min-width: 150px;
-            }
-
-            .logo {
-                width: 150px;
-                height: 48px;
+            .logo img {
+                height: 38px;
             }
 
             .phone-number {
-                font-size: 1.05rem;
+                font-size: 0.95rem;
             }
         }
 
         @media (max-width: 480px) {
             .top-navbar {
-                padding: 12px 0;
+                padding: 10px 0;
             }
 
             .top-nav-container {
                 padding: 0 15px;
+                gap: 10px;
             }
 
-            .logo-container {
-                min-width: 140px;
-            }
-
-            .logo {
-                width: 140px;
-                height: 45px;
+            .logo img {
+                height: 36px;
             }
 
             .phone-number {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 letter-spacing: 0.3px;
             }
 
             .contact-item i {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
 
             .mobile-contact-info {
@@ -519,16 +498,15 @@
         }
 
         @media (max-width: 380px) {
-            .logo-container {
-                min-width: 130px;
-            }
-
-            .logo {
-                width: 130px;
-                height: 42px;
+            .logo img {
+                height: 34px;
             }
 
             .phone-number {
+                font-size: 0.85rem;
+            }
+
+            .contact-item i {
                 font-size: 0.95rem;
             }
         }

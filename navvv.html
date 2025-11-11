@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="cimg/logo.png" type="image/x-icon">
+    <title>Toshgilam - Zamonaviy Tosh Gilamlar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: rgba(15, 23, 42, 0.08);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--dark);
+            overflow-x: hidden;
+            padding-top: 160px;
+        }
+
+        /* Main Navbar Container */
+        .navbar-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 24px var(--shadow);
+        }
+
+        .navbar-wrapper.hidden {
+            transform: translateY(-100%);
+        }
+
+        /* Top Row - Logo, Phone, Contact */
+        .top-navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 12px 0;
+            color: white;
+        }
+
+        .top-nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 220px;
+            height: 70px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .contact-item span {
+            font-weight: 500;
+        }
+
+        .phone-number {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Bottom Row - Categories/Navigation */
+        .bottom-navbar {
+            background: white;
+            padding: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .bottom-logo {
+            width: 180px;
+            height: 56px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .bottom-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .bottom-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover i {
+            transform: translateY(-2px);
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 999;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .mobile-contact-info .contact-item {
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mobile-menu.active a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu.active .mobile-contact-info {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .mobile-menu.active a:nth-child(2) { transition-delay: 0.1s; }
+        .mobile-menu.active a:nth-child(3) { transition-delay: 0.2s; }
+        .mobile-menu.active a:nth-child(4) { transition-delay: 0.3s; }
+        .mobile-menu.active a:nth-child(5) { transition-delay: 0.4s; }
+        .mobile-menu.active a:nth-child(6) { transition-delay: 0.5s; }
+        .mobile-menu.active .nav-btn { transition-delay: 0.6s; }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .mobile-menu .nav-btn {
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .mobile-menu.active .nav-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Demo Content */
+        .demo-content {
+            padding: 60px 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+        }
+
+        .demo-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .demo-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .contact-info {
+                gap: 25px;
+            }
+
+            .bottom-logo {
+                width: 140px;
+                height: 44px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 968px) {
+            body {
+                padding-top: 120px;
+            }
+
+            .nav-links, .nav-btn {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .top-nav-container {
+                padding: 0 20px;
+            }
+
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .contact-info {
+                gap: 15px;
+            }
+
+            .contact-item span {
+                display: none;
+            }
+
+            .phone-number {
+                display: inline !important;
+            }
+
+            .logo {
+                width: 160px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu a {
+                font-size: 1.1rem;
+            }
+
+            .contact-item {
+                font-size: 0.85rem;
+            }
+
+            .phone-number {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-navbar {
+                padding: 10px 0;
+            }
+
+            .contact-info {
+                gap: 12px;
+            }
+
+            .contact-item i {
+                font-size: 1rem;
+            }
+
+            .phone-number {
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                width: 140px;
+                height: 44px;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navbar Wrapper -->
+    <div class="navbar-wrapper" id="navbarWrapper">
+        <!-- Top Row - Logo, Phone, Contact -->
+        <div class="top-navbar">
+            <div class="top-nav-container">
+                <div class="logo">
+                    <img src="cimg/logo.png" alt="Toshgilam Logo">
+                </div>
+                
+                <div class="contact-info">
+                    <a href="tel:+998901234567" class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="phone-number">+998 (90) 123-45-67</span>
+                    </a>
+                    <a href="mailto:info@toshgilam.uz" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@toshgilam.uz</span>
+                    </a>
+                    <a href="aloqa.html" class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Toshkent, O'zbekiston</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button (for top row) -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Row - Categories/Navigation -->
+        <div class="bottom-navbar">
+            <div class="nav-container">
+                <div class="bottom-logo">
+                    <img src="cimg/logo.png" alt="Toshgilam Logo">
+                </div>
+                <div class="nav-links">
+                    <a href="mahsulotlar.html">Mahsulotlar</a>
+                    <a href="about.html">Biz haqimizda</a>
+                    <a href="galereya.html">Galereya</a>
+                    <a href="kalcul.html">Kalkulyator</a>
+                    <a href="aloqa.html">Aloqa</a>
+                    <a href="order.html">Buyurtma berish</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-contact-info">
+            <a href="tel:+998901234567" class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <span class="phone-number">+998 (90) 123-45-67</span>
+            </a>
+            <a href="mailto:info@toshgilam.uz" class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>info@toshgilam.uz</span>
+            </a>
+            <a href="aloqa.html" class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Toshkent, O'zbekiston</span>
+            </a>
+        </div>
+        <a href="index.html">
+            <i class="fas fa-home"></i> Bosh sahifa
+        </a>
+        <a href="mahsulotlar.html">
+            <i class="fas fa-box"></i> Mahsulotlar
+        </a>
+        <a href="about.html">
+            <i class="fas fa-info-circle"></i> Biz haqimizda
+        </a>
+        <a href="galereya.html">
+            <i class="fas fa-images"></i> Galereya
+        </a>
+        <a href="kalcul.html">
+            <i class="fas fa-calculator"></i> Kalkulyator
+        </a>
+        <a href="aloqa.html">
+            <i class="fas fa-phone"></i> Aloqa
+        </a>
+        <a href="order.html">
+            <button class="nav-btn">
+                <i class="fas fa-shopping-cart"></i> Buyurtma berish
+            </button>
+        </a>
+    </div>
+
+    <!-- Demo Content -->
+    <div class="demo-content">
+        <div class="demo-section">
+            <h2>Zamonaviy Tosh Gilamlar</h2>
+            <p>Yuklanishni ko'rish uchun pastga scroll qiling. Pastga scroll qilganda navbar yashirinadi, yuqoriga scroll qilganda yana paydo bo'ladi.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Yuqori Sifatli Mahsulotlar</h2>
+            <p>Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Professional Xizmat</h2>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Pastga Scroll Qiling</h2>
+            <p>Navbar yashirinishi va yuqoriga scroll qilganda paydo bo'lishini ko'ring.</p>
+            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>Yana Kontent</h2>
+            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
+            <p>Sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Navbar show/hide on scroll
+        const navbarWrapper = document.getElementById('navbarWrapper');
+        let lastScrollTop = 0;
+        let scrollTimer = null;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Clear any existing timer
+            if (scrollTimer !== null) {
+                clearTimeout(scrollTimer);
+            }
+            
+            // Hide/show navbar based on scroll direction
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                // Scrolling down & past 100px
+                navbarWrapper.classList.add('hidden');
+            } else {
+                // Scrolling up
+                navbarWrapper.classList.remove('hidden');
+            }
+            
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+            
+            // Add a small delay before allowing next scroll event
+            scrollTimer = setTimeout(() => {
+                scrollTimer = null;
+            }, 100);
+        }, { passive: true });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Button click ripple effect
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.classList.contains('mobile-menu-btn')) return;
+                
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: translate(-50%, -50%) scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

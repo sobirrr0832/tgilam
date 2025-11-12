@@ -230,28 +230,29 @@
             transform: rotate(-45deg) translate(8px, -8px);
         }
 
-        /* Mobile Menu */
+        /* Mobile Menu - Sidebar Style */
         .mobile-menu {
             position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            left: -80%;
+            width: 80%;
+            height: 100vh;
             background: white;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 24px;
+            justify-content: space-between;
+            gap: 0;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.4s ease;
+            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
             z-index: 999;
             padding: 100px 20px 40px;
             overflow-y: auto;
+            box-shadow: 4px 0 20px var(--shadow);
         }
 
         .mobile-menu.active {
+            left: 0;
             opacity: 1;
             visibility: visible;
         }
@@ -259,32 +260,35 @@
         .mobile-menu-links {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             gap: 24px;
             width: 100%;
-            max-width: 400px;
             flex: 1;
-            justify-content: center;
+            padding-left: 10px;
+        }
+
+        .mobile-menu-links a {
+            text-align: left;
+            padding-left: 10px;
         }
 
         .mobile-contact-info {
             display: flex;
             flex-direction: column;
             gap: 16px;
-            margin-top: auto;
             padding: 20px;
             background: rgba(248, 250, 252, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 16px;
-            width: auto;
+            width: 100%;
             max-width: 300px;
             border: 1px solid var(--border);
             align-self: center;
-            margin: 0;
+            margin: 0 auto;
         }
 
         .mobile-contact-info .contact-item {
-            justify-content: center;
+            justify-content: flex-start;
             font-size: 1rem;
             color: var(--dark);
             gap: 12px;
@@ -304,11 +308,12 @@
             font-size: 1.3rem;
             transition: all 0.3s ease;
             opacity: 0;
-            text-align: center;
+            transform: translateX(-20px);
         }
 
         .mobile-menu.active a {
             opacity: 1;
+            transform: translateX(0);
             transition-delay: 0.1s;
         }
 
@@ -452,16 +457,19 @@
             }
 
             .mobile-menu {
-                padding: 100px 15px 40px;
+                width: 85%;
+                left: -85%;
+                padding: 100px 20px 40px;
             }
 
             .mobile-menu-links {
-                max-width: none;
                 gap: 20px;
+                padding-left: 20px;
             }
 
-            .mobile-menu a {
+            .mobile-menu-links a {
                 font-size: 1.2rem;
+                padding-left: 15px;
             }
 
             .mobile-contact-info {
@@ -490,15 +498,19 @@
             }
 
             .mobile-menu {
-                padding: 100px 10px 40px;
+                width: 90%;
+                left: -90%;
+                padding: 100px 15px 40px;
             }
 
             .mobile-menu-links {
                 gap: 18px;
+                padding-left: 15px;
             }
 
-            .mobile-menu a {
+            .mobile-menu-links a {
                 font-size: 1.15rem;
+                padding-left: 12px;
             }
 
             .mobile-contact-info {
@@ -541,15 +553,19 @@
             }
 
             .mobile-menu {
+                width: 100%;
+                left: -100%;
                 padding: 100px 10px 40px;
             }
 
             .mobile-menu-links {
                 gap: 16px;
+                padding-left: 10px;
             }
 
-            .mobile-menu a {
+            .mobile-menu-links a {
                 font-size: 1.1rem;
+                padding-left: 10px;
             }
 
             .mobile-contact-info {
@@ -595,10 +611,12 @@
 
             .mobile-menu-links {
                 gap: 14px;
+                padding-left: 8px;
             }
 
-            .mobile-menu a {
+            .mobile-menu-links a {
                 font-size: 1.05rem;
+                padding-left: 8px;
             }
 
             .mobile-contact-info {

@@ -240,13 +240,14 @@
             background: white;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            gap: 0;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
             opacity: 0;
             visibility: hidden;
             transition: left 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
             z-index: 999;
-            padding: 100px 20px 40px;
+            padding: 20px;
             overflow-y: auto;
             box-shadow: 4px 0 20px var(--shadow);
         }
@@ -260,16 +261,16 @@
         .mobile-menu-links {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
             gap: 24px;
             width: 100%;
-            flex: 1;
-            padding-left: 10px;
+            max-width: 300px;
         }
 
         .mobile-menu-links a {
-            text-align: left;
-            padding-left: 10px;
+            text-align: center;
+            padding: 0;
         }
 
         .mobile-contact-info {
@@ -283,8 +284,7 @@
             width: 100%;
             max-width: 300px;
             border: 1px solid var(--border);
-            align-self: center;
-            margin: 0 auto;
+            margin-bottom: 40px;
         }
 
         .mobile-contact-info .contact-item {
@@ -459,23 +459,24 @@
             .mobile-menu {
                 width: 85%;
                 left: -85%;
-                padding: 100px 20px 40px;
+                padding: 20px;
+                gap: 30px;
             }
 
             .mobile-menu-links {
                 gap: 20px;
-                padding-left: 20px;
+                max-width: 280px;
             }
 
             .mobile-menu-links a {
                 font-size: 1.2rem;
-                padding-left: 15px;
             }
 
             .mobile-contact-info {
                 padding: 16px;
                 gap: 12px;
                 max-width: 280px;
+                margin-bottom: 30px;
             }
 
             .mobile-contact-info .contact-item {
@@ -500,23 +501,24 @@
             .mobile-menu {
                 width: 90%;
                 left: -90%;
-                padding: 100px 15px 40px;
+                padding: 15px;
+                gap: 25px;
             }
 
             .mobile-menu-links {
                 gap: 18px;
-                padding-left: 15px;
+                max-width: 260px;
             }
 
             .mobile-menu-links a {
                 font-size: 1.15rem;
-                padding-left: 12px;
             }
 
             .mobile-contact-info {
                 padding: 14px;
                 gap: 10px;
                 max-width: 260px;
+                margin-bottom: 25px;
             }
 
             .mobile-contact-info .contact-item {
@@ -555,23 +557,24 @@
             .mobile-menu {
                 width: 100%;
                 left: -100%;
-                padding: 100px 10px 40px;
+                padding: 10px;
+                gap: 20px;
             }
 
             .mobile-menu-links {
                 gap: 16px;
-                padding-left: 10px;
+                max-width: 240px;
             }
 
             .mobile-menu-links a {
                 font-size: 1.1rem;
-                padding-left: 10px;
             }
 
             .mobile-contact-info {
                 padding: 12px;
                 gap: 8px;
                 max-width: 240px;
+                margin-bottom: 20px;
             }
 
             .mobile-contact-info .contact-item {
@@ -606,23 +609,24 @@
             }
 
             .mobile-menu {
-                padding: 100px 8px 40px;
+                padding: 8px;
+                gap: 16px;
             }
 
             .mobile-menu-links {
                 gap: 14px;
-                padding-left: 8px;
+                max-width: 220px;
             }
 
             .mobile-menu-links a {
                 font-size: 1.05rem;
-                padding-left: 8px;
             }
 
             .mobile-contact-info {
                 padding: 10px;
                 gap: 6px;
                 max-width: 220px;
+                margin-bottom: 15px;
             }
 
             .mobile-contact-info .contact-item {

@@ -245,7 +245,7 @@
             gap: 24px;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: opacity 0.4s ease;
             z-index: 999;
             padding: 100px 20px 40px;
             overflow-y: auto;
@@ -279,8 +279,8 @@
             width: 100%;
             max-width: 400px;
             border: 1px solid var(--border);
-            align-self: flex-start;
-            margin-left: 20px;
+            align-self: stretch;
+            margin: 0 20px;
         }
 
         .mobile-contact-info .contact-item {
@@ -300,27 +300,17 @@
             font-size: 1.3rem;
             transition: all 0.3s ease;
             opacity: 0;
-            transform: translateY(20px);
             text-align: center;
         }
 
         .mobile-menu.active a {
             opacity: 1;
-            transform: translateY(0);
+            transition-delay: 0.1s;
         }
 
         .mobile-menu.active .mobile-contact-info {
             animation: fadeInUp 0.5s ease forwards;
         }
-
-        .mobile-menu.active .mobile-menu-links a:nth-child(1) { transition-delay: 0.1s; }
-        .mobile-menu.active .mobile-menu-links a:nth-child(2) { transition-delay: 0.2s; }
-        .mobile-menu.active .mobile-menu-links a:nth-child(3) { transition-delay: 0.3s; }
-        .mobile-menu.active .mobile-menu-links a:nth-child(4) { transition-delay: 0.4s; }
-        .mobile-menu.active .mobile-menu-links a:nth-child(5) { transition-delay: 0.5s; }
-        .mobile-menu.active .mobile-menu-links a:nth-child(6) { transition-delay: 0.6s; }
-        .mobile-menu.active .mobile-menu-links a:nth-child(7) { transition-delay: 0.7s; }
-        .mobile-menu.active .mobile-contact-info { transition-delay: 0.8s; }
 
         .mobile-menu a:hover {
             color: var(--primary);
@@ -456,18 +446,55 @@
             .mobile-menu-btn.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(6px, -6px);
             }
-        }
 
-        @media (max-width: 768px) {
+            .mobile-menu {
+                padding: 100px 15px 40px;
+            }
+
+            .mobile-menu-links {
+                max-width: none;
+                gap: 20px;
+            }
+
             .mobile-menu a {
                 font-size: 1.2rem;
             }
 
+            .mobile-contact-info {
+                margin: 0 15px;
+                padding: 20px;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
             .logo img {
                 height: 50px !important;
             }
 
             .phone-number {
+                font-size: 0.95rem;
+            }
+
+            .mobile-menu {
+                padding: 100px 10px 40px;
+            }
+
+            .mobile-menu-links {
+                gap: 18px;
+            }
+
+            .mobile-menu a {
+                font-size: 1.15rem;
+            }
+
+            .mobile-contact-info {
+                margin: 0 10px;
+                padding: 18px;
+                gap: 14px;
+            }
+
+            .mobile-contact-info .contact-item {
                 font-size: 0.95rem;
             }
         }
@@ -495,13 +522,22 @@
                 font-size: 1rem;
             }
 
-            .mobile-contact-info {
-                padding: 20px;
-                gap: 18px;
+            .mobile-menu {
+                padding: 100px 10px 40px;
+            }
+
+            .mobile-menu-links {
+                gap: 16px;
             }
 
             .mobile-menu a {
                 font-size: 1.1rem;
+            }
+
+            .mobile-contact-info {
+                margin: 0 10px;
+                padding: 16px;
+                gap: 12px;
             }
 
             .demo-section h2 {
@@ -524,6 +560,32 @@
 
             .contact-item i {
                 font-size: 0.95rem;
+            }
+
+            .mobile-menu {
+                padding: 100px 8px 40px;
+            }
+
+            .mobile-menu-links {
+                gap: 14px;
+            }
+
+            .mobile-menu a {
+                font-size: 1.05rem;
+            }
+
+            .mobile-contact-info {
+                margin: 0 8px;
+                padding: 14px;
+                gap: 10px;
+            }
+
+            .mobile-contact-info .contact-item {
+                font-size: 0.9rem;
+            }
+
+            .mobile-contact-info .contact-item i {
+                font-size: 1rem;
             }
         }
 

@@ -270,27 +270,31 @@
         .mobile-contact-info {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             margin-top: auto;
-            padding: 25px;
+            padding: 20px;
             background: rgba(248, 250, 252, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
+            width: auto;
+            max-width: 300px;
             border: 1px solid var(--border);
-            align-self: stretch;
-            margin: 0 20px;
+            align-self: center;
+            margin: 0;
         }
 
         .mobile-contact-info .contact-item {
-            justify-content: flex-start;
+            justify-content: center;
             font-size: 1rem;
             color: var(--dark);
+            gap: 12px;
         }
 
         .mobile-contact-info .contact-item i {
             color: var(--primary);
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
         }
 
         .mobile-menu a {
@@ -461,9 +465,18 @@
             }
 
             .mobile-contact-info {
-                margin: 0 15px;
-                padding: 20px;
-                gap: 16px;
+                padding: 16px;
+                gap: 12px;
+                max-width: 280px;
+            }
+
+            .mobile-contact-info .contact-item {
+                font-size: 0.95rem;
+                gap: 10px;
+            }
+
+            .mobile-contact-info .contact-item i {
+                width: 18px;
             }
         }
 
@@ -489,13 +502,18 @@
             }
 
             .mobile-contact-info {
-                margin: 0 10px;
-                padding: 18px;
-                gap: 14px;
+                padding: 14px;
+                gap: 10px;
+                max-width: 260px;
             }
 
             .mobile-contact-info .contact-item {
-                font-size: 0.95rem;
+                font-size: 0.9rem;
+                gap: 8px;
+            }
+
+            .mobile-contact-info .contact-item i {
+                width: 16px;
             }
         }
 
@@ -535,9 +553,18 @@
             }
 
             .mobile-contact-info {
-                margin: 0 10px;
-                padding: 16px;
-                gap: 12px;
+                padding: 12px;
+                gap: 8px;
+                max-width: 240px;
+            }
+
+            .mobile-contact-info .contact-item {
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+
+            .mobile-contact-info .contact-item i {
+                width: 16px;
             }
 
             .demo-section h2 {
@@ -575,17 +602,18 @@
             }
 
             .mobile-contact-info {
-                margin: 0 8px;
-                padding: 14px;
-                gap: 10px;
+                padding: 10px;
+                gap: 6px;
+                max-width: 220px;
             }
 
             .mobile-contact-info .contact-item {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                gap: 6px;
             }
 
             .mobile-contact-info .contact-item i {
-                font-size: 1rem;
+                width: 14px;
             }
         }
 

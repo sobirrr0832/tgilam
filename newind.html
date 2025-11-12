@@ -1081,16 +1081,24 @@
             .top-navbar {
                 padding: 12px 0;
             }
-            /* Telefonda logo, telefon va hamburger */
-            .contact-info .contact-item:not(.phone-item) {
-                display: none;
-            }
+            /* Telefonda barcha contact itemlar ko'rsatiladi, wrap qiladi */
             .logo img {
                 height: 52px !important;
             }
             .contact-info {
                 flex: 1;
                 justify-content: flex-end;
+                gap: 15px;
+            }
+            .contact-item {
+                font-size: 0.85rem;
+                gap: 5px;
+            }
+            .contact-item i {
+                font-size: 1rem;
+            }
+            .phone-number {
+                font-size: 1rem;
             }
             /* Hamburger icon kichikroq */
             .mobile-menu-btn span {
@@ -1216,6 +1224,15 @@
             }
             .contact-item i {
                 font-size: 1rem;
+            }
+            .contact-info {
+                gap: 10px;
+                justify-content: center;
+            }
+            .contact-item {
+                font-size: 0.8rem;
+                gap: 4px;
+                white-space: normal;
             }
             .mobile-menu {
                 width: 100%; /* Kichik ekranlarda to'liq kenglik */
@@ -1669,7 +1686,7 @@
             <div class="footer-links">
                 <h4>Kompaniya</h4>
                 <ul>
-                    <li><a href="bizhaqimizda.html">Biz haqimizda</a></li>
+                    <li><a href="about.html">Biz haqimizda</a></li>
                     <li><a href="#">Jamoa</a></li>
                     <li><a href="aloqa.html">Aloqa</a></li>
                 </ul>

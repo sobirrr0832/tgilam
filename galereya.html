@@ -172,7 +172,7 @@
             <h1 id="pageTitle">Kategoriyali Galereya</h1>
             <p id="pageDescription">Kategoriyalarga ko'ra eng yaxshi loyihalar va ishlarimiz bilan tanishing</p>
         </div>
-        
+       
         <div class="categories">
             <div class="category active" data-id="0" data-slug="ichki" data-title="Ichki Dizayn Galereyasi" data-desc="Ichki dizayn loyihalarimiz bilan tanishing - zamonaviy va qulay interyerning eng yaxshi namunalari.">Ichki</div>
             <div class="category" data-id="1" data-slug="manzara" data-title="Manzara Galereyasi" data-desc="Tabiat manzaralari va landshaft dizayn loyihalarimiz - go'zallik va tinchlikning uyg'unligi.">Manzara</div>
@@ -181,7 +181,6 @@
             <div class="category" data-id="4" data-slug="daraxtlar-atrofida" data-title="Daraxtlar Atrofida Galereyasi" data-desc="Daraxtlar va yashil zonalar atrofidagi dizayn loyihalar - ekologik va ilhomlantiruvchi muhit.">Daraxtlar atrofida</div>
             <div class="category" data-id="5" data-slug="basseyinlar" data-title="Basseyinlar Galereyasi" data-desc="Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.">Basseyinlar</div>
         </div>
-
         <!-- Ichki Galereyasi -->
         <div class="gallery-section active" data-category="0">
             <div class="gallery-grid">
@@ -217,7 +216,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Manzara Galereyasi -->
         <div class="gallery-section" data-category="1">
             <div class="gallery-grid">
@@ -253,7 +251,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Shahar va Park Galereyasi -->
         <div class="gallery-section" data-category="2">
             <div class="gallery-grid">
@@ -289,7 +286,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Toshlar butiki Galereyasi -->
         <div class="gallery-section" data-category="3">
             <div class="gallery-grid">
@@ -325,7 +321,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Daraxtlar atrofida Galereyasi -->
         <div class="gallery-section" data-category="4">
             <div class="gallery-grid">
@@ -361,7 +356,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Basseyinlar Galereyasi -->
         <div class="gallery-section" data-category="5">
             <div class="gallery-grid">
@@ -398,15 +392,25 @@
             </div>
         </div>
     </div>
-
     <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
-
     <script>
+        // Kategoriya ma'lumotlari
+        const categoryInfo = {
+            0: { title: 'Ichki Dizayn Galereyasi', desc: 'Ichki dizayn loyihalarimiz bilan tanishing - zamonaviy va qulay interyerning eng yaxshi namunalari.' },
+            1: { title: 'Manzara Galereyasi', desc: 'Tabiat manzaralari va landshaft dizayn loyihalarimiz - go\'zallik va tinchlikning uyg\'unligi.' },
+            2: { title: 'Shahar va Park Galereyasi', desc: 'Shahar parklar va urban dizayn loyihalarimiz - shahar hayotining yashil tomoni.' },
+            3: { title: 'Toshlar Butiki Galereyasi', desc: 'Tosh va tabiiy materiallar bilan bezatilgan loyihalar - mustahkamlik va estetikaning birlashuvi.' },
+            4: { title: 'Daraxtlar Atrofida Galereyasi', desc: 'Daraxtlar va yashil zonalar atrofidagi dizayn loyihalar - ekologik va ilhomlantiruvchi muhit.' },
+            5: { title: 'Basseyinlar Galereyasi', desc: 'Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.' }
+        };
+
         // Elementlar
         var categories = document.querySelectorAll('.category');
         var gallerySections = document.querySelectorAll('.gallery-section');
+        var pageTitle = document.getElementById('pageTitle');
+        var pageDescription = document.getElementById('pageDescription');
 
-        // Kategoriyani yuklash funksiyasi (faqat gallery o'zgaradi)
+        // Kategoriyani yuklash funksiyasi (gallery, sarlavha va matn o'zgaradi, URL o'zgarmaydi)
         function loadCategory(id) {
             // Active classlarni o'chirish
             for (var j = 0; j < categories.length; j++) {
@@ -415,17 +419,31 @@
             for (var k = 0; k < gallerySections.length; k++) {
                 gallerySections[k].classList.remove('active');
             }
-            
+           
             // Active kategoriyani belgilash
             var activeCategory = document.querySelector('[data-id="' + id + '"]');
             if (activeCategory) {
                 activeCategory.classList.add('active');
             }
-            
+           
             // Gallery section ko'rsatish
             var activeSection = document.querySelector('[data-category="' + id + '"]');
             if (activeSection) {
                 activeSection.classList.add('active');
+            }
+
+            // Sarlavha va matnni o'zgartirish
+            const info = categoryInfo[id];
+            if (info) {
+                document.title = info.title;
+                pageTitle.textContent = info.title;
+                pageDescription.textContent = info.desc;
+                
+                // Meta description o'zgartirish
+                var metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.content = info.desc;
+                }
             }
         }
 
@@ -433,7 +451,7 @@
         for (var i = 0; i < categories.length; i++) {
             categories[i].addEventListener('click', function() {
                 var id = parseInt(this.getAttribute('data-id'));
-                // Faqat gallery yuklanadi, URL va sarlavha o'zgarmaydi
+                // Faqat gallery va sarlavha yuklanadi, URL o'zgarmaydi
                 loadCategory(id);
             });
         }

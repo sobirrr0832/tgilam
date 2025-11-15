@@ -412,31 +412,11 @@
             5: { title: 'Basseyinlar Galereyasi', desc: 'Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.', slug: 'basseyinlar' }
         };
 
-        // Repo nomi (base path)
-        const basePath = window.location.pathname.split('/')[1] || ''; // 'tgilamrasmiy'
-
         // Elementlar
         var categories = document.querySelectorAll('.category');
         var gallerySections = document.querySelectorAll('.gallery-section');
         var pageTitle = document.getElementById('pageTitle');
         var pageDescription = document.getElementById('pageDescription');
-
-        // URL dan kategoriyani o'qish funksiyasi
-        function getCategoryFromURL() {
-            const path = window.location.pathname;
-            const match = path.match(/\/category\/(\d+)-([^\/]+)/);
-            if (match) {
-                const id = parseInt(match[1]);
-                const slug = match[2];
-                return { id, slug };
-            }
-            return null;
-        }
-
-        // Kategoriya URL
-        function getCategoryURL(id, slug) {
-            return window.location.origin + '/' + basePath + '/category/' + id + '-' + slug;
-        }
 
         // Kategoriyani yuklash funksiyasi
         function loadCategory(id) {
@@ -479,44 +459,14 @@
         for (var i = 0; i < categories.length; i++) {
             categories[i].addEventListener('click', function() {
                 var id = parseInt(this.getAttribute('data-id'));
-                var slug = this.getAttribute('data-slug');
-                
-                // URL o'zgartirish (to'liq path)
-                const newURL = getCategoryURL(id, slug);
-                history.pushState({ id: id }, '', newURL);
-                
-                // Kategoriyani yuklash
+                // Kategoriyani yuklash (URL o'zgartirilmaydi)
                 loadCategory(id);
             });
         }
 
-        // Popstate event (back/forward tugmalari)
-        window.addEventListener('popstate', function(event) {
-            if (event.state && event.state.id) {
-                loadCategory(event.state.id);
-            } else {
-                var urlCategory = getCategoryFromURL();
-                if (urlCategory) {
-                    loadCategory(urlCategory.id);
-                } else {
-                    // Default - birinchi kategoriya
-                    loadCategory(0);
-                }
-            }
-        });
-
-        // Sahifa yuklanganda
+        // Sahifa yuklanganda default kategoriyani yuklash
         window.addEventListener('DOMContentLoaded', function() {
-            var urlCategory = getCategoryFromURL();
-            if (urlCategory) {
-                loadCategory(urlCategory.id);
-                history.replaceState({ id: urlCategory.id }, '', getCategoryURL(urlCategory.id, urlCategory.slug));
-            } else {
-                // Default
-                const defaultURL = getCategoryURL(0, 'ichki');
-                history.replaceState({ id: 0 }, '', defaultURL);
-                loadCategory(0);
-            }
+            loadCategory(0);
         });
 
         // Scroll top

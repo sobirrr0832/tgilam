@@ -402,23 +402,11 @@
     <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Kategoriya ma'lumotlari
-        const categoryInfo = {
-            0: { title: 'Ichki Dizayn Galereyasi', desc: 'Ichki dizayn loyihalarimiz bilan tanishing - zamonaviy va qulay interyerning eng yaxshi namunalari.', slug: 'ichki' },
-            1: { title: 'Manzara Galereyasi', desc: 'Tabiat manzaralari va landshaft dizayn loyihalarimiz - go\'zallik va tinchlikning uyg\'unligi.', slug: 'manzara' },
-            2: { title: 'Shahar va Park Galereyasi', desc: 'Shahar parklar va urban dizayn loyihalarimiz - shahar hayotining yashil tomoni.', slug: 'shahar-va-park' },
-            3: { title: 'Toshlar Butiki Galereyasi', desc: 'Tosh va tabiiy materiallar bilan bezatilgan loyihalar - mustahkamlik va estetikaning birlashuvi.', slug: 'toshlar-butiki' },
-            4: { title: 'Daraxtlar Atrofida Galereyasi', desc: 'Daraxtlar va yashil zonalar atrofidagi dizayn loyihalar - ekologik va ilhomlantiruvchi muhit.', slug: 'daraxtlar-atrofida' },
-            5: { title: 'Basseyinlar Galereyasi', desc: 'Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.', slug: 'basseyinlar' }
-        };
-
         // Elementlar
         var categories = document.querySelectorAll('.category');
         var gallerySections = document.querySelectorAll('.gallery-section');
-        var pageTitle = document.getElementById('pageTitle');
-        var pageDescription = document.getElementById('pageDescription');
 
-        // Kategoriyani yuklash funksiyasi
+        // Kategoriyani yuklash funksiyasi (faqat gallery o'zgaradi)
         function loadCategory(id) {
             // Active classlarni o'chirish
             for (var j = 0; j < categories.length; j++) {
@@ -439,27 +427,13 @@
             if (activeSection) {
                 activeSection.classList.add('active');
             }
-            
-            // Title va description o'zgartirish
-            const info = categoryInfo[id];
-            if (info) {
-                document.title = info.title;
-                pageTitle.textContent = info.title;
-                pageDescription.textContent = info.desc;
-                
-                // Meta description o'zgartirish
-                var metaDesc = document.querySelector('meta[name="description"]');
-                if (metaDesc) {
-                    metaDesc.content = info.desc;
-                }
-            }
         }
 
         // Kategoriya bosish event
         for (var i = 0; i < categories.length; i++) {
             categories[i].addEventListener('click', function() {
                 var id = parseInt(this.getAttribute('data-id'));
-                // Kategoriyani yuklash (URL o'zgartirilmaydi)
+                // Faqat gallery yuklanadi, URL va sarlavha o'zgarmaydi
                 loadCategory(id);
             });
         }

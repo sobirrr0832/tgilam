@@ -412,22 +412,30 @@
             5: { title: 'Basseyinlar Galereyasi', desc: 'Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.', slug: 'basseyinlar' }
         };
 
+        // Repo nomi (base path)
+        const basePath = window.location.pathname.split('/')[1] || ''; // 'tgilamrasmiy'
+
         // Elementlar
         var categories = document.querySelectorAll('.category');
         var gallerySections = document.querySelectorAll('.gallery-section');
         var pageTitle = document.getElementById('pageTitle');
         var pageDescription = document.getElementById('pageDescription');
 
-        // URL dan kategoriyani o'qish funksiyasi (hash dan)
+        // URL dan kategoriyani o'qish funksiyasi
         function getCategoryFromURL() {
-            const hash = window.location.hash.substring(1); // # dan keyin
-            const match = hash.match(/category\/(\d+)-([^\/]+)/);
+            const path = window.location.pathname;
+            const match = path.match(/\/category\/(\d+)-([^\/]+)/);
             if (match) {
                 const id = parseInt(match[1]);
                 const slug = match[2];
                 return { id, slug };
             }
             return null;
+        }
+
+        // Kategoriya URL
+        function getCategoryURL(id, slug) {
+            return window.location.origin + '/' + basePath + '/category/' + id + '-' + slug;
         }
 
         // Kategoriyani yuklash funksiyasi
@@ -473,8 +481,9 @@
                 var id = parseInt(this.getAttribute('data-id'));
                 var slug = this.getAttribute('data-slug');
                 
-                // Hash URL o'zgartirish
-                history.pushState({ id: id }, '', '#category/' + id + '-' + slug);
+                // URL o'zgartirish (to'liq path)
+                const newURL = getCategoryURL(id, slug);
+                history.pushState({ id: id }, '', newURL);
                 
                 // Kategoriyani yuklash
                 loadCategory(id);
@@ -483,22 +492,16 @@
 
         // Popstate event (back/forward tugmalari)
         window.addEventListener('popstate', function(event) {
-            var urlCategory = getCategoryFromURL();
-            if (urlCategory) {
-                loadCategory(urlCategory.id);
+            if (event.state && event.state.id) {
+                loadCategory(event.state.id);
             } else {
-                // Default - birinchi kategoriya
-                loadCategory(0);
-            }
-        });
-
-        // Hashchange event (hash o'zgarganda)
-        window.addEventListener('hashchange', function() {
-            var urlCategory = getCategoryFromURL();
-            if (urlCategory) {
-                loadCategory(urlCategory.id);
-            } else {
-                loadCategory(0);
+                var urlCategory = getCategoryFromURL();
+                if (urlCategory) {
+                    loadCategory(urlCategory.id);
+                } else {
+                    // Default - birinchi kategoriya
+                    loadCategory(0);
+                }
             }
         });
 
@@ -507,9 +510,11 @@
             var urlCategory = getCategoryFromURL();
             if (urlCategory) {
                 loadCategory(urlCategory.id);
+                history.replaceState({ id: urlCategory.id }, '', getCategoryURL(urlCategory.id, urlCategory.slug));
             } else {
                 // Default
-                history.replaceState({ id: 0 }, '', '#category/0-ichki');
+                const defaultURL = getCategoryURL(0, 'ichki');
+                history.replaceState({ id: 0 }, '', defaultURL);
                 loadCategory(0);
             }
         });

@@ -95,7 +95,6 @@
             position: relative;
             overflow: hidden;
             background: #f8fafc;
-            cursor: pointer;
             border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
@@ -126,117 +125,6 @@
         .aspect-1-1 { aspect-ratio: 1/1; }
         .aspect-4-3 { aspect-ratio: 4/3; }
         .aspect-3-2 { aspect-ratio: 3/2; }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: auto;
-        }
-        .modal-content.zoomed {
-            cursor: grab;
-        }
-        .modal-content.zoomed:active {
-            cursor: grabbing;
-        }
-        .modal-image {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            animation: zoomIn 0.3s ease;
-            transition: transform 0.3s ease;
-            user-select: none;
-            transform-origin: center center;
-        }
-        .close-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.9);
-            border: none;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            z-index: 1002;
-        }
-        .close-btn:hover {
-            background: #ffffff;
-            transform: scale(1.1);
-        }
-        .zoom-controls {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 1002;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 12px 20px;
-            border-radius: 50px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        .zoom-btn {
-            width: 44px;
-            height: 44px;
-            background: transparent;
-            border: 2px solid #6366f1;
-            border-radius: 50%;
-            font-size: 1.3rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            color: #6366f1;
-            font-weight: bold;
-        }
-        .zoom-btn:hover {
-            background: #6366f1;
-            color: white;
-            transform: scale(1.1);
-        }
-        .zoom-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        .zoom-btn:disabled:hover {
-            background: transparent;
-            color: #6366f1;
-            transform: scale(1);
-        }
-        .zoom-level {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 60px;
-            font-weight: 600;
-            color: #0f172a;
-        }
         .scroll-top-btn {
             position: fixed;
             bottom: 30px;
@@ -276,16 +164,6 @@
                 font-size: 2rem;
             }
         }
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
     </style>
 </head>
 <body>
@@ -301,38 +179,38 @@
             <div class="category" data-id="2" data-slug="shahar-va-park" data-title="Shahar va Park Galereyasi" data-desc="Shahar parklar va urban dizayn loyihalarimiz - shahar hayotining yashil tomoni.">Shahar va Park</div>
             <div class="category" data-id="3" data-slug="toshlar-butiki" data-title="Toshlar Butiki Galereyasi" data-desc="Tosh va tabiiy materiallar bilan bezatilgan loyihalar - mustahkamlik va estetikaning birlashuvi.">Toshlar butiki</div>
             <div class="category" data-id="4" data-slug="daraxtlar-atrofida" data-title="Daraxtlar Atrofida Galereyasi" data-desc="Daraxtlar va yashil zonalar atrofidagi dizayn loyihalar - ekologik va ilhomlantiruvchi muhit.">Daraxtlar atrofida</div>
-            <div class="category" data-id="5" data-slug="basseyinlar" data-title="Basseynlar Galereyasi" data-desc="Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.">Basseyinlar</div>
+            <div class="category" data-id="5" data-slug="basseyinlar" data-title="Basseyinlar Galereyasi" data-desc="Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.">Basseyinlar</div>
         </div>
 
         <!-- Ichki Galereyasi -->
         <div class="gallery-section active" data-category="0">
             <div class="gallery-grid">
-                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                <div class="gallery-item aspect-16-9">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=450&fit=crop" alt="Ichki dizayn strategiyasi">
                     </div>
                 </div>
-                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                <div class="gallery-item aspect-9-16">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=450&h=800&fit=crop" alt="Ichki uchrashuv">
                     </div>
                 </div>
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=600&fit=crop" alt="Ichki grafik">
                     </div>
                 </div>
-                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                <div class="gallery-item aspect-4-3">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop" alt="Ichki muhiti">
                     </div>
                 </div>
-                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                <div class="gallery-item aspect-3-2">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900&h=600&fit=crop" alt="Ichki reja">
                     </div>
                 </div>
-                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                <div class="gallery-item aspect-16-9">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1444653614773-995cb1ef18c9?w=800&h=450&fit=crop" alt="Ichki investitsiya">
                     </div>
@@ -343,32 +221,32 @@
         <!-- Manzara Galereyasi -->
         <div class="gallery-section" data-category="1">
             <div class="gallery-grid">
-                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                <div class="gallery-item aspect-9-16">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=450&h=800&fit=crop" alt="Manzara yozish">
                     </div>
                 </div>
-                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                <div class="gallery-item aspect-16-9">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop" alt="Manzara ta'minot">
                     </div>
                 </div>
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=600&fit=crop" alt="Manzara ish joyi">
                     </div>
                 </div>
-                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                <div class="gallery-item aspect-4-3">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop" alt="Manzara app">
                     </div>
                 </div>
-                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                <div class="gallery-item aspect-3-2">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop" alt="Manzara dasturlash">
                     </div>
                 </div>
-                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                <div class="gallery-item aspect-9-16">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1547658719-da2b848c1ad6?w=450&h=800&fit=crop" alt="Manzara debug">
                     </div>
@@ -379,32 +257,32 @@
         <!-- Shahar va Park Galereyasi -->
         <div class="gallery-section" data-category="2">
             <div class="gallery-grid">
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=600&fit=crop" alt="Shahar grafik">
                     </div>
                 </div>
-                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                <div class="gallery-item aspect-16-9">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1559028005-7d6f39966d55?w=800&h=450&fit=crop" alt="Shahar UI/UX">
                     </div>
                 </div>
-                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                <div class="gallery-item aspect-9-16">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=450&h=800&fit=crop" alt="Shahar logo">
                     </div>
                 </div>
-                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                <div class="gallery-item aspect-4-3">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="Shahar brending">
                     </div>
                 </div>
-                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                <div class="gallery-item aspect-3-2">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop" alt="Shahar veb">
                     </div>
                 </div>
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1559028005-7d6f39966d55?w=600&h=600&fit=crop" alt="Shahar poster">
                     </div>
@@ -415,32 +293,32 @@
         <!-- Toshlar butiki Galereyasi -->
         <div class="gallery-section" data-category="3">
             <div class="gallery-grid">
-                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                <div class="gallery-item aspect-3-2">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&h=600&fit=crop" alt="Toshlar kampaniya">
                     </div>
                 </div>
-                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                <div class="gallery-item aspect-16-9">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=450&fit=crop" alt="Toshlar SEO">
                     </div>
                 </div>
-                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                <div class="gallery-item aspect-9-16">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=450&h=800&fit=crop" alt="Toshlar reklama">
                     </div>
                 </div>
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1559028005-7d6f39966d55?w=600&h=600&fit=crop" alt="Toshlar strategiya">
                     </div>
                 </div>
-                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                <div class="gallery-item aspect-4-3">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Toshlar brend">
                     </div>
                 </div>
-                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                <div class="gallery-item aspect-3-2">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&h=600&fit=crop" alt="Toshlar kontent">
                     </div>
@@ -451,32 +329,32 @@
         <!-- Daraxtlar atrofida Galereyasi -->
         <div class="gallery-section" data-category="4">
             <div class="gallery-grid">
-                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                <div class="gallery-item aspect-4-3">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Daraxtlar uchrashuvi">
                     </div>
                 </div>
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=600&fit=crop" alt="Daraxtlar a'zolari">
                     </div>
                 </div>
-                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                <div class="gallery-item aspect-16-9">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=450&fit=crop" alt="Daraxtlar hamkorlik">
                     </div>
                 </div>
-                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                <div class="gallery-item aspect-9-16">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=450&h=800&fit=crop" alt="Daraxtlar building">
                     </div>
                 </div>
-                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                <div class="gallery-item aspect-3-2">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&h=600&fit=crop" alt="Daraxtlar boshqarish">
                     </div>
                 </div>
-                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                <div class="gallery-item aspect-4-3">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=600&fit=crop" alt="Daraxtlar muvaffaqiyat">
                     </div>
@@ -487,32 +365,32 @@
         <!-- Basseyinlar Galereyasi -->
         <div class="gallery-section" data-category="5">
             <div class="gallery-grid">
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=600&fit=crop" alt="Basseyin sertifikat">
                     </div>
                 </div>
-                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                <div class="gallery-item aspect-3-2">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900&h=600&fit=crop" alt="Basseyin mukofot">
                     </div>
                 </div>
-                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                <div class="gallery-item aspect-16-9">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1444653614773-995cb1ef18c9?w=800&h=450&fit=crop" alt="Basseyin loyihasi">
                     </div>
                 </div>
-                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                <div class="gallery-item aspect-9-16">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=450&h=800&fit=crop" alt="Basseyin mukofot">
                     </div>
                 </div>
-                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                <div class="gallery-item aspect-4-3">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Basseyin ko'rsatkichi">
                     </div>
                 </div>
-                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                <div class="gallery-item aspect-1-1">
                     <div class="image-wrapper">
                         <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=600&fit=crop" alt="Basseyin sertifikati">
                     </div>
@@ -521,24 +399,9 @@
         </div>
     </div>
 
-    <div class="modal" id="imageModal">
-        <button class="close-btn" onclick="closeModal()">✕</button>
-        <div class="modal-content" id="modalContent">
-            <img class="modal-image" id="modalImage" src="" alt="">
-        </div>
-        <div class="zoom-controls">
-            <button class="zoom-btn" id="zoomOutBtn" onclick="zoomOut()">−</button>
-            <div class="zoom-level" id="zoomLevel">100%</div>
-            <button class="zoom-btn" id="zoomInBtn" onclick="zoomIn()">+</button>
-        </div>
-    </div>
     <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
 
     <script>
-        let currentZoom = 1;
-        let isDragging = false;
-        let startX, startY, scrollLeft, scrollTop;
-
         // Kategoriya ma'lumotlari
         const categoryInfo = {
             0: { title: 'Ichki Dizayn Galereyasi', desc: 'Ichki dizayn loyihalarimiz bilan tanishing - zamonaviy va qulay interyerning eng yaxshi namunalari.', slug: 'ichki' },
@@ -546,7 +409,7 @@
             2: { title: 'Shahar va Park Galereyasi', desc: 'Shahar parklar va urban dizayn loyihalarimiz - shahar hayotining yashil tomoni.', slug: 'shahar-va-park' },
             3: { title: 'Toshlar Butiki Galereyasi', desc: 'Tosh va tabiiy materiallar bilan bezatilgan loyihalar - mustahkamlik va estetikaning birlashuvi.', slug: 'toshlar-butiki' },
             4: { title: 'Daraxtlar Atrofida Galereyasi', desc: 'Daraxtlar va yashil zonalar atrofidagi dizayn loyihalar - ekologik va ilhomlantiruvchi muhit.', slug: 'daraxtlar-atrofida' },
-            5: { title: 'Basseynlar Galereyasi', desc: 'Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.', slug: 'basseyinlar' }
+            5: { title: 'Basseyinlar Galereyasi', desc: 'Basseyn va suv muhitlari loyihalarimiz - dam olish va sport uchun ideal joylar.', slug: 'basseyinlar' }
         };
 
         // Elementlar
@@ -555,10 +418,10 @@
         var pageTitle = document.getElementById('pageTitle');
         var pageDescription = document.getElementById('pageDescription');
 
-        // URL dan kategoriyani o'qish funksiyasi
+        // URL dan kategoriyani o'qish funksiyasi (hash dan)
         function getCategoryFromURL() {
-            const path = window.location.pathname;
-            const match = path.match(/\/category\/(\d+)-([^\/]+)/);
+            const hash = window.location.hash.substring(1); // # dan keyin
+            const match = hash.match(/category\/(\d+)-([^\/]+)/);
             if (match) {
                 const id = parseInt(match[1]);
                 const slug = match[2];
@@ -610,8 +473,8 @@
                 var id = parseInt(this.getAttribute('data-id'));
                 var slug = this.getAttribute('data-slug');
                 
-                // URL o'zgartirish
-                history.pushState({ id: id }, '', '/category/' + id + '-' + slug);
+                // Hash URL o'zgartirish
+                history.pushState({ id: id }, '', '#category/' + id + '-' + slug);
                 
                 // Kategoriyani yuklash
                 loadCategory(id);
@@ -620,10 +483,21 @@
 
         // Popstate event (back/forward tugmalari)
         window.addEventListener('popstate', function(event) {
-            if (event.state && event.state.id) {
-                loadCategory(event.state.id);
+            var urlCategory = getCategoryFromURL();
+            if (urlCategory) {
+                loadCategory(urlCategory.id);
             } else {
                 // Default - birinchi kategoriya
+                loadCategory(0);
+            }
+        });
+
+        // Hashchange event (hash o'zgarganda)
+        window.addEventListener('hashchange', function() {
+            var urlCategory = getCategoryFromURL();
+            if (urlCategory) {
+                loadCategory(urlCategory.id);
+            } else {
                 loadCategory(0);
             }
         });
@@ -635,132 +509,12 @@
                 loadCategory(urlCategory.id);
             } else {
                 // Default
-                history.replaceState({ id: 0 }, '', '/category/0-ichki');
+                history.replaceState({ id: 0 }, '', '#category/0-ichki');
                 loadCategory(0);
             }
         });
 
-        // Modal funksiyalari
-        function openModal(element) {
-            const img = element.querySelector('img');
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-           
-            modalImg.src = img.src.replace(/w=\d+&h=\d+/, 'w=1200&h=800'); // Zoom uchun o'lchamni o'zgartir
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-           
-            currentZoom = 1;
-            updateZoom();
-        }
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            const modalContent = document.getElementById('modalContent');
-            const modalImg = document.getElementById('modalImage');
-           
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-           
-            currentZoom = 1;
-            modalContent.classList.remove('zoomed');
-            modalImg.style.transform = 'scale(1)';
-            updateZoomButtons();
-        }
-        function zoomIn() {
-            if (currentZoom < 3) {
-                currentZoom += 0.25;
-                updateZoom();
-            }
-        }
-        function zoomOut() {
-            if (currentZoom > 0.5) {
-                currentZoom -= 0.25;
-                updateZoom();
-            }
-        }
-        function updateZoom() {
-            const modalImg = document.getElementById('modalImage');
-            const modalContent = document.getElementById('modalContent');
-            const zoomLevel = document.getElementById('zoomLevel');
-           
-            modalImg.style.transform = `scale(${currentZoom})`;
-            zoomLevel.textContent = Math.round(currentZoom * 100) + '%';
-           
-            if (currentZoom > 1) {
-                modalContent.classList.add('zoomed');
-            } else {
-                modalContent.classList.remove('zoomed');
-            }
-           
-            updateZoomButtons();
-        }
-        function updateZoomButtons() {
-            const zoomInBtn = document.getElementById('zoomInBtn');
-            const zoomOutBtn = document.getElementById('zoomOutBtn');
-           
-            zoomInBtn.disabled = currentZoom >= 3;
-            zoomOutBtn.disabled = currentZoom <= 0.5;
-        }
-        const modalContent = document.getElementById('modalContent');
-       
-        modalContent.addEventListener('mousedown', (e) => {
-            if (currentZoom > 1 && e.target.id === 'modalImage') {
-                isDragging = true;
-                modalContent.style.cursor = 'grabbing';
-                startX = e.pageX - modalContent.offsetLeft;
-                startY = e.pageY - modalContent.offsetTop;
-                scrollLeft = modalContent.scrollLeft;
-                scrollTop = modalContent.scrollTop;
-            }
-        });
-        modalContent.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - modalContent.offsetLeft;
-            const y = e.pageY - modalContent.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            modalContent.scrollLeft = scrollLeft - walkX;
-            modalContent.scrollTop = scrollTop - walkY;
-        });
-        modalContent.addEventListener('mouseup', () => {
-            isDragging = false;
-            if (currentZoom > 1) {
-                modalContent.style.cursor = 'grab';
-            }
-        });
-        modalContent.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-        modalContent.addEventListener('touchstart', (e) => {
-            if (currentZoom > 1 && e.target.id === 'modalImage') {
-                isDragging = true;
-                const touch = e.touches[0];
-                startX = touch.pageX - modalContent.offsetLeft;
-                startY = touch.pageY - modalContent.offsetTop;
-                scrollLeft = modalContent.scrollLeft;
-                scrollTop = modalContent.scrollTop;
-            }
-        });
-        modalContent.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const touch = e.touches[0];
-            const x = touch.pageX - modalContent.offsetLeft;
-            const y = touch.pageY - modalContent.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            modalContent.scrollLeft = scrollLeft - walkX;
-            modalContent.scrollTop = scrollTop - walkY;
-        });
-        modalContent.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+        // Scroll top
         const scrollTopBtn = document.getElementById('scrollTopBtn');
         window.addEventListener('scroll', function() {
             if (window.pageYOffset > 300) {

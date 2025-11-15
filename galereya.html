@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galereya - AdVision</title>
+    <title>Kategoriyalar Galereyasi</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,26 +13,27 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background: #ffffff;
             color: #0f172a;
             min-height: 100vh;
         }
-
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
         .page-header {
             text-align: center;
             padding: 40px 20px;
         }
-
         .page-header h1 {
             font-size: 2.5rem;
             font-weight: 700;
             color: #0f172a;
             margin-bottom: 12px;
         }
-
         .page-header p {
             font-size: 1.1rem;
             color: #64748b;
@@ -40,49 +41,90 @@
             margin: 0 auto;
             line-height: 1.6;
         }
-
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .category {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e0e0e0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            white-space: normal;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .category:hover {
+            border-color: #6366f1;
+            background: #f9f9f9;
+        }
+        .category.active {
+            border-color: #6366f1;
+            background: #6366f1;
+            color: white;
+        }
+        .gallery-section {
+            display: none;
+        }
+        .gallery-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .gallery-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             width: 100%;
         }
-
         .gallery-item {
             position: relative;
             overflow: hidden;
             background: #f8fafc;
             cursor: pointer;
-            aspect-ratio: 9/16;
-            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
         }
-
         .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
             opacity: 0.95;
         }
-
         .image-wrapper {
             position: relative;
             width: 100%;
-            height: 100%;
             overflow: hidden;
             background: #f0f0f0;
         }
-
         .gallery-item img {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
             transition: transform 0.4s ease;
         }
-
         .gallery-item:hover img {
             transform: scale(1.05);
         }
-
+        /* Turli aspect ratio uchun */
+        .aspect-16-9 { aspect-ratio: 16/9; }
+        .aspect-9-16 { aspect-ratio: 9/16; }
+        .aspect-1-1 { aspect-ratio: 1/1; }
+        .aspect-4-3 { aspect-ratio: 4/3; }
+        .aspect-3-2 { aspect-ratio: 3/2; }
         .modal {
             display: none;
             position: fixed;
@@ -96,11 +138,9 @@
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-
         .modal.active {
             display: flex;
         }
-
         .modal-content {
             position: relative;
             width: 100%;
@@ -110,15 +150,12 @@
             justify-content: center;
             overflow: auto;
         }
-
         .modal-content.zoomed {
             cursor: grab;
         }
-
         .modal-content.zoomed:active {
             cursor: grabbing;
         }
-
         .modal-image {
             max-width: 90%;
             max-height: 90%;
@@ -128,7 +165,6 @@
             user-select: none;
             transform-origin: center center;
         }
-
         .close-btn {
             position: fixed;
             top: 20px;
@@ -146,12 +182,10 @@
             transition: all 0.3s;
             z-index: 1002;
         }
-
         .close-btn:hover {
             background: #ffffff;
             transform: scale(1.1);
         }
-
         .zoom-controls {
             position: fixed;
             bottom: 30px;
@@ -165,7 +199,6 @@
             border-radius: 50px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
-
         .zoom-btn {
             width: 44px;
             height: 44px;
@@ -181,24 +214,20 @@
             color: #6366f1;
             font-weight: bold;
         }
-
         .zoom-btn:hover {
             background: #6366f1;
             color: white;
             transform: scale(1.1);
         }
-
         .zoom-btn:disabled {
             opacity: 0.3;
             cursor: not-allowed;
         }
-
         .zoom-btn:disabled:hover {
             background: transparent;
             color: #6366f1;
             transform: scale(1);
         }
-
         .zoom-level {
             display: flex;
             align-items: center;
@@ -207,7 +236,6 @@
             font-weight: 600;
             color: #0f172a;
         }
-
         .scroll-top-btn {
             position: fixed;
             bottom: 30px;
@@ -227,71 +255,32 @@
             transition: all 0.3s;
             z-index: 999;
         }
-
         .scroll-top-btn.visible {
             display: flex;
         }
-
         .scroll-top-btn:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
         }
-
-        @media (min-width: 641px) and (max-width: 1023px) {
-            .gallery-grid {
-                max-width: 500px;
-                margin: 0 auto;
-                gap: 20px;
-                padding: 0 20px;
-            }
-
-            .gallery-item {
-                border-radius: 16px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .page-header h1 {
-                font-size: 3rem;
-            }
-
-            .page-header p {
-                font-size: 1.2rem;
-            }
-
-            .gallery-grid {
+        @media (max-width: 768px) {
+            .categories {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 24px;
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 40px 40px;
+                gap: 8px;
             }
-
-            .gallery-item {
-                border-radius: 16px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-                transition: all 0.3s ease;
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
-
-            .gallery-item:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-                opacity: 1;
+            .page-header h1 {
+                font-size: 2rem;
             }
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         @keyframes zoomIn {
-            from { 
+            from {
                 opacity: 0;
                 transform: scale(0.8);
             }
-            to { 
+            to {
                 opacity: 1;
                 transform: scale(1);
             }
@@ -299,81 +288,234 @@
     </style>
 </head>
 <body>
-    <div class="page-header">
-        <h1>Galereya</h1>
-        <p>Bizning eng yaxshi mahsulotlar to'plami bilan tanishing</p>
-    </div>
+    <div class="container">
+        <div class="page-header">
+            <h1>Kategoriyali Galereya</h1>
+            <p>Kategoriyalarga ko'ra eng yaxshi loyihalar va ishlarimiz bilan tanishing</p>
+        </div>
+        
+        <div class="categories">
+            <div class="category active" data-id="0">Ichki</div>
+            <div class="category" data-id="1">Manzara</div>
+            <div class="category" data-id="2">Shahar va Park</div>
+            <div class="category" data-id="3">Toshlar butiki</div>
+            <div class="category" data-id="4">Daraxtlar atrofida</div>
+            <div class="category" data-id="5">Basseyinlar</div>
+        </div>
 
-    <div class="gallery-grid">
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=1066&fit=crop" alt="Premium Soat">
+        <!-- Biznes Galereyasi -->
+        <div class="gallery-section active" data-category="0">
+            <div class="gallery-grid">
+                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=450&fit=crop" alt="Biznes strategiyasi">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=450&h=800&fit=crop" alt="Korporativ uchrashuv">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=600&fit=crop" alt="Biznes grafik">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop" alt="Ofis muhiti">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900&h=600&fit=crop" alt="Biznes reja">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1444653614773-995cb1ef18c9?w=800&h=450&fit=crop" alt="Investitsiya">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=1066&fit=crop" alt="Wireless Quloqchin">
+        <!-- Dasturlash Galereyasi -->
+        <div class="gallery-section" data-category="1">
+            <div class="gallery-grid">
+                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=450&h=800&fit=crop" alt="Kod yozish">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop" alt="Dasturiy ta'minot">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=600&fit=crop" alt="Developer ish joyi">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop" alt="Mobil app">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop" alt="Veb dasturlash">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b848c1ad6?w=450&h=800&fit=crop" alt="Kod debug">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=1066&fit=crop" alt="Elegant Sumka">
+        <!-- Dizayn Galereyasi -->
+        <div class="gallery-section" data-category="2">
+            <div class="gallery-grid">
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=600&fit=crop" alt="Grafik dizayn">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1559028005-7d6f39966d55?w=800&h=450&fit=crop" alt="UI/UX dizayn">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=450&h=800&fit=crop" alt="Logo dizayn">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="Brending">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop" alt="Veb dizayn">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1559028005-7d6f39966d55?w=600&h=600&fit=crop" alt="Poster dizayn">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=1066&fit=crop" alt="Sport Krossovka">
+        <!-- Marketing Galereyasi -->
+        <div class="gallery-section" data-category="3">
+            <div class="gallery-grid">
+                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=900&h=600&fit=crop" alt="SMM kampaniya">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=450&fit=crop" alt="SEO optimizatsiya">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=450&h=800&fit=crop" alt="Reklama">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1559028005-7d6f39966d55?w=600&h=600&fit=crop" alt="Marketing strategiya">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Brend rivojlantirish">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&h=600&fit=crop" alt="Kontent marketing">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&h=1066&fit=crop" alt="Professional Kamera">
+        <!-- Jamoa Galereyasi -->
+        <div class="gallery-section" data-category="4">
+            <div class="gallery-grid">
+                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Jamoa uchrashuvi">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=600&fit=crop" alt="Jamoa a'zolari">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=450&fit=crop" alt="Hamkorlik">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=450&h=800&fit=crop" alt="Team building">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=900&h=600&fit=crop" alt="Loyihani boshqarish">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=600&fit=crop" alt="Jamoaviy muvaffaqiyat">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&h=1066&fit=crop" alt="Smartwatch Pro">
-            </div>
-        </div>
-
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1572635196184-84e35138cf62?w=600&h=1066&fit=crop" alt="Designer Ko'zoynak">
-            </div>
-        </div>
-
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&h=1066&fit=crop" alt="Parfyum">
-            </div>
-        </div>
-
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=1066&fit=crop" alt="Sneakers">
-            </div>
-        </div>
-
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&h=1066&fit=crop" alt="Smart Speaker">
-            </div>
-        </div>
-
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=1066&fit=crop" alt="Travel Bag">
-            </div>
-        </div>
-
-        <div class="gallery-item" onclick="openModal(this)">
-            <div class="image-wrapper">
-                <img src="https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=600&h=1066&fit=crop" alt="Fitness Tracker">
+        <!-- Yutuqlar Galereyasi -->
+        <div class="gallery-section" data-category="5">
+            <div class="gallery-grid">
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=600&fit=crop" alt="Sertifikat">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-3-2" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900&h=600&fit=crop" alt="Mukofot">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-16-9" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1444653614773-995cb1ef18c9?w=800&h=450&fit=crop" alt="Yutuq loyihasi">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-9-16" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=450&h=800&fit=crop" alt="Xalqaro mukofot">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-4-3" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Muvaffaqiyat ko'rsatkichi">
+                    </div>
+                </div>
+                <div class="gallery-item aspect-1-1" onclick="openModal(this)">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=600&fit=crop" alt="Yutuq sertifikati">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -389,7 +531,6 @@
             <button class="zoom-btn" id="zoomInBtn" onclick="zoomIn()">+</button>
         </div>
     </div>
-
     <button class="scroll-top-btn" id="scrollTopBtn" onclick="scrollToTop()">↑</button>
 
     <script>
@@ -397,74 +538,90 @@
         let isDragging = false;
         let startX, startY, scrollLeft, scrollTop;
 
+        // Kategoriya tablar
+        var categories = document.querySelectorAll('.category');
+        var gallerySections = document.querySelectorAll('.gallery-section');
+
+        for (var i = 0; i < categories.length; i++) {
+            categories[i].addEventListener('click', function() {
+                for (var j = 0; j < categories.length; j++) {
+                    categories[j].classList.remove('active');
+                }
+                for (var k = 0; k < gallerySections.length; k++) {
+                    gallerySections[k].classList.remove('active');
+                }
+                
+                this.classList.add('active');
+                
+                var id = this.getAttribute('data-id');
+                var activeSection = document.querySelector('[data-category="' + id + '"]');
+                activeSection.classList.add('active');
+            });
+        }
+
+        // Modal funksiyalari
         function openModal(element) {
             const img = element.querySelector('img');
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
-            
-            modalImg.src = img.src.replace('w=600&h=1066', 'w=1200&h=2133');
+           
+            modalImg.src = img.src.replace(/w=\d+&h=\d+/, 'w=1200&h=800'); // Zoom uchun o'lchamni o'zgartir
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
+           
             currentZoom = 1;
             updateZoom();
         }
-
         function closeModal() {
             const modal = document.getElementById('imageModal');
             const modalContent = document.getElementById('modalContent');
             const modalImg = document.getElementById('modalImage');
-            
+           
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
-            
+           
             currentZoom = 1;
             modalContent.classList.remove('zoomed');
             modalImg.style.transform = 'scale(1)';
             updateZoomButtons();
         }
-
         function zoomIn() {
             if (currentZoom < 3) {
                 currentZoom += 0.25;
                 updateZoom();
             }
         }
-
         function zoomOut() {
             if (currentZoom > 0.5) {
                 currentZoom -= 0.25;
                 updateZoom();
             }
         }
-
         function updateZoom() {
             const modalImg = document.getElementById('modalImage');
             const modalContent = document.getElementById('modalContent');
             const zoomLevel = document.getElementById('zoomLevel');
-            
+           
             modalImg.style.transform = `scale(${currentZoom})`;
             zoomLevel.textContent = Math.round(currentZoom * 100) + '%';
-            
+           
             if (currentZoom > 1) {
                 modalContent.classList.add('zoomed');
             } else {
                 modalContent.classList.remove('zoomed');
             }
-            
+           
             updateZoomButtons();
         }
-
         function updateZoomButtons() {
             const zoomInBtn = document.getElementById('zoomInBtn');
             const zoomOutBtn = document.getElementById('zoomOutBtn');
-            
+           
             zoomInBtn.disabled = currentZoom >= 3;
             zoomOutBtn.disabled = currentZoom <= 0.5;
         }
-
         const modalContent = document.getElementById('modalContent');
-        
+       
         modalContent.addEventListener('mousedown', (e) => {
             if (currentZoom > 1 && e.target.id === 'modalImage') {
                 isDragging = true;
@@ -475,7 +632,6 @@
                 scrollTop = modalContent.scrollTop;
             }
         });
-
         modalContent.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             e.preventDefault();
@@ -486,18 +642,15 @@
             modalContent.scrollLeft = scrollLeft - walkX;
             modalContent.scrollTop = scrollTop - walkY;
         });
-
         modalContent.addEventListener('mouseup', () => {
             isDragging = false;
             if (currentZoom > 1) {
                 modalContent.style.cursor = 'grab';
             }
         });
-
         modalContent.addEventListener('mouseleave', () => {
             isDragging = false;
         });
-
         modalContent.addEventListener('touchstart', (e) => {
             if (currentZoom > 1 && e.target.id === 'modalImage') {
                 isDragging = true;
@@ -508,7 +661,6 @@
                 scrollTop = modalContent.scrollTop;
             }
         });
-
         modalContent.addEventListener('touchmove', (e) => {
             if (!isDragging) return;
             e.preventDefault();
@@ -520,19 +672,15 @@
             modalContent.scrollLeft = scrollLeft - walkX;
             modalContent.scrollTop = scrollTop - walkY;
         });
-
         modalContent.addEventListener('touchend', () => {
             isDragging = false;
         });
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
             }
         });
-
         const scrollTopBtn = document.getElementById('scrollTopBtn');
-
         window.addEventListener('scroll', function() {
             if (window.pageYOffset > 300) {
                 scrollTopBtn.classList.add('visible');
@@ -540,7 +688,6 @@
                 scrollTopBtn.classList.remove('visible');
             }
         });
-
         function scrollToTop() {
             window.scrollTo({
                 top: 0,

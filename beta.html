@@ -3,498 +3,884 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahsulotlar Katalogi</title>
+    <link rel="icon" href="cimg/logo.png" type="image/x-icon">
+    <title>Toshgilam - Zamonaviy Tosh Gilamlar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
         :root {
-            --primary: #1E90FF;
-            --primary-dark: #104E8B;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
             --secondary: #ec4899;
             --dark: #0f172a;
             --gray: #64748b;
             --light: #f8fafc;
             --border: #e2e8f0;
-            --maroqand: linear-gradient(135deg, #8B7355 0%, #A0826D 100%);
-            --klassika: linear-gradient(135deg, #5D4E37 0%, #8B7355 100%);
-            --hitech: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
-            --toshgilam: linear-gradient(135deg, #7F8C8D 0%, #95A5A6 100%);
-            --hammasi: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
         }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: #f3f5f8;
+            background: #ffffff;
             color: var(--dark);
-            line-height: 1.6;
-            scroll-behavior: smooth;
+            overflow-x: hidden;
+            padding-top: 149px;
         }
-
-        .container {
+        /* Navigation - Header CSS */
+        #part1 .navbar-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+        }
+        #part1 .navbar-wrapper.hidden {
+            transform: translateY(-100%);
+        }
+        #part1 .navbar-wrapper.menu-open #part1 .bottom-navbar {
+            display: none;
+        }
+        #part1 .top-navbar {
+            background: white;
+            padding: 12px 0;
+        }
+        #part1 .top-nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
         }
-
-        header {
-            text-align: center;
-            padding: 60px 20px 40px;
+        #part1 .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-shrink: 0;
+        }
+        #part1 .logo {
+            display: block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 0;
+        }
+        #part1 .logo img {
+            height: 65px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+        #part1 .logo:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        #part1 .logo:active {
+            transform: scale(0.98);
+        }
+        #part1 .contact-info {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        #part1 .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        #part1 .contact-item i {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        #part1 .contact-item:hover {
+            transform: translateY(-2px);
+            color: var(--primary);
+        }
+        #part1 .contact-item span {
+            font-weight: 500;
+        }
+        #part1 .phone-number {
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+        #part1 .bottom-navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+        }
+        #part1 .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+        }
+        #part1 .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            justify-content: center;
+        }
+        #part1 .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 10px 0;
+        }
+        #part1 .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
             background: white;
-            margin-bottom: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: width 0.3s ease;
+            border-radius: 3px;
         }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
+        #part1 .nav-links a:hover {
+            color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+        #part1 .nav-links a:hover::after {
+            width: 100%;
+        }
+        #part1 .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+        #part1 .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        #part1 .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+        #part1 .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        #part1 .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+        #part1 .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80%;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55), visibility 0.4s ease;
+            z-index: 999;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 4px 0 20px rgba(15, 23, 42, 0.08);
+        }
+        #part1 .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        #part1 .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            width: 100%;
+            max-width: 300px;
+        }
+        #part1 .mobile-menu-links a {
+            text-align: center;
+            padding: 0;
+        }
+        #part1 .mobile-contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 20px;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid var(--border);
+        }
+        #part1 .mobile-contact-info .contact-item {
+            justify-content: flex-start;
+            font-size: 1rem;
+            color: var(--dark);
+            gap: 12px;
+        }
+        #part1 .mobile-contact-info .contact-item i {
+            color: var(--primary);
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
+        }
+        #part1 .mobile-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        #part1 .mobile-menu.active a {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #part1 .mobile-menu.active .mobile-menu-links a:nth-child(1) { transition-delay: 0.1s; }
+        #part1 .mobile-menu.active .mobile-menu-links a:nth-child(2) { transition-delay: 0.15s; }
+        #part1 .mobile-menu.active .mobile-menu-links a:nth-child(3) { transition-delay: 0.2s; }
+        #part1 .mobile-menu.active .mobile-menu-links a:nth-child(4) { transition-delay: 0.25s; }
+        #part1 .mobile-menu.active .mobile-menu-links a:nth-child(5) { transition-delay: 0.3s; }
+        #part1 .mobile-menu.active .mobile-menu-links a:nth-child(6) { transition-delay: 0.35s; }
+        #part1 .mobile-menu.active .mobile-menu-links a:nth-child(7) { transition-delay: 0.4s; }
+        #part1 .mobile-menu.active .mobile-contact-info {
+            animation: fadeInUp 0.5s ease 0.5s forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        #part1 .mobile-menu a:hover {
+            color: var(--primary);
+            transform: scale(1.05);
+        }
+        /* Carousel Section */
+        #part2 .carousel-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 1;
+        }
+        #part2 .carousel-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        #part2 .carousel-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            will-change: transform, opacity;
+        }
+        #part2 .carousel-image.active {
+            opacity: 1;
+        }
+        #part2 .carousel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transform: scale(1.15);
+        }
+        #part2 .carousel-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 2;
+        }
+        #part2 .carousel-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            text-align: center;
+            color: white;
+        }
+        #part2 .carousel-title {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: fadeInDown 0.8s ease-out;
+        }
+        #part2 .carousel-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+            animation: fadeInUp 0.8s ease-out;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+        #part2 .carousel-buttons {
+            display: flex;
+            gap: 20px;
+            animation: fadeInUp 1s ease-out;
+            animation-delay: 0.2s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        #part2 .btn {
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        #part2 .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        #part2 .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(99, 102, 241, 0.4);
+        }
+        #part2 .btn-primary:active {
+            transform: translateY(-1px);
+        }
+        #part2 .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        #part2 .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.2);
+        }
+        #part2 .btn-secondary:active {
+            transform: translateY(-1px);
+        }
+        #part2 .carousel-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 4;
+        }
+        #part2 .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #part2 .dot.active {
+            background: white;
+            width: 30px;
+            border-radius: 6px;
+        }
+        #part2 .dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+        /* Scrolling Gallery */
+        #part3 .scrolling-gallery {
+            padding: 100px 0;
+            background: white;
+            overflow: hidden;
+        }
+        #part3 .gallery-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+            text-align: center;
+        }
+        #part3 .gallery-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        #part3 .gallery-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #part3 .gallery-track {
+            display: flex;
+            gap: 24px;
+            animation: scroll 40s linear infinite;
+            width: max-content;
+        }
+        #part3 .gallery-item-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        #part3 .gallery-item {
+            width: 400px;
+            height: 280px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        #part3 .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        #part3 .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
+        }
+        #part3 .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        #part3 .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            z-index: 1;
+            color: white;
+        }
+        #part3 .gallery-overlay h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        #part3 .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        /* Advantages Section */
+        #part4 .advantages-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 120px 40px;
+        }
+        #part4 .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        #part4 .section-header h2 {
+            font-size: 3rem;
             font-weight: 800;
             margin-bottom: 16px;
             letter-spacing: -1px;
             color: var(--dark);
         }
-
-        h2 {
-            font-size: clamp(1.2rem, 3vw, 1.5rem);
-            color: var(--gray);
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-        h3 {
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-            color: var(--gray);
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .description {
+        #part4 .section-header p {
+            font-size: 1.2rem;
             color: var(--gray);
             max-width: 600px;
-            margin: 0 auto 40px;
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin: 0 auto;
+            line-height: 1.8;
         }
-
-        /* Qidirish qismi */
-        .search-container {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        #searchInput {
-            width: 100%;
-            padding: 16px 60px 16px 50px;
-            font-size: 16px;
-            border: 2px solid var(--border);
-            border-radius: 50px;
-            outline: none;
-            transition: all 0.3s ease;
-            background: white;
-        }
-
-        #searchInput:focus {
-            border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(30, 144, 255, 0.15);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-            font-size: 20px;
-            pointer-events: none;
-        }
-
-        .clear-btn {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--light);
-            color: var(--dark);
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s ease;
-            font-weight: bold;
-        }
-
-        .clear-btn:hover {
-            background: #ef4444;
-            color: white;
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .clear-btn.show {
-            display: flex;
-        }
-
-        /* Kategoriyalar bo'limi yashirish animatsiyasi */
-        .categories-section {
-            background: white;
-            padding: 40px 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            margin-bottom: 40px;
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.5s ease;
-            overflow: hidden;
-        }
-
-        .categories-section.hidden {
-            opacity: 0;
-            transform: translateY(-20px);
-            height: 0;
-            padding: 0 20px;
-            margin: 0;
-        }
-
-        .categories-title {
-            text-align: center;
-            font-size: clamp(1.5rem, 4vw, 2rem);
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 30px;
-        }
-
-        .categories-grid {
+        #part4 .advantages-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
+            gap: 1px;
+            background: #e0e0e0;
+            border: 1px solid #e0e0e0;
         }
-
-        .category-card {
-            background: white;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            padding: 32px 24px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        #part4 .advantage-card {
+            background: #ffffff;
+            padding: 48px 32px;
+            transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
-
-        .category-card::before {
+        #part4 .advantage-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--primary);
+            width: 100%;
+            height: 2px;
+            background: #1a1a1a;
             transform: scaleX(0);
+            transform-origin: left;
             transition: transform 0.3s ease;
         }
-
-        .category-card:hover::before {
+        #part4 .advantage-card:hover::before {
             transform: scaleX(1);
         }
-
-        .category-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 12px 32px rgba(30, 144, 255, 0.15);
-            transform: translateY(-6px);
+        #part4 .advantage-card:hover {
+            background: #f5f5f5;
         }
-
-        .category-card.active {
-            border-color: transparent;
-            box-shadow: 0 12px 32px rgba(30, 144, 255, 0.25);
-            transform: translateY(-6px);
-        }
-
-        .category-card.active::before {
-            transform: scaleX(1);
-            height: 100%;
-            opacity: 0.08;
-        }
-
-        .category-card[data-category="hammasi"].active::before {
-            background: var(--hammasi);
-        }
-
-        .category-card[data-category="toshgilam"].active::before {
-            background: var(--toshgilam);
-        }
-
-        .category-card[data-category="maroqand"].active::before {
-            background: var(--maroqand);
-        }
-
-        .category-card[data-category="klassika"].active::before {
-            background: var(--klassika);
-        }
-
-        .category-card[data-category="hitech"].active::before {
-            background: var(--hitech);
-        }
-
-        .category-icon-wrapper {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 20px;
+        #part4 .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
         }
-
-        .category-card:hover .category-icon-wrapper {
-            transform: scale(1.1) rotate(5deg);
+        #part4 .icon-wrapper svg {
+            width: 48px;
+            height: 48px;
+            stroke: #1a1a1a;
+            transition: transform 0.3s ease;
         }
-
-        .category-card[data-category="hammasi"] .category-icon-wrapper {
-            background: var(--hammasi);
+        #part4 .advantage-card:hover #part4 .icon-wrapper svg {
+            transform: scale(1.1);
         }
-
-        .category-card[data-category="toshgilam"] .category-icon-wrapper {
-            background: var(--toshgilam);
+        #part4 .advantage-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
         }
-
-        .category-card[data-category="maroqand"] .category-icon-wrapper {
-            background: var(--maroqand);
-        }
-
-        .category-card[data-category="klassika"] .category-icon-wrapper {
-            background: var(--klassika);
-        }
-
-        .category-card[data-category="hitech"] .category-icon-wrapper {
-            background: var(--hitech);
-        }
-
-        .category-icon-wrapper svg {
-            width: 40px;
-            height: 40px;
-            stroke: white;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .category-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 8px;
-            transition: color 0.3s ease;
-        }
-
-        .category-card:hover .category-name,
-        .category-card.active .category-name {
-            color: var(--primary);
-        }
-
-        .category-description {
-            font-size: 0.95rem;
-            color: var(--gray);
+        #part4 .advantage-card p {
+            font-size: 0.9375rem;
+            color: #666666;
+            line-height: 1.7;
             font-weight: 400;
-            line-height: 1.5;
         }
-
-        /* Mahsulotlar va boshqa qismlar... */
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--gray);
-            font-size: 1.2em;
-            display: none;
-        }
-
-        .no-results.show {
-            display: block;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-            transition: box-shadow 0.4s ease;
-        }
-
-        .product-card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-
-        .product-card.hidden {
-            display: none;
-        }
-
-        .product-card.highlight {
-            animation: highlight 1s ease;
-        }
-
-        @keyframes highlight {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); box-shadow: 0 8px 40px rgba(99, 102, 241, 0.3); }
-        }
-
-        .image-slider {
-            width: 100%;
-            height: 280px;
-            overflow: hidden;
+        /* Comparison Section */
+        #part5 .comparison-section {
+            padding: 100px 0;
+            background: #000;
             position: relative;
-            touch-action: pan-y;
+            overflow: hidden;
         }
-
-        .slider-container {
-            display: flex;
+        #part5 .comparison-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+            text-align: center;
+            color: white;
+        }
+        #part5 .comparison-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        #part5 .comparison-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #part5 .comparison-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+            cursor: default;
+            user-select: none;
+            -webkit-user-select: none;
+            border-radius: 20px;
+        }
+        #part5 .image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .slider-image {
-            min-width: 100%;
+        #part5 .image-wrapper img {
+            width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
-
-        .slider-dots {
+        #part5 .after-image {
+            clip-path: inset(0 0 0 50%);
+        }
+        #part5 .slider {
             position: absolute;
-            bottom: 12px;
+            top: 0;
             left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 10;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .dot.active {
+            width: 4px;
+            height: 100%;
             background: white;
-            width: 24px;
-            border-radius: 4px;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            cursor: col-resize;
         }
-
-        .product-info {
-            padding: 28px;
-            min-height: 140px;
+        #part5 .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: col-resize;
+            transition: all 0.3s ease;
+        }
+        #part5 .slider-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        #part5 .slider-button::before,
+        #part5 .slider-button::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        #part5 .slider-button::before {
+            left: 15px;
+            border-width: 10px 12px 10px 0;
+            border-color: transparent #667eea transparent transparent;
+        }
+        #part5 .slider-button::after {
+            right: 15px;
+            border-width: 10px 0 10px 12px;
+            border-color: transparent transparent transparent #667eea;
+        }
+        #part5 .label {
+            position: absolute;
+            top: 30px;
+            padding: 12px 24px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            z-index: 5;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        #part5 .label-before {
+            left: 30px;
+        }
+        #part5 .label-after {
+            right: 30px;
+        }
+        /* Contact Section */
+        #part6 .contact-section {
+            background: white;
+            padding: 100px 0;
+        }
+        #part6 .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+        #part6 .contact-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        #part6 .contact-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        #part6 .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        #part6 .contact-item {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .product-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--dark);
-            line-height: 1.4;
-        }
-
-        .product-description {
-            color: var(--gray);
-            line-height: 1.4;
-            font-size: 1rem;
-            min-height: 2.8rem;
-            margin-bottom: 20px;
-        }
-
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
+            gap: 12px;
         }
-
-        .product-btn {
-            background: var(--light);
-            color: var(--dark);
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
+        #part6 .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        #part6 .contact-item h3 {
+            font-size: 1.2rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
+            color: var(--dark);
+        }
+        #part6 .contact-item p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        #part6 .contact-item a {
+            color: var(--primary);
             text-decoration: none;
         }
-
-        .product-btn:hover {
-            background: var(--primary);
+        #part6 .contact-item a:hover {
+            text-decoration: underline;
+        }
+        /* Footer */
+        #part7 .footer {
+            background: var(--dark);
             color: white;
+            padding: 80px 0 30px;
         }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin: 40px 0;
-            padding: 20px;
+        #part7 .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            margin-bottom: 60px;
         }
-
-        .pagination button {
-            padding: 8px 16px;
-            border: none;
-            background: var(--light);
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s ease;
+        #part7 .footer-brand h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .pagination button:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .pagination button.active {
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-        }
-
-        .pagination button:disabled {
-            background: #f0f0f0;
-            color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .pagination .dots {
-            padding: 8px 16px;
-            font-size: 16px;
+        #part7 .footer-brand p {
             color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 24px;
         }
-
+        #part7 .social-links {
+            display: flex;
+            gap: 12px;
+        }
+        #part7 .social-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        #part7 .social-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        #part7 .footer-links h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        #part7 .footer-links ul {
+            list-style: none;
+        }
+        #part7 .footer-links li {
+            margin-bottom: 12px;
+        }
+        #part7 .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        #part7 .footer-links a:hover {
+            color: white;
+        }
+        #part7 .footer-contact h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        #part7 .footer-contact p {
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        #part7 .footer-contact a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        #part7 .footer-contact a:hover {
+            color: white;
+        }
+        #part7 .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -505,261 +891,780 @@
                 transform: translateY(0);
             }
         }
-
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        /* Responsive for Header */
         @media (max-width: 1200px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
+            #part1 .logo img {
+                height: 45px;
+            }
+            #part1 .contact-info {
+                gap: 30px;
+            }
+            #part1 .nav-links {
+                gap: 28px;
             }
         }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
+        @media (max-width: 1024px) {
+            #part1 .logo img {
+                height: 42px;
             }
-
-            header {
-                padding: 40px 15px 30px;
-                margin-bottom: 30px;
+            #part1 .contact-info {
+                gap: 25px;
             }
-
-            .categories-grid {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                gap: 16px;
+            #part1 .nav-links {
+                gap: 25px;
             }
-
-            .products-grid {
-                grid-template-columns: 1fr;
+            #part1 .nav-links a {
+                font-size: 0.9rem;
+            }
+            #part1 .top-nav-container {
+                padding: 0 30px;
+            }
+            #part1 .nav-container {
+                padding: 0 30px;
             }
         }
-
-        @media (max-width: 480px) {
-            .categories-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 968px) {
+            body {
+                padding-top: 76px;
+            }
+            #part1 .navbar-wrapper {
+                border-bottom: none;
+            }
+            #part1 .nav-links, #part1 .bottom-navbar {
+                display: none;
+            }
+            #part1 .mobile-menu-btn {
+                display: flex;
+            }
+            #part1 .top-nav-container {
+                padding: 0 20px;
+                gap: 15px;
+            }
+            #part1 .top-navbar {
+                padding: 12px 0;
+            }
+            #part1 .contact-info .contact-item:not(.phone-item) {
+                display: none;
+            }
+            #part1 .logo img {
+                height: 52px !important;
+            }
+            #part1 .contact-info {
+                flex: 1;
+                justify-content: flex-end;
+            }
+            #part1 .mobile-menu-btn span {
+                width: 24px;
+                height: 2px;
+            }
+            #part1 .mobile-menu-btn.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            #part1 .mobile-menu-btn.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+            #part1 .mobile-menu {
+                width: 85%;
+                padding: 20px;
+                gap: 60px;
+            }
+            #part1 .mobile-menu-links {
+                gap: 20px;
+                max-width: 280px;
+            }
+            #part1 .mobile-menu-links a {
+                font-size: 1.2rem;
+            }
+            #part1 .mobile-contact-info {
+                padding: 16px;
                 gap: 12px;
+                max-width: 280px;
+            }
+            #part1 .mobile-contact-info .contact-item {
+                font-size: 0.95rem;
+                gap: 10px;
+            }
+            #part1 .mobile-contact-info .contact-item i {
+                width: 18px;
             }
         }
-
-        ::-webkit-scrollbar {
-            width: 8px;
+        @media (max-width: 768px) {
+            #part1 .logo img {
+                height: 50px !important;
+            }
+            #part1 .phone-number {
+                font-size: 0.95rem;
+            }
+            #part1 .mobile-menu {
+                width: 90%;
+                padding: 15px;
+                gap: 50px;
+            }
+            #part1 .mobile-menu-links {
+                gap: 18px;
+                max-width: 260px;
+            }
+            #part1 .mobile-menu-links a {
+                font-size: 1.15rem;
+            }
+            #part1 .mobile-contact-info {
+                padding: 14px;
+                gap: 10px;
+                max-width: 260px;
+            }
+            #part1 .mobile-contact-info .contact-item {
+                font-size: 0.9rem;
+                gap: 8px;
+            }
+            #part1 .mobile-contact-info .contact-item i {
+                width: 16px;
+            }
         }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
+        @media (max-width: 640px) {
+            #part1 .top-navbar {
+                padding: 10px 0;
+            }
+            #part1 .top-nav-container {
+                padding: 0 15px;
+                gap: 10px;
+            }
+            #part1 .logo img {
+                height: 48px !important;
+            }
+            #part1 .phone-number {
+                font-size: 0.9rem;
+                letter-spacing: 0.3px;
+            }
+            #part1 .contact-item i {
+                font-size: 1rem;
+            }
+            #part1 .mobile-menu {
+                width: 100%;
+                padding: 10px;
+                gap: 40px;
+            }
+            #part1 .mobile-menu-links {
+                gap: 16px;
+                max-width: 240px;
+            }
+            #part1 .mobile-menu-links a {
+                font-size: 1.1rem;
+            }
+            #part1 .mobile-contact-info {
+                padding: 12px;
+                gap: 8px;
+                max-width: 240px;
+            }
+            #part1 .mobile-contact-info .contact-item {
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+            #part1 .mobile-contact-info .contact-item i {
+                width: 16px;
+            }
         }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e0;
-            border-radius: 10px;
+        @media (max-width: 480px) {
+            #part1 .logo img {
+                height: 46px !important;
+            }
+            #part1 .phone-number {
+                font-size: 0.85rem;
+            }
+            #part1 .contact-item i {
+                font-size: 0.95rem;
+            }
+            #part1 .mobile-menu {
+                padding: 8px;
+                gap: 30px;
+            }
+            #part1 .mobile-menu-links {
+                gap: 14px;
+                max-width: 220px;
+            }
+            #part1 .mobile-menu-links a {
+                font-size: 1.05rem;
+            }
+            #part1 .mobile-contact-info {
+                padding: 10px;
+                gap: 6px;
+                max-width: 220px;
+            }
+            #part1 .mobile-contact-info .contact-item {
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+            #part1 .mobile-contact-info .contact-item i {
+                width: 14px;
+            }
         }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a0aec0;
+        @media (max-width: 380px) {
+            #part1 .logo img {
+                height: 44px !important;
+            }
+            #part1 .phone-number {
+                font-size: 0.8rem;
+            }
+            #part1 .contact-item i {
+                font-size: 0.9rem;
+            }
+            #part1 .mobile-menu {
+                padding: 6px;
+                gap: 25px;
+            }
+            #part1 .mobile-menu-links {
+                gap: 12px;
+                max-width: 200px;
+            }
+            #part1 .mobile-menu-links a {
+                font-size: 1rem;
+            }
+            #part1 .mobile-contact-info {
+                padding: 8px;
+                gap: 5px;
+                max-width: 200px;
+            }
+            #part1 .mobile-contact-info .contact-item {
+                font-size: 0.75rem;
+                gap: 5px;
+            }
+            #part1 .mobile-contact-info .contact-item i {
+                width: 12px;
+            }
+        }
+        /* Responsive for Main Content */
+        @media (max-width: 1200px) {
+            #part7 .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        @media (max-width: 968px) {
+            #part2 .carousel-title {
+                font-size: 2.5rem;
+            }
+            #part2 .carousel-subtitle {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            #part2 .carousel-buttons {
+                flex-direction: column;
+                gap: 15px;
+                width: 80%;
+            }
+            #part2 .btn {
+                width: 100%;
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 768px) {
+            #part2 .section-header h2 {
+                font-size: 2rem;
+            }
+            #part4 .advantages-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            #part4 .advantage-card {
+                padding: 32px 24px;
+            }
+            #part6 .contact-info {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        @media (max-width: 640px) {
+            #part2 .section-header h2 {
+                font-size: 2rem;
+            }
+            #part2 .carousel-title {
+                font-size: 2rem;
+            }
+            #part2 .carousel-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        @keyframes ripple {
+            to {
+                transform: translate(-50%, -50%) scale(4);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Mahsulotlar katalogi</h1>
-            <h2>Sifatli va arzon mahsulotlar</h2>
-            <h3>Barcha toifalar bir joyda</h3>
-            <p class="description">
-                Bizning katalogimizda turli xil mahsulotlarni topishingiz mumkin. 
-                Qidirish maydonidan foydalanib, kerakli mahsulotingizni tez va oson toping. 
-                Har bir mahsulot haqida batafsil ma'lumot va arzon narxlar.
-            </p>
-        </header>
-
-        <div class="search-container">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.35-4.35"></path>
-            </svg>
-            <input 
-                type="text" 
-                id="searchInput" 
-                placeholder="Mahsulot qidirish..."
-                autocomplete="off"
-            >
-            <button class="clear-btn" id="clearBtn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-        </div>
-
-        <div class="categories-section" id="categoriesSection">
-            <h2 class="categories-title">Kategoriyalar</h2>
-            <div class="categories-grid" id="categoriesGrid">
-                <!-- Kategoriyalar JS orqali yuklanadi -->
+    <!-- Part 1: Header (New Navbar) -->
+    <div id="part1">
+        <!-- Main Navbar Wrapper -->
+        <div class="navbar-wrapper" id="navbarWrapper">
+            <!-- Top Row - Logo, Phone, Contact -->
+            <div class="top-navbar">
+                <div class="top-nav-container">
+                    <div class="logo-container">
+                        <a href="index.html" class="logo">
+                            <img src="cimg/logo.png" alt="Toshgilam Logo">
+                        </a>
+                    </div>
+                   
+                    <div class="contact-info">
+                        <a href="tel:+998901234567" class="contact-item phone-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span class="phone-number">+998 (90) 123-45-67</span>
+                        </a>
+                        <a href="mailto:info@toshgilam.uz" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@toshgilam.uz</span>
+                        </a>
+                        <a href="aloqa.html" class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Toshkent, O'zbekiston</span>
+                        </a>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+            <!-- Bottom Row - Categories/Navigation -->
+            <div class="bottom-navbar">
+                <div class="nav-container">
+                    <div class="nav-links">
+                        <a href="mahsulotlar.html">Mahsulotlar</a>
+                        <a href="bizhaqimizda.html">Biz haqimizda</a>
+                        <a href="galereya.html">Galereya</a>
+                        <a href="kalcul.html">Kalkulyator</a>
+                        <a href="aloqa.html">Aloqa</a>
+                        <a href="order.html">Buyurtma berish</a>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="no-results" id="noResults">
-            Hech qanday mahsulot topilmadi
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-links">
+                <a href="index.html">Bosh sahifa</a>
+                <a href="mahsulotlar.html">Mahsulotlar</a>
+                <a href="bizhaqimizda.html">Biz haqimizda</a>
+                <a href="galereya.html">Galereya</a>
+                <a href="kalcul.html">Kalkulyator</a>
+                <a href="aloqa.html">Aloqa</a>
+                <a href="order.html">Buyurtma berish</a>
+            </div>
+            <div class="mobile-contact-info">
+                <a href="tel:+998901234567" class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span class="phone-number">+998 (90) 123-45-67</span>
+                </a>
+                <a href="mailto:info@toshgilam.uz" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@toshgilam.uz</span>
+                </a>
+                <a href="aloqa.html" class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Toshkent, O'zbekiston</span>
+                </a>
+            </div>
         </div>
+    </div>
 
-        <div class="products-grid" id="productsGrid">
-            <!-- Mahsulotlar JS orqali yuklanadi -->
+    <!-- Part 2: Carousel Section -->
+    <div id="part2">
+        <div class="carousel-container" id="home">
+            <div class="carousel-background">
+                <div class="carousel-image active">
+                    <img src="cimg/01.webp" alt="Tosh Gilam 1">
+                </div>
+                <div class="carousel-image">
+                    <img src="cimg/02.webp" alt="Tosh Gilam 2">
+                </div>
+                <div class="carousel-image">
+                    <img src="cimg/03.webp" alt="Tosh Gilam 3">
+                </div>
+                <div class="carousel-image">
+                    <img src="cimg/04.webp" alt="Tosh Gilam 4">
+                </div>
+              
+                <div class="carousel-image">
+                    <img src="cimg/05.webp" alt="Tosh Gilam 4">
+                </div>
+            </div>
+            <div class="carousel-overlay"></div>
+            <div class="carousel-content">
+                <h1 class="carousel-title">TOSH GILAM</h1>
+                <p class="carousel-subtitle">Eng sifatli tosh gilam mahsulotlari siz uchun</p>
+                <div class="carousel-buttons">
+                    <a href="mahsulotlar.html"><button class="btn btn-secondary">Mahsulotlar</button></a>
+                    <a href="order.html"><button class="btn btn-primary">Buyurtma berish</button></a>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
         </div>
+    </div>
 
-        <div class="pagination" id="pagination"></div>
+    <!-- Part 3: Scrolling Gallery -->
+    <div id="part3">
+        <section class="scrolling-gallery">
+            <div class="gallery-header">
+                <h2>Bizning toshgilamlar galereyasi</h2>
+                <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
+            </div>
+            <div class="gallery-track">
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g01.webp" alt="">
+                        <div class="gallery-overlay">
+                            <h3>Shabnam</h3>
+                            <p>ertalab shabnamday tiniq</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g02.webp" alt="Tech">
+                        <div class="gallery-overlay">
+                            <h3>Temuriy</h3>
+                            <p>aralash rangdagi silliq yuvilgan toshlar </p>
+                        </div>
+                    </div>
+                </a>
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g03.webp" alt="Food">
+                        <div class="gallery-overlay">
+                            <h3>Oytog'</h3>
+                            <p>tabiatning mutanosib va sokin go'zalligi</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g04.webp" alt="Travel">
+                        <div class="gallery-overlay">
+                            <h3>Kohinur</h3>
+                            <p>juda mayda va silliqlangan toshlar</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g05.webp" alt="Interior">
+                        <div class="gallery-overlay">
+                            <h3>Zarnigor</h3>
+                            <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g06.webp" alt="Store">
+                        <div class="gallery-overlay">
+                            <h3>Safonur</h3>
+                            <p>nafislik va kontrastninig uyg'unligi</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g07.webp" alt="Tech">
+                        <div class="gallery-overlay">
+                            <h3>Suvoriy</h3>
+                            <p>tabiatda yaralgan noziklik</p>
+                        </div>
+                    </div>
+                </a>
+                <a href="galereya.html" class="gallery-item-link">
+                    <div class="gallery-item">
+                        <img src="gimg/g08.webp" alt="Food">
+                        <div class="gallery-overlay">
+                            <h3>Safir</h3>
+                            <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Part 4: Advantages Section -->
+    <div id="part4">
+        <section class="advantages-section">
+            <div class="section-header">
+                <h2>Bizning afzalliklarimiz</h2>
+                <p>Tosh gilam mahsulotlarimiz nima uchun eng yaxshi tanlov ekanligi haqida</p>
+            </div>
+          
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <h3>Tabiiy materiallar</h3>
+                    <p>100% tabiiy tosh va ekologik toza materiallardan tayyorlangan. Sizning salomatligingiz va atrof-muhit uchun xavfsiz.</p>
+                </div>
+              
+                <div class="advantage-card">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Chidamlilik</h3>
+                    <p>Namlik, issiqlik va mexanik ta'sirlarga bardoshli.</p>
+                </div>
+              
+                <div class="advantage-card">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Kafolat</h3>
+                    <p>7 yildan 15 yilgacha.</p>
+                </div>
+              
+                <div class="advantage-card">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"></path>
+                        </svg>
+                    </div>
+                    <h3>Zamonaviy dizayn</h3>
+                    <p>Har bir mahsulot noyob va eksklyuziv dizaynga ega. Har qanday interyerga mos keluvchi ranglar va naqshlar.</p>
+                </div>
+              
+                <div class="advantage-card">
+                    <div class="icon-wrapper">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                    </div>
+                    <h3>Professional o'rnatish</h3>
+                    <p>Tajribali mutaxassislar tomonidan sifatli o'rnatish xizmati. Tez va mukammal bajariladigan ish kafolati.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Part 5: Comparison Section -->
+    <div id="part5">
+        <section class="comparison-section">
+            <div class="comparison-header">
+                <h2>Oldin va Keyin</h2>
+                <p>Tosh gilam o'rnatishdan oldin va keyin taqqoslash. Farqni o'zingiz ko'ring!</p>
+            </div>
+            <div class="comparison-container" id="comparisonContainer">
+                <div class="image-wrapper before-image">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/pic/oldin.jpg?updatedAt=1762862641438" alt="Oldin">
+                </div>
+              
+                <div class="image-wrapper after-image" id="afterImage">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/pic/keyin.jpg?updatedAt=1762862626258" alt="Keyin">
+                </div>
+              
+                <div class="slider" id="slider">
+                    <div class="slider-button"></div>
+                </div>
+              
+                <div class="label label-before">OLDIN</div>
+                <div class="label label-after">KEYIN</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Part 6: Contact Section -->
+    <div id="part6">
+        <section class="contact-section">
+            <div class="contact-container">
+                <div class="contact-header">
+                    <h2>Biz bilan aloqa</h2>
+                    <p>Biz bilan bog'laning va buyurtma bering</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <h3>Telefon raqam</h3>
+                        <p><a href="tel:+998901234567">+998 90 123 45 67</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <h3>Gmail</h3>
+                        <p><a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a></p>
+                    </div>
+                <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <h3>Joylashuv</h3>
+                        <p>Toshkent sh., Chilanzor tumani, 1-uy</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Part 7: Footer -->
+    <div id="part7">
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Toshgilamlar</h3>
+                    <p>
+                        Eng sifatli va zamonaviy tosh gilam mahsulotlari siz uchun
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Platforma</h4>
+                    <ul>
+                        <li><a href="#">Xizmatlar</a></li>
+                        <li><a href="#">Narxlar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Kompaniya</h4>
+                    <ul>
+                        <li><a href="bizhaqimizda.html">Biz haqimizda</a></li>
+                        <li><a href="#">Jamoa</a></li>
+                        <li><a href="aloqa.html">Aloqa</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Biz bilan aloqa</h4>
+                    <p>Telefon: <a href="tel:+998901234567">+998 90 123 45 67</a></p>
+                    <p>Email: <a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a></p>
+                    <p>Manzil: Toshkent sh., Chilanzor tumani, 1-uy</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Toshgilam. Barcha huquqlar himoyalangan. | Zamonaviy toshgilamlar</p>
+            </div>
+        </footer>
     </div>
 
     <script>
-        // Ma'lumotlar va barcha funksiyalar (oldingi kod bilan bir xil, faqat qidiruv logikasi o'zgartirildi)
-
-        const categories = [ /* ... o'sha kategoriyalar ... */ ];
-        const productsData = { /* ... o'sha mahsulotlar ... */ };
-
-        productsData['hammasi'] = [
-            ...productsData['toshgilam'],
-            ...productsData['maroqand'],
-            ...productsData['klassika'],
-            ...productsData['hitech']
-        ];
-
-        const searchInput = document.getElementById('searchInput');
-        const clearBtn = document.getElementById('clearBtn');
-        const categoriesSection = document.getElementById('categoriesSection');
-        const categoriesGrid = document.getElementById('categoriesGrid');
-        const productsGrid = document.getElementById('productsGrid');
-        const noResults = document.getElementById('noResults');
-        const pagination = document.getElementById('pagination');
-
-        let currentCategory = 'hammasi';
-        let currentProducts = [];
-        let currentPage = 1;
-        const itemsPerPage = 9;
-
-        function loadCategories() {
-            categories.forEach(category => {
-                const card = document.createElement('div');
-                card.className = 'category-card';
-                card.dataset.categoryId = category.id;
-                card.dataset.category = category.slug;
-                card.innerHTML = `
-                    <div class="category-icon-wrapper">
-                        ${category.icon}
-                    </div>
-                    <div class="category-name">${category.name}</div>
-                    <div class="category-description">${category.description}</div>
-                `;
-                card.addEventListener('click', () => selectCategory(category.id));
-                categoriesGrid.appendChild(card);
-            });
-        }
-
-        function selectCategory(categoryId) {
-            document.querySelectorAll('.category-card').forEach(card => card.classList.remove('active'));
-            const selectedCard = document.querySelector(`[data-category-id="${categoryId}"]`);
-            if (selectedCard) selectedCard.classList.add('active');
-
-            const selectedCategory = categories.find(c => c.id === categoryId);
-            currentCategory = selectedCategory.slug;
-            loadProductsForCategory(searchInput.value.trim());
-        }
-
-        function loadProductsForCategory(query = '') {
-            currentProducts = productsData[currentCategory].filter(p => 
-                p.name.toLowerCase().includes(query.toLowerCase())
-            );
-
-            productsGrid.innerHTML = '';
-            currentProducts.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.dataset.name = product.name;
-                card.dataset.id = product.id;
-                card.dataset.category = product.category;
-
-                let imagesHtml = product.images.map(img => `
-                    <img src="${img}" alt="${product.name}" class="slider-image" loading="lazy">
-                `).join('');
-
-                let dotsHtml = product.images.length > 1 ? '<div class="slider-dots"></div>' : '';
-
-                card.innerHTML = `
-                    <div class="image-slider">
-                        <div class="slider-container">${imagesHtml}</div>
-                        ${dotsHtml}
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">${product.name}</h3>
-                        <p class="product-description">${product.description}</p>
-                        <div class="product-footer">
-                            <a href="order.html"><button class="product-btn">Buyurtma</button></a>
-                        </div>
-                    </div>
-                `;
-                productsGrid.appendChild(card);
-                initSlider(card);
-            });
-
-            currentPage = 1;
-            updateProductVisibility();
-            renderPagination();
-            noResults.classList.toggle('show', currentProducts.length === 0);
-        }
-
-        // Slider va boshqa funksiyalar (oldingi kod bilan bir xil)
-        function initSlider(card) { /* ... o'sha slider kodi ... */ }
-        function renderPagination() { /* ... o'sha pagination ... */ }
-        function changePage(page) { /* ... */ }
-        function updateProductVisibility() { /* ... */ }
-
-        // QIDIRUV LOGIKASI – YANGI VA TO'LIQ ISHLAYDI
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.trim();
-            const hasQuery = query.length > 0;
-
-            // Kategoriyalarni yashirish/ko'rsatish
-            categoriesSection.classList.toggle('hidden', hasQuery);
-
-            // X tugmasini ko'rsatish
-            clearBtn.classList.toggle('show', hasQuery);
-
-            // Mahsulotlarni filtr qilish
-            loadProductsForCategory(query);
+        // Header Scripts
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navbarWrapper = document.getElementById('navbarWrapper');
+       
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            navbarWrapper.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         });
-
-        // X tugmasi bosilganda
-        clearBtn.addEventListener('click', () => {
-            searchInput.value = '';
-            clearBtn.classList.remove('show');
-            categoriesSection.classList.remove('hidden');
-            loadProductsForCategory('');
-            searchInput.focus();
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                navbarWrapper.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
         });
-
-        // ESC tugmasi bilan tozalash
-        searchInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                searchInput.value = '';
-                clearBtn.classList.remove('show');
-                categoriesSection.classList.remove('hidden');
-                loadProductsForCategory('');
+        // Navbar show/hide on scroll
+        let lastScrollTop = 0;
+        let scrollTimer = null;
+        window.addEventListener('scroll', () => {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+           
+            if (scrollTimer !== null) {
+                clearTimeout(scrollTimer);
+            }
+           
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                navbarWrapper.classList.add('hidden');
+            } else {
+                navbarWrapper.classList.remove('hidden');
+            }
+           
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+           
+            scrollTimer = setTimeout(() => {
+                scrollTimer = null;
+            }, 100);
+        }, { passive: true });
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                navbarWrapper.classList.remove('menu-open');
+                document.body.style.overflow = '';
             }
         });
 
-        // Boshqa joyga bosganda yopish (agar kerak bo'lsa)
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-container')) {
-                // Bu yerda hech narsa qilmaymiz, chunki kategoriyalar avto yashirinadi
-            }
+        // Main Content Scripts (from previous)
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.gallery-card, .category-card, .advantage-card, .carousel-content').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
         });
-
-        // Ripple effekt va boshqa
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('product-btn')) {
-                const button = e.target;
+        // Button click effects
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
-                const rect = button.getBoundingClientRect();
+                const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                
+              
                 ripple.style.cssText = `
                     position: absolute;
                     width: 100px;
@@ -772,42 +1677,238 @@
                     left: ${x}px;
                     top: ${y}px;
                 `;
-                
+              
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+              
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+        // Carousel functionality
+        const images = document.querySelectorAll('.carousel-image');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let zoomStartTime = Date.now();
+        const ZOOM_DURATION = 8000;
+        const MIN_SCALE = 1;
+        const MAX_SCALE = 1.15;
+        function getCurrentScale() {
+            const elapsed = Date.now() - zoomStartTime;
+            const progress = Math.min(elapsed / ZOOM_DURATION, 1);
+            return MIN_SCALE + (MAX_SCALE - MIN_SCALE) * progress;
+        }
+        function animateZoom() {
+            const currentScale = getCurrentScale();
+            const activeImage = images[currentIndex].querySelector('img');
+            if (activeImage) {
+                activeImage.style.transform = `scale(${currentScale})`;
+            }
+            requestAnimationFrame(animateZoom);
+        }
+        function showImage(index) {
+            const currentScale = getCurrentScale();
+          
+            images.forEach((img, i) => {
+                const imgElement = img.querySelector('img');
+                if (i === index) {
+                    imgElement.style.transform = `scale(${currentScale})`;
+                    img.classList.add('active');
+                } else {
+                    imgElement.style.transform = `scale(${currentScale})`;
+                    img.classList.remove('active');
+                }
+            });
+          
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+          
+            currentIndex = index;
+            zoomStartTime = Date.now() - (currentScale - MIN_SCALE) / (MAX_SCALE - MIN_SCALE) * ZOOM_DURATION;
+        }
+        function nextImage() {
+            const nextIndex = (currentIndex + 1) % images.length;
+            showImage(nextIndex);
+        }
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showImage(index);
+            });
+        });
+        animateZoom();
+        setInterval(nextImage, 8000);
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: translate(-50%, -50%) scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        // Slider initialization for product cards (if any)
+        function initSlider(card) {
+            const container = card.querySelector('.slider-container');
+            const images = card.querySelectorAll('.slider-image');
+            const dotsContainer = card.querySelector('.slider-dots');
+            let currentIndex = 0;
+            let startX = 0;
+            let isDragging = false;
+            if (card.dataset.id === 'camera1') {
+                dotsContainer.style.display = 'none';
+                return;
+            }
+            images.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            });
+            const dots = dotsContainer.querySelectorAll('.slider-dot');
+            function goToSlide(index) {
+                currentIndex = index;
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === currentIndex);
+                });
+            }
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % images.length;
+                goToSlide(currentIndex);
+            }
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                goToSlide(currentIndex);
+            }
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+                e.preventDefault();
+            }, { passive: false });
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            }, { passive: false });
+            container.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                isDragging = false;
+            });
+            container.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                isDragging = true;
+                e.preventDefault();
+            });
+            container.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+            container.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                const endX = e.clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                isDragging = false;
+            });
+            container.addEventListener('mouseleave', () => {
+                isDragging = false;
+            });
+            container.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const allCards = document.querySelectorAll('.product-card');
+            allCards.forEach(card => initSlider(card));
+        });
+        // Button click ripple effect for product buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('product-btn')) {
+                const button = e.target;
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+              
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+              
                 button.style.position = 'relative';
                 button.style.overflow = 'hidden';
                 button.appendChild(ripple);
-                
+              
                 setTimeout(() => ripple.remove(), 600);
             }
         });
-
-        const rippleStyle = document.createElement('style');
-        rippleStyle.textContent = `@keyframes ripple { to { transform: translate(-50%, -50%) scale(4); opacity: 0; } }`;
-        document.head.appendChild(rippleStyle);
-
-        // Boshlang'ich yuklash
-        loadCategories();
-        selectCategory(0);
-        loadProductsForCategory('');
-
-        // Lazy loading
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    observer.unobserve(img);
-                }
-            });
-        }, { rootMargin: '100px' });
-
-        document.querySelectorAll('.slider-image').forEach(img => {
-            if (img.src) {
-                img.dataset.src = img.src;
-                img.src = '';
-                observer.observe(img);
-            }
-        });
+        // Comparison Slider Script
+        const comparisonContainer = document.getElementById('comparisonContainer');
+        const slider = document.getElementById('slider');
+        const afterImage = document.getElementById('afterImage');
+      
+        let isDragging = false;
+        function updateSliderPosition(x) {
+            const rect = comparisonContainer.getBoundingClientRect();
+            const containerWidth = rect.width;
+            const offsetX = x - rect.left;
+          
+            let percentage = (offsetX / containerWidth) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+          
+            slider.style.left = percentage + '%';
+            afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+        }
+        function handleMove(e) {
+            if (!isDragging) return;
+          
+            e.preventDefault();
+            const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            updateSliderPosition(x);
+        }
+        function startDrag(e) {
+            isDragging = true;
+            comparisonContainer.style.cursor = 'col-resize';
+          
+            const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            updateSliderPosition(x);
+        }
+        function stopDrag() {
+            isDragging = false;
+            comparisonContainer.style.cursor = 'default';
+        }
+        slider.addEventListener('mousedown', startDrag);
+        slider.addEventListener('touchstart', startDrag, { passive: false });
+      
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchend', stopDrag);
     </script>
 </body>
 </html>

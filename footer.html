@@ -1,0 +1,155 @@
+<!-- Part 7: Footer -->
+<div id="part7">
+    <style>
+        /* Footer CSS */
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --border: #e2e8f0;
+        }
+        #part7 .footer {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        #part7 .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        #part7 .footer-brand h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        #part7 .footer-brand p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+        #part7 .social-links {
+            display: flex;
+            gap: 12px;
+        }
+        #part7 .social-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        #part7 .social-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        #part7 .footer-links h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        #part7 .footer-links ul {
+            list-style: none;
+        }
+        #part7 .footer-links li {
+            margin-bottom: 12px;
+        }
+        #part7 .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        #part7 .footer-links a:hover {
+            color: white;
+        }
+        #part7 .footer-contact h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        #part7 .footer-contact p {
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+        #part7 .footer-contact a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        #part7 .footer-contact a:hover {
+            color: white;
+        }
+        #part7 .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        /* Responsive for Footer */
+        @media (max-width: 1200px) {
+            #part7 .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Toshgilamlar</h3>
+                <p>
+                    Eng sifatli va zamonaviy tosh gilam mahsulotlari siz uchun
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Platforma</h4>
+                <ul>
+                    <li><a href="#">Xizmatlar</a></li>
+                    <li><a href="#">Narxlar</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Kompaniya</h4>
+                <ul>
+                    <li><a href="bizhaqimizda.html">Biz haqimizda</a></li>
+                    <li><a href="#">Jamoa</a></li>
+                    <li><a href="aloqa.html">Aloqa</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Biz bilan aloqa</h4>
+                <p>Telefon: <a href="tel:+998901234567">+998 90 123 45 67</a></p>
+                <p>Email: <a href="mailto:info@toshgilam.uz">info@toshgilam.uz</a></p>
+                <p>Manzil: Toshkent sh., Chilanzor tumani, 1-uy</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Toshgilam. Barcha huquqlar himoyalangan. | Zamonaviy toshgilamlar</p>
+        </div>
+    </footer>
+</div>

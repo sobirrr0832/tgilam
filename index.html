@@ -481,6 +481,8 @@
         .gallery-item-link {
             text-decoration: none;
             color: inherit;
+            display: block; /* Bu qator yangi */
+            pointer-events: auto; /* Bu qator yangi */
         }
 
         .gallery-item {
@@ -493,6 +495,7 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             transition: transform 0.3s;
             pointer-events: auto; /* Bu qator yangi */
+            cursor: pointer; /* Bu qator yangi */
         }
 
         .gallery-item:hover {
@@ -2027,7 +2030,7 @@
         document.addEventListener('touchend', stopDrag);
     </script>
 
-    <script>
+  <script>
 (function () {
   // Birinchi qator uchun
   const track1 = document.getElementById('track1');
@@ -2120,6 +2123,7 @@
     }
 
     requestAnimationFrame(step);
+    
     // Hover holatini reset qilish
     const allItems = track.querySelectorAll('.gallery-item');
     allItems.forEach(item => {
@@ -2140,15 +2144,6 @@
         });
     });
     
-    // Hover holatini tozalash
-    document.addEventListener('DOMContentLoaded', () => {
-        allItems.forEach(item => {
-            item.style.transform = '';
-        });
-    });
-    
-    track.addEventListener('mouseenter', () => isPaused = true);
-    // kod tugadi yangi qoshilgan 
     track.addEventListener('mouseenter', () => isPaused = true);
     track.addEventListener('mouseleave', () => isPaused = false);
     track.addEventListener('focusin', () => isPaused = true);
@@ -2158,69 +2153,109 @@
     track.addEventListener('touchstart', startDrag, { passive: false });
 
     function startDrag(e) {
-    // Agar vertikal scroll bo'lsa, drag-ni boshlamaymiz
-    if (e.type === 'touchstart') {
-        const touch = e.touches[0];
-        track.dataset.startY = touch.clientY;
-        track.dataset.startX = touch.clientX;
-         track.dataset.hasMoved = 'false'; /* Bu qator yangi */
-        return; // Darhol chiqamiz, keyingi touchmove da tekshiramiz
-    }
-    
-    isDragging = true;
-    isPaused = true;
-    lastTime = null;
-    dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
-    dragStartPos = position;
-    track.dataset.hasMoved = 'false'; /* Bu qator yangi */
+      // Agar vertikal scroll bo'lsa, drag-ni boshlamaymiz
+      if (e.type === 'touchstart') {
+          const touch = e.touches[0];
+          track.dataset.startY = touch.clientY;
+          track.dataset.startX = touch.clientX;
+          track.dataset.hasMoved = 'false';
+          
+          // Agar link ustida bosgan bo'lsa
+          if (e.target.closest('.gallery-item-link')) {
+              track.dataset.clickedOnLink = 'true';
+          }
+          return;
+      }
+      
+      // Agar link ustida bosgan bo'lsa
+      if (e.target.closest('.gallery-item-link')) {
+          track.dataset.clickedOnLink = 'true';
+      }
+      
+      isDragging = true;
+      isPaused = true;
+      lastTime = null;
+      dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
+      dragStartPos = position;
+      track.dataset.hasMoved = 'false';
 
-    document.addEventListener('mousemove', onDrag, { passive: false });
-    document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchmove', onDrag, { passive: false });
-    document.addEventListener('touchend', endDrag, { passive: false });
-    document.addEventListener('touchcancel', endDrag, { passive: false });
+      document.addEventListener('mousemove', onDrag, { passive: false });
+      document.addEventListener('mouseup', endDrag);
+      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('touchend', endDrag, { passive: false });
+      document.addEventListener('touchcancel', endDrag, { passive: false });
     }
 
     function onDrag(e) {
+      if (e.type === 'touchmove' && !isDragging) {
+          const touch = e.touches[0];
+          const deltaX = Math.abs(touch.clientX - parseFloat(track.dataset.startX || 0));
+          const deltaY = Math.abs(touch.clientY - parseFloat(track.dataset.startY || 0));
+          
+          // Agar vertikal harakat ko'proq bo'lsa, drag qilmaymiz
+          if (deltaY > deltaX) {
+              return;
+          }
+          
+          // Gorizontal harakat - drag boshlaymiz
+          isDragging = true;
+          isPaused = true;
+          lastTime = null;
+          dragStartX = parseFloat(track.dataset.startX);
+          dragStartPos = position;
+          e.preventDefault();
+      }
+      
       if (!isDragging) return;
       e.preventDefault();
+      
+      track.dataset.hasMoved = 'true';
+      
       const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
       const dx = clientX - dragStartX;
       position = dragStartPos - dx;
       if (sequenceWidth > 0) {
-        position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+          position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
       }
     }
 
-  function onDrag(e) {
-    if (e.type === 'touchmove' && !isDragging) {
-        const touch = e.touches[0];
-        const deltaX = Math.abs(touch.clientX - parseFloat(track.dataset.startX || 0));
-        const deltaY = Math.abs(touch.clientY - parseFloat(track.dataset.startY || 0));
-        
-        // Agar vertikal harakat ko'proq bo'lsa, drag qilmaymiz
-        if (deltaY > deltaX) {
-            return;
-        }
-        
-        // Gorizontal harakat - drag boshlaymiz
-        isDragging = true;
-        isPaused = true;
-        lastTime = null;
-        dragStartX = parseFloat(track.dataset.startX);
-        dragStartPos = position;
-        e.preventDefault();
+    // BU YANGI FUNKSIYA - endDrag
+    function endDrag(e) {
+      if (!isDragging && e.type !== 'touchend') return;
+      
+      const clientX = (e.changedTouches ? e.changedTouches[0].clientX : e.clientX);
+      const dx = Math.abs(clientX - dragStartX);
+      
+      // Agar 5px dan kam siljigan bo'lsa, bu click hisoblanadi
+      if (dx < 5 && track.dataset.hasMoved !== 'true') {
+          // Link ishlashiga ruxsat berish
+          isDragging = false;
+          isPaused = false;
+          track.dataset.clickedOnLink = 'false';
+          track.dataset.hasMoved = 'false';
+          
+          document.removeEventListener('mousemove', onDrag);
+          document.removeEventListener('mouseup', endDrag);
+          document.removeEventListener('touchmove', onDrag);
+          document.removeEventListener('touchend', endDrag);
+          document.removeEventListener('touchcancel', endDrag);
+          return; // preventDefault qilmaymiz - link ishlasin
+      }
+      
+      // Agar drag bo'lgan bo'lsa
+      e.preventDefault();
+      isDragging = false;
+      isPaused = false;
+      track.dataset.clickedOnLink = 'false';
+      track.dataset.hasMoved = 'false';
+
+      document.removeEventListener('mousemove', onDrag);
+      document.removeEventListener('mouseup', endDrag);
+      document.removeEventListener('touchmove', onDrag);
+      document.removeEventListener('touchend', endDrag);
+      document.removeEventListener('touchcancel', endDrag);
     }
-    
-    if (!isDragging) return;
-    e.preventDefault();
-    const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
-    const dx = clientX - dragStartX;
-    position = dragStartPos - dx;
-    if (sequenceWidth > 0) {
-        position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
-    }
-}
+
     let resizeTimer = null;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);

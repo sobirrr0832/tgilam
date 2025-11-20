@@ -427,17 +427,52 @@
         #part2 .dot:hover {
             background: rgba(255, 255, 255, 0.8);
         }
-        /* Scrolling Gallery (yangilangan galereya uchun) */
-        .scrolling-gallery { padding: 100px 0; background: white; position: relative; overflow: hidden; }
-        .gallery-header { max-width: 1400px; margin: 0 auto 60px; padding: 0 40px; text-align: center; }
-        .gallery-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; color: var(--dark); }
-        .gallery-header p { font-size: 1.2rem; color: var(--gray); max-width: 700px; margin: 0 auto; }
+         /* --- Scrolling Gallery --- */
+        .scrolling-gallery {
+            padding: 100px 0;
+            background: white;
+            overflow: hidden;
+        }
 
-        .gallery-container { position: relative; overflow: hidden; padding: 0 80px; }
+        .gallery-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .gallery-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .gallery-header p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .gallery-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
         .gallery-track {
             display: flex;
             gap: 24px;
-            will-change: transform;
+            width: max-content;
+        }
+
+        .gallery-track.row-1 {
+            animation: scroll-right 40s linear infinite;
+        }
+
+        .gallery-track.row-2 {
+            animation: scroll-left 45s linear infinite;
         }
 
         .gallery-item-link {
@@ -453,75 +488,56 @@
             position: relative;
             flex-shrink: 0;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            user-select: none;
-            -webkit-user-drag: none;
+            transition: transform 0.3s;
         }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            pointer-events: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            draggable: false;
+
+        .gallery-item:hover {
+            transform: scale(1.05);
         }
+
         .gallery-item::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
-            border-radius: 20px;
-            pointer-events: none;
+            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
         }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .gallery-overlay {
             position: absolute;
-            bottom: 0; left: 0; right: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 24px;
-            color: white;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-            pointer-events: none;
             z-index: 1;
+            color: white;
         }
-        .gallery-overlay h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
-        .gallery-overlay p { font-size: 0.95rem; opacity: 0.95; }
 
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.95);
-            border: none;
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
+        .gallery-overlay h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
-        .nav-btn:hover { background: white; box-shadow: 0 6px 30px rgba(0,0,0,0.25); transform: translateY(-50%) scale(1.1); }
-        .nav-btn i { font-size: 20px; color: var(--dark); }
-        .nav-btn.prev { left: 20px; }
-        .nav-btn.next { right: 20px; }
 
-        /* Rasmlarni himoya qilish */
-        img { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
 
-        /* Mobil rejim */
-        @media (max-width: 768px) {
-            .nav-btn { display: none !important; }
-            .gallery-header h2 { font-size: 2.2rem; }
-            .gallery-item { width: 320px; height: 230px; }
-            .gallery-container { padding: 0 20px; }
+        @keyframes scroll-right {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
-        @media (max-width: 480px) {
-            .gallery-item { width: 280px; height: 200px; }
-            .gallery-overlay h3 { font-size: 1.2rem; }
-            .gallery-container { padding: 0 10px; }
-        }
-        /* Advantages Section */
+
+        @keyframes scroll-left {
+            0%   { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }/* Advantages Section */
         #part4 .advantages-section {
             max-width: 1400px;
             margin: 0 auto;
@@ -1340,20 +1356,182 @@
             </div>
         </div>
     </div>
-  <div id="part3">
-        <section class="scrolling-gallery">
-            <div class="gallery-header">
-                <h2>Bizning toshgilamlar galereyasi</h2>
-                <p>Bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
-            </div>
 
-            <div class="gallery-container">
-                <button class="nav-btn prev" aria-label="Oldinga"><i class="fas fa-chevron-left"></i></button>
-                <div class="gallery-track" id="galleryTrack"></div>
-                <button class="nav-btn next" aria-label="Orqaga"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </section>
+ <!-- ========== GALLERY SECTION ========== -->
+<section class="scrolling-gallery">
+    <div class="gallery-header">
+        <h2>Bizning toshgilamlar galereyasi</h2>
+        <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
     </div>
+
+    <div class="gallery-rows">
+        <!-- Birinchi qator: O'ngdan chapga -->
+        <div class="gallery-track row-1" id="track1">
+            <a href="#shabnam" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam02.webp?updatedAt=1760467034588" alt="Shabnam">
+                    <div class="gallery-overlay">
+                        <h3>Shabnam</h3>
+                        <p>ertalab shabnamday tiniq</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#temuriy" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy02.webp?updatedAt=1760467034640" alt="Temuriy">
+                    <div class="gallery-overlay">
+                        <h3>Temuriy</h3>
+                        <p>aralash rangdagi silliq yuvilgan toshlar</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#oytog" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/oytog02.webp?updatedAt=1760467034872" alt="Oytog'">
+                    <div class="gallery-overlay">
+                        <h3>Oytog'</h3>
+                        <p>tabiatning mutanosib va sokin go'zalligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#kohinur" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur02.webp?updatedAt=1760467034847" alt="Kohinur">
+                    <div class="gallery-overlay">
+                        <h3>Kohinur</h3>
+                        <p>juda mayda va silliqlangan toshlar</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#zarnigor" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor02.webp?updatedAt=1760467035558" alt="Zarnigor">
+                    <div class="gallery-overlay">
+                        <h3>Zarnigor</h3>
+                        <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#safonur" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/safonur02.webp?updatedAt=1760467034062" alt="Safonur">
+                    <div class="gallery-overlay">
+                        <h3>Safonur</h3>
+                        <p>nafislik va kontrastninig uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#suvoriy" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy02.webp?updatedAt=1760467035321" alt="Suvoriy">
+                    <div class="gallery-overlay">
+                        <h3>Suvoriy</h3>
+                        <p>tabiatda yaralgan noziklik</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#safir" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/safir02.webp?updatedAt=1760467035332" alt="Safir">
+                    <div class="gallery-overlay">
+                        <h3>Safir</h3>
+                        <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ikkinchi qator: Chapdan o'ngga -->
+        <div class="gallery-track row-2" id="track2">
+            <a href="#marjon" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/mohisa01.webp?updatedAt=1762446078660" alt="Marjon">
+                    <div class="gallery-overlay">
+                        <h3>Marjon</h3>
+                        <p>dengiz tubidagi go'zallik</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#lolazor" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/kohakon02.webp?updatedAt=1762446078985" alt="Lolazor">
+                    <div class="gallery-overlay">
+                        <h3>kohakon</h3>
+                        <p>bahor ranglarining jamlanishi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#oftob" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/joshqin01.webp?updatedAt=1762446061194" alt="Oftob">
+                    <div class="gallery-overlay">
+                        <h3>Jo'shqin</h3>
+                        <p>quyosh nuridek yorqin va issiq</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#guliston" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/hayrat01.webp?updatedAt=1762446049250" alt="Guliston">
+                    <div class="gallery-overlay">
+                        <h3>Hayrat</h3>
+                        <p>gullar bog'idagi rang-baranglik</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#shohona" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/barkamol03.webp?updatedAt=1762446043356" alt="Shohona">
+                    <div class="gallery-overlay">
+                        <h3>barkamol</h3>
+                        <p>saroy me'morchiligining nafosligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#yulduz" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/orasta02.webp?updatedAt=1762445988899" alt="Yulduz">
+                    <div class="gallery-overlay">
+                        <h3>Orasta</h3>
+                        <p>osmon yulduzlaridek charaqlab turuvchi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#bahor" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/nazm01.webp?updatedAt=1762446063188" alt="Bahor">
+                    <div class="gallery-overlay">
+                        <h3>Nazm</h3>
+                        <p>yangilanish va hayot taravati</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#marifat" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/mohisa02.webp?updatedAt=1762446078885" alt="Marifat">
+                    <div class="gallery-overlay">
+                        <h3>Mohisa</h3>
+                        <p>bilim va madaniyat uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Part 4: Advantages Section -->
     <div id="part4">
@@ -1518,144 +1696,7 @@
             </div>
         </footer>
     </div>
- <script>
-    (function(){
-        // Galereya script — nom to'qnashuvini oldini olish uchun 'gallery_' prefix ishlatildi.
-        const galleryData = [
-            { img: 'gimg/g01.webp', title: 'Shabnam', desc: 'ertalab shabnamday tiniq' },
-            { img: 'gimg/g02.webp', title: 'Temuriy', desc: 'aralash rangdagi silliq yuvilgan toshlar' },
-            { img: 'gimg/g03.webp', title: "Oytog'", desc: "tabiatning mutanosib va sokin go'zalligi" },
-            { img: 'gimg/g04.webp', title: 'Kohinur', desc: 'juda mayda va silliqlangan toshlar' },
-            { img: 'gimg/g05.webp', title: 'Zarnigor', desc: "tabiiy toshlar va oq kristal uyg'unligi" },
-            { img: 'gimg/g06.webp', title: 'Safonur', desc: "nafislik va kontrastninig uyg'unligi" },
-            { img: 'gimg/g07.webp', title: 'Suvoriy', desc: 'tabiatda yaralgan noziklik' },
-            { img: 'gimg/g08.webp', title: 'Safir', desc: "tabiiy iliqlik va ranglar uyg'unligi" }
-        ];
 
-        const galleryTrack = document.getElementById('galleryTrack');
-        const galleryTotal = galleryData.length;
-        let galleryIsMobile = window.innerWidth <= 768;
-        const gallery_baseGap = 24;
-        const gallery_gap = galleryIsMobile ? 16 : gallery_baseGap;
-        const gallery_itemW = (galleryIsMobile ? 320 : 400) + gallery_gap;
-        let gallery_currentIndex = galleryTotal; // center for infinite scroll
-        let gallery_isMoving = false;
-
-        function gallery_render() {
-            galleryTrack.innerHTML = '';
-            galleryTrack.style.gap = `${gallery_gap}px`;
-            // Repeat arrays to create seamless infinite scroll
-            const repeatTimes = 5;
-            const bigArray = [];
-            for (let i = 0; i < repeatTimes; i++) bigArray.push(...galleryData);
-            bigArray.forEach(item => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'gallery-item-link';
-                wrapper.innerHTML = `
-                    <div class="gallery-item" style="width:${galleryIsMobile ? 320 : 400}px; height:${galleryIsMobile ? 230 : 280}px;">
-                        <img src="${item.img}" alt="${item.title}" loading="lazy" draggable="false">
-                        <div class="gallery-overlay">
-                            <h3>${item.title}</h3>
-                            <p>${item.desc}</p>
-                        </div>
-                    </div>
-                `;
-                galleryTrack.appendChild(wrapper);
-            });
-
-            // Initial translate
-            galleryTrack.style.transition = 'none';
-            galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
-            requestAnimationFrame(() => {
-                galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
-            });
-        }
-
-        function gallery_move(direction) {
-            if (gallery_isMoving) return;
-            gallery_isMoving = true;
-            gallery_currentIndex += direction;
-            galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
-
-            function handler() {
-                galleryTrack.removeEventListener('transitionend', handler);
-
-                if (gallery_currentIndex >= galleryTotal * 3) {
-                    gallery_currentIndex -= galleryTotal;
-                    galleryTrack.style.transition = 'none';
-                    galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
-                    requestAnimationFrame(() => galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
-                }
-                if (gallery_currentIndex < galleryTotal) {
-                    gallery_currentIndex += galleryTotal;
-                    galleryTrack.style.transition = 'none';
-                    galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
-                    requestAnimationFrame(() => galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
-                }
-                gallery_isMoving = false;
-            }
-            galleryTrack.addEventListener('transitionend', handler);
-        }
-
-        // Autoplay
-        let gallery_autoPlay = null;
-        function gallery_startAuto() {
-            if (gallery_autoPlay) clearInterval(gallery_autoPlay);
-            gallery_autoPlay = setInterval(() => gallery_move(1), 4000);
-        }
-        function gallery_stopAuto() {
-            if (gallery_autoPlay) clearInterval(gallery_autoPlay);
-            gallery_autoPlay = null;
-        }
-
-        // Controls
-        const btnPrev = document.querySelector('.nav-btn.prev');
-        const btnNext = document.querySelector('.nav-btn.next');
-        if (btnPrev) btnPrev.addEventListener('click', () => { gallery_stopAuto(); gallery_move(-1); setTimeout(gallery_startAuto, 8000); });
-        if (btnNext) btnNext.addEventListener('click', () => { gallery_stopAuto(); gallery_move(1); setTimeout(gallery_startAuto, 8000); });
-
-        // Keyboard
-        document.addEventListener('keydown', e => {
-            if (e.key === 'ArrowLeft') { gallery_stopAuto(); gallery_move(-1); setTimeout(gallery_startAuto, 8000); }
-            if (e.key === 'ArrowRight') { gallery_stopAuto(); gallery_move(1); setTimeout(gallery_startAuto, 8000); }
-        });
-
-        // Touch swipe
-        let gallery_touchStartX = 0;
-        let gallery_touchEndX = 0;
-        const gallery_container = document.querySelector('.gallery-container');
-        if (gallery_container) {
-            gallery_container.addEventListener('touchstart', e => gallery_touchStartX = e.changedTouches[0].screenX, {passive: true});
-            gallery_container.addEventListener('touchend', e => {
-                gallery_touchEndX = e.changedTouches[0].screenX;
-                const diff = gallery_touchStartX - gallery_touchEndX;
-                if (Math.abs(diff) > 50) {
-                    gallery_stopAuto();
-                    gallery_move(diff > 0 ? 1 : -1);
-                    setTimeout(gallery_startAuto, 8000);
-                }
-            });
-        }
-
-        // Protection
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onselectstart = e => e.preventDefault();
-        document.ondragstart = e => e.preventDefault();
-
-        // Init
-        gallery_render();
-        gallery_startAuto();
-
-        // Re-render on resize if breakpoint crossed
-        window.addEventListener('resize', () => {
-            const nowMobile = window.innerWidth <= 768;
-            if (nowMobile !== galleryIsMobile) {
-                // simple approach: reload to re-calc sizes (same as original gallery script)
-                location.reload();
-            }
-        });
-    })();
-    </script>
     <script>
         // Header Scripts
         // Mobile menu toggle
@@ -1984,5 +2025,166 @@
         document.addEventListener('mouseup', stopDrag);
         document.addEventListener('touchend', stopDrag);
     </script>
+
+    <script>
+(function () {
+  // Birinchi qator uchun
+  const track1 = document.getElementById('track1');
+  if (track1) initGallery(track1, 60, 'right');
+
+  // Ikkinchi qator uchun
+  const track2 = document.getElementById('track2');
+  if (track2) initGallery(track2, 50, 'left');
+
+  function initGallery(track, speed, direction) {
+    let isPaused = false;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartPos = 0;
+    let position = 0;
+    let lastTime = null;
+
+    // Clone items for infinite scroll
+    const items = Array.from(track.children);
+    if (items.length === 0) return;
+
+    items.forEach(node => {
+      const clone = node.cloneNode(true);
+      track.appendChild(clone);
+    });
+
+    let sequenceWidth = calcSequenceWidth();
+
+    function calcSequenceWidth() {
+      const origNodes = Array.from(track.children).slice(0, items.length);
+      return origNodes.reduce((w, n) => w + n.getBoundingClientRect().width + getGap(), 0);
+    }
+
+    function getGap() {
+      const style = getComputedStyle(track);
+      const g = parseFloat(style.gap || style.columnGap || 24);
+      return isNaN(g) ? 24 : g;
+    }
+
+    function ensureDimensionsReady() {
+      sequenceWidth = calcSequenceWidth();
+      if (sequenceWidth === 0 || !isFinite(sequenceWidth)) {
+        const imgs = track.querySelectorAll('img');
+        let remaining = imgs.length;
+        if (remaining === 0) {
+          sequenceWidth = calcSequenceWidth();
+          return;
+        }
+        imgs.forEach(img => {
+          if (img.complete) {
+            remaining--;
+          } else {
+            img.addEventListener('load', () => {
+              remaining--;
+              if (remaining === 0) {
+                sequenceWidth = calcSequenceWidth();
+              }
+            }, { once: true });
+            img.addEventListener('error', () => {
+              remaining--;
+              if (remaining === 0) {
+                sequenceWidth = calcSequenceWidth();
+              }
+            }, { once: true });
+          }
+        });
+      }
+    }
+
+    ensureDimensionsReady();
+
+    function step(timestamp) {
+      if (lastTime === null) lastTime = timestamp;
+      const dt = (timestamp - lastTime) / 1000;
+      lastTime = timestamp;
+
+      if (!isPaused && !isDragging) {
+        if (direction === 'right') {
+          position += speed * dt;
+        } else {
+          position -= speed * dt;
+        }
+        if (sequenceWidth > 0) {
+          position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+        }
+      }
+
+      track.style.transform = `translateX(${-position}px)`;
+      requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+
+    track.addEventListener('mouseenter', () => isPaused = true);
+    track.addEventListener('mouseleave', () => isPaused = false);
+    track.addEventListener('focusin', () => isPaused = true);
+    track.addEventListener('focusout', () => isPaused = false);
+
+    track.addEventListener('mousedown', startDrag, { passive: false });
+    track.addEventListener('touchstart', startDrag, { passive: false });
+
+    function startDrag(e) {
+      isDragging = true;
+      isPaused = true;
+      lastTime = null;
+      dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
+      dragStartPos = position;
+
+      document.addEventListener('mousemove', onDrag, { passive: false });
+      document.addEventListener('mouseup', endDrag);
+      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('touchend', endDrag, { passive: false });
+      document.addEventListener('touchcancel', endDrag, { passive: false });
+    }
+
+    function onDrag(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+      const dx = clientX - dragStartX;
+      position = dragStartPos - dx;
+      if (sequenceWidth > 0) {
+        position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+      }
+    }
+
+    function endDrag() {
+      isDragging = false;
+      isPaused = false;
+      document.removeEventListener('mousemove', onDrag);
+      document.removeEventListener('mouseup', endDrag);
+      document.removeEventListener('touchmove', onDrag);
+      document.removeEventListener('touchend', endDrag);
+      document.removeEventListener('touchcancel', endDrag);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        isPaused = true;
+      } else {
+        isPaused = false;
+        lastTime = null;
+      }
+    });
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        ensureDimensionsReady();
+        if (sequenceWidth > 0) position = position % sequenceWidth;
+      }, 150);
+    });
+
+    track.style.willChange = 'transform';
+    track.style.transform = 'translateX(0px)';
+  }
+})();
+</script>
 </body>
 </html>

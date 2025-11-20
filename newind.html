@@ -1717,8 +1717,225 @@
     renderGallery();
     startAutoPlay();
 
-    /* ==== Qolgan eski scriptlar (carousel, header, slider va h.k.) ==== */
-    // (oldingi barcha JS kodlari shu yerda qoladi, faqat galereya qismi yangilandi)
+   Mana faqat eski barcha JavaScript kodlari (header, carousel, mobile menu, ripple effect, comparison slider, product card slider va h.k.) – galereya qismi bundan tashqari qoladi. Shu kodlarni <script> tegining ichiga, yangi galereya JSdan keyin qoʻyishingiz kifoya.
+HTML<script>
+    /* ==== HEADER & MOBILE MENU ==== */
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navbarWrapper = document.getElementById('navbarWrapper');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenuBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        navbarWrapper.classList.toggle('menu-open');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Link bosilganda mobil menyuni yopish
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuBtn.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            navbarWrapper.classList.remove('menu-open');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Scroll bo'yicha navbar ni yashirish/ko'rsatish
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScroll > lastScrollTop && currentScroll > 100) {
+            navbarWrapper.classList.add('hidden');
+        } else {
+            navbarWrapper.classList.remove('hidden');
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, { passive: true });
+
+    // Resize da mobil menyuni yopish
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 968) {
+            mobileMenuBtn.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            navbarWrapper.classList.remove('menu-open');
+            document.body.style.overflow = '';
+        }
+    });
+
+    /* ==== CAROUSEL (Hero section) ==== */
+    const images = document.querySelectorAll('.carousel-image');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+    let zoomStartTime = Date.now();
+    const ZOOM_DURATION = 8000;
+    const MIN_SCALE = 1;
+    const MAX_SCALE = 1.15;
+
+    function getCurrentScale() {
+        const elapsed = Date.now() - zoomStartTime;
+        const progress = Math.min(elapsed / ZOOM_DURATION, 1);
+        return MIN_SCALE + (MAX_SCALE - MIN_SCALE) * progress;
+    }
+
+    function animateZoom() {
+        const currentScale = getCurrentScale();
+        const activeImg = images[currentIndex].querySelector('img');
+        if (activeImg) activeImg.style.transform = `scale(${currentScale})`;
+        requestAnimationFrame(animateZoom);
+    }
+
+    function showImage(index) {
+        images.forEach((img, i) => {
+            const el = img.querySelector('img');
+            if (i === index) {
+                img.classList.add('active');
+                el.style.transform = `scale(${getCurrentScale()})`;
+            } else {
+                img.classList.remove('active');
+            }
+        });
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        currentIndex = index;
+        zoomStartTime = Date.now();
+    }
+
+    function nextImage() {
+        showImage((currentIndex + 1) % images.length);
+    }
+
+    dots.forEach((dot, i) => dot.addEventListener('click', () => showImage(i)));
+    setInterval(nextImage, 8000);
+    animateZoom();
+
+    /* ==== INTERSECTION OBSERVER (animatsiyalar) ==== */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.gallery-card, .category-card, .advantage-card, .carousel-content, .section-header, .contact-item').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `all 0.7s ease ${i * 0.1}s`;
+        observer.observe(el);
+    });
+
+    /* ==== RIPPLE EFFECT (barcha tugmalar uchun) ==== */
+    document.querySelectorAll('button, .product-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            ripple.style.cssText = `
+                position:absolute; width:100px; height:100px;
+                background:rgba(255,255,255,0.6); border-radius:50%;
+                transform:translate(-50%,-50%) scale(0);
+                animation:ripple 0.6s ease-out;
+                left:${x}px; top:${y}px; pointer-events:none;
+            `;
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+
+    // Ripple animatsiyasi
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+        @keyframes ripple {
+            to { transform:translate(-50%,-50%) scale(4); opacity:0; }
+        }
+    `;
+    document.head.appendChild(rippleStyle);
+
+    /* ==== PRODUCT CARD SLIDER (Oldin/Keyin) ==== */
+    document.querySelectorAll('.product-card').forEach(card => {
+        const container = card.querySelector('.slider-container');
+        if (!container) return;
+
+        const images = card.querySelectorAll('.slider-image');
+        const dotsContainer = card.querySelector('.slider-dots');
+        let idx = 0;
+
+        // Dots yaratish
+        images.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'slider-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goTo(i));
+            dotsContainer.appendChild(dot);
+        });
+        const dots = dotsContainer.querySelectorAll('.slider-dot');
+
+        function goTo(i) {
+            idx = i;
+            container.style.transform = `translateX(-${i * 100}%)`;
+            dots.forEach((d, di) => d.classList.toggle('active', di === i));
+        }
+
+        // Swipe & Mouse drag
+        let startX = 0, isDragging = false;
+
+        const start = e => { startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; isDragging = true; };
+        const end = e => {
+            if (!isDragging) return;
+            const endX = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+            const diff = startX - endX;
+            if (Math.abs(diff) > 50) {
+                diff > 0 ? idx = (idx + 1) % images.length : idx = (idx - 1 + images.length) % images.length;
+                goTo(idx);
+            }
+            isDragging = false;
+        };
+
+        container.addEventListener('touchstart', start, { passive: true });
+        container.addEventListener('touchend', end);
+        container.addEventListener('mousedown', start);
+        container.addEventListener('mouseup', end);
+        container.addEventListener('mouseleave', () => isDragging = false);
+    });
+
+    /* ==== COMPARISON SLIDER (Oldin/Keyin katta slider) ==== */
+    const comparisonContainer = document.getElementById('comparisonContainer');
+    if (comparisonContainer) {
+        const slider = document.getElementById('slider');
+        const afterImage = document.getElementById('afterImage');
+        let dragging = false;
+
+        const update = x => {
+            const rect = comparisonContainer.getBoundingClientRect();
+            let percent = ((x - rect.left) / rect.width) * 100;
+            percent = Math.max(0, Math.min(100, percent));
+            slider.style.left = percent + '%';
+            afterImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+        };
+
+        const move = e => {
+            if (!dragging) return;
+            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            update(clientX);
+        };
+
+        slider.addEventListener('mousedown', () => dragging = true);
+        slider.addEventListener('touchstart', () => dragging = true, { passive: true });
+        document.addEventListener('mousemove', move);
+        document.addEventListener('touchmove', move, { passive: false });
+        document.addEventListener('mouseup', () => dragging = false);
+        document.addEventListener('touchend', () => dragging = false);
+    }
+
+    /* ==== HIMIYA (rasmlar va matnni nusxa olishni oldini olish) ==== */
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onselectstart = e => e.preventDefault();
+    document.ondragstart = e => e.preventDefault();
 </script>
 </body>
 </html>

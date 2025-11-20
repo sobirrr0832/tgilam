@@ -8,9 +8,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
@@ -27,40 +31,7 @@
             overflow-x: hidden;
             padding-top: 80px;
         }
-/* ==== YANGI GALEREYA ==== */
-        .scrolling-gallery { padding:120px 0; background:#fff; overflow:hidden; position:relative; }
-        .gallery-header { max-width:1400px; margin:0 auto 70px; padding:0 40px; text-align:center; }
-        .gallery-header h2 { font-size:3rem; font-weight:800; color:var(--dark); }
-        .gallery-header p { font-size:1.2rem; color:var(--gray); max-width:700px; margin:20px auto 0; }
-
-        .gallery-container { position:relative; overflow:hidden; padding:0 80px; }
-        .gallery-track { display:flex; gap:24px; will-change:transform; }
-        .gallery-item { width:400px; height:280px; border-radius:20px; overflow:hidden; position:relative; flex-shrink:0; box-shadow:0 8px 24px rgba(0,0,0,0.08); }
-        .gallery-item img { width:100%; height:100%; object-fit:cover; draggable:false; }
-        .gallery-item::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.5)); border-radius:20px; }
-        .gallery-overlay { position:absolute; bottom:0; left:0; right:0; padding:24px; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6); z-index:1; }
-        .gallery-overlay h3 { font-size:1.4rem; font-weight:700; margin-bottom:6px; }
-        .gallery-overlay p { font-size:0.95rem; opacity:0.95; }
-
-        .nav-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.95); border:none; width:50px; height:50px; border-radius:50%; cursor:pointer; z-index:10; box-shadow:0 4px 20px rgba(0,0,0,0.15); transition:all .3s; }
-        .nav-btn:hover { background:#fff; transform:translateY(-50%) scale(1.1); }
-        .nav-btn i { font-size:20px; color:var(--dark); }
-        .nav-btn.prev { left:20px; }
-        .nav-btn.next { right:20px; }
-
-        @media (max-width:768px) {
-            .nav-btn { display:none !important; }
-            .gallery-header h2 { font-size:2.4rem; }
-            .gallery-item { width:320px; height:230px; }
-            .gallery-container { padding:0 20px; }
-            .gallery-track { gap:16px; }
-        }
-        @media (max-width:480px) {
-            .gallery-item { width:280px; height:200px; }
-            .gallery-overlay h3 { font-size:1.2rem; }
-        }
-        
-         /* Navigation - Header CSS */
+        /* Navigation - Header CSS */
         #part1 .navbar-wrapper {
             position: fixed;
             top: 0;
@@ -456,91 +427,99 @@
         #part2 .dot:hover {
             background: rgba(255, 255, 255, 0.8);
         }
-        #part1 .navbar-wrapper { position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);z-index:1000;transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 24px rgba(15,23,42,.08); }
-        #part1 .navbar-wrapper.hidden { transform:translateY(-100%); }
-       /* Scrolling Gallery */
-        #part3 .scrolling-gallery {
-            padding: 100px 0;
-            background: white;
-            overflow: hidden;
-        }
-        #part3 .gallery-header {
-            max-width: 1400px;
-            margin: 0 auto 60px;
-            padding: 0 40px;
-            text-align: center;
-        }
-        #part3 .gallery-header h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-        }
-        #part3 .gallery-header p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        #part3 .gallery-track {
+        /* Scrolling Gallery (yangilangan galereya uchun) */
+        .scrolling-gallery { padding: 100px 0; background: white; position: relative; overflow: hidden; }
+        .gallery-header { max-width: 1400px; margin: 0 auto 60px; padding: 0 40px; text-align: center; }
+        .gallery-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; color: var(--dark); }
+        .gallery-header p { font-size: 1.2rem; color: var(--gray); max-width: 700px; margin: 0 auto; }
+
+        .gallery-container { position: relative; overflow: hidden; padding: 0 80px; }
+        .gallery-track {
             display: flex;
             gap: 24px;
-            animation: scroll 40s linear infinite;
-            width: max-content;
+            will-change: transform;
         }
-        #part3 .gallery-item-link {
+
+        .gallery-item-link {
             text-decoration: none;
             color: inherit;
         }
-        #part3 .gallery-item {
+
+        .gallery-item {
             width: 400px;
             height: 280px;
             border-radius: 20px;
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            user-select: none;
+            -webkit-user-drag: none;
         }
-        #part3 .gallery-item:hover {
-            transform: scale(1.05);
-        }
-        #part3 .gallery-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
-        }
-        #part3 .gallery-item img {
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            draggable: false;
         }
-        #part3 .gallery-overlay {
+        .gallery-item::after {
+            content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
+            border-radius: 20px;
+            pointer-events: none;
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
             padding: 24px;
-            z-index: 1;
             color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            pointer-events: none;
+            z-index: 1;
         }
-        #part3 .gallery-overlay h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 6px;
+        .gallery-overlay h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+        .gallery-overlay p { font-size: 0.95rem; opacity: 0.95; }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.95);
+            border: none;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
         }
-        #part3 .gallery-overlay p {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        .nav-btn:hover { background: white; box-shadow: 0 6px 30px rgba(0,0,0,0.25); transform: translateY(-50%) scale(1.1); }
+        .nav-btn i { font-size: 20px; color: var(--dark); }
+        .nav-btn.prev { left: 20px; }
+        .nav-btn.next { right: 20px; }
+
+        /* Rasmlarni himoya qilish */
+        img { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+        /* Mobil rejim */
+        @media (max-width: 768px) {
+            .nav-btn { display: none !important; }
+            .gallery-header h2 { font-size: 2.2rem; }
+            .gallery-item { width: 320px; height: 230px; }
+            .gallery-container { padding: 0 20px; }
         }
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+        @media (max-width: 480px) {
+            .gallery-item { width: 280px; height: 200px; }
+            .gallery-overlay h3 { font-size: 1.2rem; }
+            .gallery-container { padding: 0 10px; }
         }
         /* Advantages Section */
         #part4 .advantages-section {
@@ -1242,104 +1221,10 @@
                 opacity: 0;
             }
         }
-        /* ==== YANGI GALEREYA (part3) ==== */
-        .scrolling-gallery {
-            padding: 120px 0;
-            background: white;
-            position: relative;
-            overflow: hidden;
-        }
-        .gallery-header {
-            max-width: 1400px;
-            margin: 0 auto 70px;
-            padding: 0 40px;
-            text-align: center;
-        }
-        .gallery-header h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-            color: var(--dark);
-        }
-        .gallery-header p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .gallery-container {
-            position: relative;
-            overflow: hidden;
-            padding: 0 80px;
-        }
-        .gallery-track {
-            display: flex;
-            gap: 24px;
-            will-change: transform;
-        }
-        .gallery-item-link { text-decoration:none; color:inherit; pointer-events:none; }
-        .gallery-item {
-            width: 400px;
-            height: 280px;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            flex-shrink: 0;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-        .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover;
-            pointer-events: none; user-select: none; draggable: false;
-        }
-        .gallery-item::after {
-            content:''; position:absolute; inset:0;
-            background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.5));
-            border-radius:20px; pointer-events:none;
-        }
-        .gallery-overlay {
-            position:absolute; bottom:0; left:0; right:0; padding:24px;
-            color:white; text-shadow:0 2px 8px rgba(0,0,0,0.6);
-            pointer-events:none; z-index:1;
-        }
-        .gallery-overlay h3 { font-size:1.4rem; font-weight:700; margin-bottom:6px; }
-        .gallery-overlay p { font-size:0.95rem; opacity:0.95; }
-
-        .nav-btn {
-            position:absolute; top:50%; transform:translateY(-50%);
-            background:rgba(255,255,255,0.95); border:none;
-            width:50px; height:50px; border-radius:50%;
-            cursor:pointer; display:flex; align-items:center; justify-content:center;
-            z-index:10; box-shadow:0 4px 20px rgba(0,0,0,0.15);
-            transition:all .3s ease;
-        }
-        .nav-btn:hover { background:white; box-shadow:0 6px 30px rgba(0,0,0,0.25); transform:translateY(-50%) scale(1.1); }
-        .nav-btn i { font-size:20px; color:var(--dark); }
-        .nav-btn.prev { left:20px; }
-        .nav-btn.next { right:20px; }
-
-        /* Mobil rejimda oʻqlarni yashirish */
-        @media (max-width:768px) {
-            .nav-btn { display:none !important; }
-            .gallery-header h2 { font-size:2.4rem; }
-            .gallery-item { width:320px; height:230px; }
-            .gallery-container { padding:0 20px; }
-        }
-        @media (max-width:480px) {
-            .gallery-item { width:280px; height:200px; }
-            .gallery-overlay h3 { font-size:1.2rem; }
-            .gallery-container { padding:0 10px; }
-        }
-
-        /* Qolgan boʻlimlar (advantages, contact, footer va h.k.) – oldingi kodlar oʻzgarmagan */
-        /* ... (joy tejash uchun qolgan CSS larni qisqartirdim) ... */
     </style>
 </head>
 <body>
-
- <!-- Part 1: Header (New Navbar) -->
+    <!-- Part 1: Header (New Navbar) -->
     <div id="part1">
         <!-- Main Navbar Wrapper -->
         <div class="navbar-wrapper" id="navbarWrapper">
@@ -1455,20 +1340,22 @@
             </div>
         </div>
     </div>
-<!-- YANGI GALEREYA -->
-    <section class="scrolling-gallery">
-        <div class="gallery-header">
-            <h2>Bizning toshgilamlar galereyasi</h2>
-            <p>Bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
-        </div>
-        <div class="gallery-container">
-            <button class="nav-btn prev" aria-label="Oldinga"><i class="fas fa-chevron-left"></i></button>
-            <div class="gallery-track" id="galleryTrack"></div>
-            <button class="nav-btn next" aria-label="Orqaga"><i class="fas fa-chevron-right"></i></button>
-        </div>
-    </section>
-    
- <!-- Part 4: Advantages Section -->
+  <div id="part3">
+        <section class="scrolling-gallery">
+            <div class="gallery-header">
+                <h2>Bizning toshgilamlar galereyasi</h2>
+                <p>Bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
+            </div>
+
+            <div class="gallery-container">
+                <button class="nav-btn prev" aria-label="Oldinga"><i class="fas fa-chevron-left"></i></button>
+                <div class="gallery-track" id="galleryTrack"></div>
+                <button class="nav-btn next" aria-label="Orqaga"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Part 4: Advantages Section -->
     <div id="part4">
         <section class="advantages-section">
             <div class="section-header">
@@ -1631,334 +1518,471 @@
             </div>
         </footer>
     </div>
+ <script>
+    (function(){
+        // Galereya script — nom to'qnashuvini oldini olish uchun 'gallery_' prefix ishlatildi.
+        const galleryData = [
+            { img: 'gimg/g01.webp', title: 'Shabnam', desc: 'ertalab shabnamday tiniq' },
+            { img: 'gimg/g02.webp', title: 'Temuriy', desc: 'aralash rangdagi silliq yuvilgan toshlar' },
+            { img: 'gimg/g03.webp', title: "Oytog'", desc: "tabiatning mutanosib va sokin go'zalligi" },
+            { img: 'gimg/g04.webp', title: 'Kohinur', desc: 'juda mayda va silliqlangan toshlar' },
+            { img: 'gimg/g05.webp', title: 'Zarnigor', desc: "tabiiy toshlar va oq kristal uyg'unligi" },
+            { img: 'gimg/g06.webp', title: 'Safonur', desc: "nafislik va kontrastninig uyg'unligi" },
+            { img: 'gimg/g07.webp', title: 'Suvoriy', desc: 'tabiatda yaralgan noziklik' },
+            { img: 'gimg/g08.webp', title: 'Safir', desc: "tabiiy iliqlik va ranglar uyg'unligi" }
+        ];
 
-<script>
-/* ==== YANGI GALEREYA – TOʻLIQ TUZATILGAN ==== */
-const galleryData = [
-    { img: 'gimg/g01.webp', title: 'Shabnam', desc: 'ertalab shabnamday tiniq' },
-    { img: 'gimg/g02.webp', title: 'Temuriy', desc: 'aralash rangdagi silliq yuvilgan toshlar' },
-    { img: 'gimg/g03.webp', title: "Oytog'", desc: "tabiatning mutanosib va sokin go'zalligi" },
-    { img: 'gimg/g04.webp', title: 'Kohinur', desc: 'juda mayda va silliqlangan toshlar' },
-    { img: 'gimg/g05.webp', title: 'Zarnigor', desc: "tabiiy toshlar va oq kristal uyg'unligi" },
-    { img: 'gimg/g06.webp', title: 'Safonur', desc: "nafislik va kontrastninig uyg'unligi" },
-    { img: 'gimg/g07.webp', title: 'Suvoriy', desc: 'tabiatda yaralgan noziklik' },
-    { img: 'gimg/g08.webp', title: 'Safir', desc: "tabiiy iliqlik va ranglar uyg'unligi" }
-];
+        const galleryTrack = document.getElementById('galleryTrack');
+        const galleryTotal = galleryData.length;
+        let galleryIsMobile = window.innerWidth <= 768;
+        const gallery_baseGap = 24;
+        const gallery_gap = galleryIsMobile ? 16 : gallery_baseGap;
+        const gallery_itemW = (galleryIsMobile ? 320 : 400) + gallery_gap;
+        let gallery_currentIndex = galleryTotal; // center for infinite scroll
+        let gallery_isMoving = false;
 
-const track = document.getElementById('galleryTrack');
-const container = document.querySelector('.gallery-container');
-const totalItems = galleryData.length;
-let currentIndex = totalItems;           // oʻrtadan boshlash
-let itemWidth = 424;                     // 400 + 24(gap)
-let isMoving = false;
-let autoPlay = null;
-
-// Responsive hisoblash
-function calculateDimensions() {
-    const mobile = window.innerWidth <= 768;
-    const width = mobile ? 320 : 400;
-    const gap = mobile ? 16 : 24;
-    itemWidth = width + gap;
-    return { mobile, width, gap };
-}
-
-function renderGallery() {
-    track.innerHTML = '';
-    const { width } = calculateDimensions();
-    track.style.gap = (itemWidth - width) + 'px';
-
-    // 5 marta takrorlash → cheksiz
-    for (let i = 0; i < 5; i++) {
-        galleryData.forEach(item => {
-            const div = document.createElement('div');
-            div.innerHTML = `
-                <div class="gallery-item" style="width:${width}px;height:${width <= 320 ? 230 : 280}px;">
-                    <img src="${item.img}" alt="${item.title}" loading="lazy" draggable="false">
-                    <div class="gallery-overlay">
-                        <h3>${item.title}</h3>
-                        <p>${item.desc}</p>
+        function gallery_render() {
+            galleryTrack.innerHTML = '';
+            galleryTrack.style.gap = `${gallery_gap}px`;
+            // Repeat arrays to create seamless infinite scroll
+            const repeatTimes = 5;
+            const bigArray = [];
+            for (let i = 0; i < repeatTimes; i++) bigArray.push(...galleryData);
+            bigArray.forEach(item => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'gallery-item-link';
+                wrapper.innerHTML = `
+                    <div class="gallery-item" style="width:${galleryIsMobile ? 320 : 400}px; height:${galleryIsMobile ? 230 : 280}px;">
+                        <img src="${item.img}" alt="${item.title}" loading="lazy" draggable="false">
+                        <div class="gallery-overlay">
+                            <h3>${item.title}</h3>
+                            <p>${item.desc}</p>
+                        </div>
                     </div>
-                </div>`;
-            track.appendChild(div);
-        });
-    }
+                `;
+                galleryTrack.appendChild(wrapper);
+            });
 
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-    requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22,0.61,0.36,1)');
-}
-
-function move(dir) {
-    if (isMoving) return;
-    isMoving = true;
-    currentIndex += dir;
-    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-
-    track.addEventListener('transitionend', function handler() {
-        track.removeEventListener('transitionend', handler);
-        if (currentIndex >= totalItems * 3) currentIndex -= totalItems;
-        if (currentIndex < totalItems) currentIndex += totalItems;
-        track.style.transition = 'none';
-        track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-        requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22,0.61,0.36,1)');
-        isMoving = false;
-    });
-}
-
-function startAutoPlay() {
-    if (autoPlay) clearInterval(autoPlay);
-    autoPlay = setInterval(() => move(1), 4000);
-}
-
-// Events
-document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.onclick = () => { clearInterval(autoPlay); move(btn.classList.contains('prev') ? -1 : 1); setTimeout(startAutoPlay, 8000); };
-});
-
-let touchStartX = 0;
-container.addEventListener('touchstart', e => touchStartX = e.touches[0].screenX, {passive:true});
-container.addEventListener('touchend', e => {
-    const diff = touchStartX - e.changedTouches[0].screenX;
-    if (Math.abs(diff) > 50) {
-        clearInterval(autoPlay);
-        move(diff > 0 ? 1 : -1);
-        setTimeout(startAutoPlay, 8000);
-    }
-});
-
-// Himoya
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.onselectstart = e => e.preventDefault();
-document.ondragstart = e => e.preventDefault();
-
-// Resize
-window.addEventListener('resize', () => {
-    calculateDimensions();
-    renderGallery();
-    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-});
-
-// Start
-renderGallery();
-startAutoPlay();
-
-    /* ==== HEADER & MOBILE MENU ==== */
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const navbarWrapper = document.getElementById('navbarWrapper');
-
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-        navbarWrapper.classList.toggle('menu-open');
-        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    });
-
-    // Link bosilganda mobil menyuni yopish
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenuBtn.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            navbarWrapper.classList.remove('menu-open');
-            document.body.style.overflow = '';
-        });
-    });
-
-    // Scroll bo'yicha navbar ni yashirish/ko'rsatish
-    let lastScrollTop = 0;
-    window.addEventListener('scroll', () => {
-        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        if (currentScroll > lastScrollTop && currentScroll > 100) {
-            navbarWrapper.classList.add('hidden');
-        } else {
-            navbarWrapper.classList.remove('hidden');
+            // Initial translate
+            galleryTrack.style.transition = 'none';
+            galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
+            requestAnimationFrame(() => {
+                galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
+            });
         }
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    }, { passive: true });
 
-    // Resize da mobil menyuni yopish
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 968) {
-            mobileMenuBtn.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            navbarWrapper.classList.remove('menu-open');
-            document.body.style.overflow = '';
+        function gallery_move(direction) {
+            if (gallery_isMoving) return;
+            gallery_isMoving = true;
+            gallery_currentIndex += direction;
+            galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
+
+            function handler() {
+                galleryTrack.removeEventListener('transitionend', handler);
+
+                if (gallery_currentIndex >= galleryTotal * 3) {
+                    gallery_currentIndex -= galleryTotal;
+                    galleryTrack.style.transition = 'none';
+                    galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
+                    requestAnimationFrame(() => galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
+                }
+                if (gallery_currentIndex < galleryTotal) {
+                    gallery_currentIndex += galleryTotal;
+                    galleryTrack.style.transition = 'none';
+                    galleryTrack.style.transform = `translateX(${-gallery_currentIndex * gallery_itemW}px)`;
+                    requestAnimationFrame(() => galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
+                }
+                gallery_isMoving = false;
+            }
+            galleryTrack.addEventListener('transitionend', handler);
         }
-    });
 
-    /* ==== CAROUSEL (Hero section) ==== */
-    const images = document.querySelectorAll('.carousel-image');
-    const dots = document.querySelectorAll('.dot');
-    let currentIndex = 0;
-    let zoomStartTime = Date.now();
-    const ZOOM_DURATION = 8000;
-    const MIN_SCALE = 1;
-    const MAX_SCALE = 1.15;
+        // Autoplay
+        let gallery_autoPlay = null;
+        function gallery_startAuto() {
+            if (gallery_autoPlay) clearInterval(gallery_autoPlay);
+            gallery_autoPlay = setInterval(() => gallery_move(1), 4000);
+        }
+        function gallery_stopAuto() {
+            if (gallery_autoPlay) clearInterval(gallery_autoPlay);
+            gallery_autoPlay = null;
+        }
 
-    function getCurrentScale() {
-        const elapsed = Date.now() - zoomStartTime;
-        const progress = Math.min(elapsed / ZOOM_DURATION, 1);
-        return MIN_SCALE + (MAX_SCALE - MIN_SCALE) * progress;
-    }
+        // Controls
+        const btnPrev = document.querySelector('.nav-btn.prev');
+        const btnNext = document.querySelector('.nav-btn.next');
+        if (btnPrev) btnPrev.addEventListener('click', () => { gallery_stopAuto(); gallery_move(-1); setTimeout(gallery_startAuto, 8000); });
+        if (btnNext) btnNext.addEventListener('click', () => { gallery_stopAuto(); gallery_move(1); setTimeout(gallery_startAuto, 8000); });
 
-    function animateZoom() {
-        const currentScale = getCurrentScale();
-        const activeImg = images[currentIndex].querySelector('img');
-        if (activeImg) activeImg.style.transform = `scale(${currentScale})`;
-        requestAnimationFrame(animateZoom);
-    }
+        // Keyboard
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') { gallery_stopAuto(); gallery_move(-1); setTimeout(gallery_startAuto, 8000); }
+            if (e.key === 'ArrowRight') { gallery_stopAuto(); gallery_move(1); setTimeout(gallery_startAuto, 8000); }
+        });
 
-    function showImage(index) {
-        images.forEach((img, i) => {
-            const el = img.querySelector('img');
-            if (i === index) {
-                img.classList.add('active');
-                el.style.transform = `scale(${getCurrentScale()})`;
+        // Touch swipe
+        let gallery_touchStartX = 0;
+        let gallery_touchEndX = 0;
+        const gallery_container = document.querySelector('.gallery-container');
+        if (gallery_container) {
+            gallery_container.addEventListener('touchstart', e => gallery_touchStartX = e.changedTouches[0].screenX, {passive: true});
+            gallery_container.addEventListener('touchend', e => {
+                gallery_touchEndX = e.changedTouches[0].screenX;
+                const diff = gallery_touchStartX - gallery_touchEndX;
+                if (Math.abs(diff) > 50) {
+                    gallery_stopAuto();
+                    gallery_move(diff > 0 ? 1 : -1);
+                    setTimeout(gallery_startAuto, 8000);
+                }
+            });
+        }
+
+        // Protection
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onselectstart = e => e.preventDefault();
+        document.ondragstart = e => e.preventDefault();
+
+        // Init
+        gallery_render();
+        gallery_startAuto();
+
+        // Re-render on resize if breakpoint crossed
+        window.addEventListener('resize', () => {
+            const nowMobile = window.innerWidth <= 768;
+            if (nowMobile !== galleryIsMobile) {
+                // simple approach: reload to re-calc sizes (same as original gallery script)
+                location.reload();
+            }
+        });
+    })();
+    </script>
+    <script>
+        // Header Scripts
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navbarWrapper = document.getElementById('navbarWrapper');
+       
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            navbarWrapper.classList.toggle('menu-open');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                navbarWrapper.classList.remove('menu-open');
+                document.body.style.overflow = '';
+            });
+        });
+        // Navbar show/hide on scroll
+        let lastScrollTop = 0;
+        let scrollTimer = null;
+        window.addEventListener('scroll', () => {
+            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+           
+            if (scrollTimer !== null) {
+                clearTimeout(scrollTimer);
+            }
+           
+            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+                navbarWrapper.classList.add('hidden');
             } else {
-                img.classList.remove('active');
+                navbarWrapper.classList.remove('hidden');
+            }
+           
+            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+           
+            scrollTimer = setTimeout(() => {
+                scrollTimer = null;
+            }, 100);
+        }, { passive: true });
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 968) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                navbarWrapper.classList.remove('menu-open');
+                document.body.style.overflow = '';
             }
         });
-        dots.forEach((d, i) => d.classList.toggle('active', i === index));
-        currentIndex = index;
-        zoomStartTime = Date.now();
-    }
 
-    function nextImage() {
-        showImage((currentIndex + 1) % images.length);
-    }
-
-    dots.forEach((dot, i) => dot.addEventListener('click', () => showImage(i)));
-    setInterval(nextImage, 8000);
-    animateZoom();
-
-    /* ==== INTERSECTION OBSERVER (animatsiyalar) ==== */
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.gallery-card, .category-card, .advantage-card, .carousel-content, .section-header, .contact-item').forEach((el, i) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = `all 0.7s ease ${i * 0.1}s`;
-        observer.observe(el);
-    });
-
-    /* ==== RIPPLE EFFECT (barcha tugmalar uchun) ==== */
-    document.querySelectorAll('button, .product-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            ripple.style.cssText = `
-                position:absolute; width:100px; height:100px;
-                background:rgba(255,255,255,0.6); border-radius:50%;
-                transform:translate(-50%,-50%) scale(0);
-                animation:ripple 0.6s ease-out;
-                left:${x}px; top:${y}px; pointer-events:none;
-            `;
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            this.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
-        });
-    });
-
-    // Ripple animatsiyasi
-    const rippleStyle = document.createElement('style');
-    rippleStyle.textContent = `
-        @keyframes ripple {
-            to { transform:translate(-50%,-50%) scale(4); opacity:0; }
-        }
-    `;
-    document.head.appendChild(rippleStyle);
-
-    /* ==== PRODUCT CARD SLIDER (Oldin/Keyin) ==== */
-    document.querySelectorAll('.product-card').forEach(card => {
-        const container = card.querySelector('.slider-container');
-        if (!container) return;
-
-        const images = card.querySelectorAll('.slider-image');
-        const dotsContainer = card.querySelector('.slider-dots');
-        let idx = 0;
-
-        // Dots yaratish
-        images.forEach((_, i) => {
-            const dot = document.createElement('div');
-            dot.className = 'slider-dot';
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goTo(i));
-            dotsContainer.appendChild(dot);
-        });
-        const dots = dotsContainer.querySelectorAll('.slider-dot');
-
-        function goTo(i) {
-            idx = i;
-            container.style.transform = `translateX(-${i * 100}%)`;
-            dots.forEach((d, di) => d.classList.toggle('active', di === i));
-        }
-
-        // Swipe & Mouse drag
-        let startX = 0, isDragging = false;
-
-        const start = e => { startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX; isDragging = true; };
-        const end = e => {
-            if (!isDragging) return;
-            const endX = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
-            const diff = startX - endX;
-            if (Math.abs(diff) > 50) {
-                diff > 0 ? idx = (idx + 1) % images.length : idx = (idx - 1 + images.length) % images.length;
-                goTo(idx);
-            }
-            isDragging = false;
+        // Main Content Scripts (from previous)
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
-
-        container.addEventListener('touchstart', start, { passive: true });
-        container.addEventListener('touchend', end);
-        container.addEventListener('mousedown', start);
-        container.addEventListener('mouseup', end);
-        container.addEventListener('mouseleave', () => isDragging = false);
-    });
-
-    /* ==== COMPARISON SLIDER (Oldin/Keyin katta slider) ==== */
-    const comparisonContainer = document.getElementById('comparisonContainer');
-    if (comparisonContainer) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.gallery-card, .category-card, .advantage-card, .carousel-content').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+        // Button click effects
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+              
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+              
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+              
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+        // Carousel functionality
+        const images = document.querySelectorAll('.carousel-image');
+        const dots = document.querySelectorAll('.dot');
+        let currentIndex = 0;
+        let zoomStartTime = Date.now();
+        const ZOOM_DURATION = 8000;
+        const MIN_SCALE = 1;
+        const MAX_SCALE = 1.15;
+        function getCurrentScale() {
+            const elapsed = Date.now() - zoomStartTime;
+            const progress = Math.min(elapsed / ZOOM_DURATION, 1);
+            return MIN_SCALE + (MAX_SCALE - MIN_SCALE) * progress;
+        }
+        function animateZoom() {
+            const currentScale = getCurrentScale();
+            const activeImage = images[currentIndex].querySelector('img');
+            if (activeImage) {
+                activeImage.style.transform = `scale(${currentScale})`;
+            }
+            requestAnimationFrame(animateZoom);
+        }
+        function showImage(index) {
+            const currentScale = getCurrentScale();
+          
+            images.forEach((img, i) => {
+                const imgElement = img.querySelector('img');
+                if (i === index) {
+                    imgElement.style.transform = `scale(${currentScale})`;
+                    img.classList.add('active');
+                } else {
+                    imgElement.style.transform = `scale(${currentScale})`;
+                    img.classList.remove('active');
+                }
+            });
+          
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+          
+            currentIndex = index;
+            zoomStartTime = Date.now() - (currentScale - MIN_SCALE) / (MAX_SCALE - MIN_SCALE) * ZOOM_DURATION;
+        }
+        function nextImage() {
+            const nextIndex = (currentIndex + 1) % images.length;
+            showImage(nextIndex);
+        }
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showImage(index);
+            });
+        });
+        animateZoom();
+        setInterval(nextImage, 8000);
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: translate(-50%, -50%) scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        // Slider initialization for product cards (if any)
+        function initSlider(card) {
+            const container = card.querySelector('.slider-container');
+            const images = card.querySelectorAll('.slider-image');
+            const dotsContainer = card.querySelector('.slider-dots');
+            let currentIndex = 0;
+            let startX = 0;
+            let isDragging = false;
+            if (card.dataset.id === 'camera1') {
+                dotsContainer.style.display = 'none';
+                return;
+            }
+            images.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'slider-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            });
+            const dots = dotsContainer.querySelectorAll('.slider-dot');
+            function goToSlide(index) {
+                currentIndex = index;
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((d, i) => {
+                    d.classList.toggle('active', i === currentIndex);
+                });
+            }
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % images.length;
+                goToSlide(currentIndex);
+            }
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                goToSlide(currentIndex);
+            }
+            container.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+                e.preventDefault();
+            }, { passive: false });
+            container.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            }, { passive: false });
+            container.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                isDragging = false;
+            });
+            container.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                isDragging = true;
+                e.preventDefault();
+            });
+            container.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+            });
+            container.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                const endX = e.clientX;
+                const diff = startX - endX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                isDragging = false;
+            });
+            container.addEventListener('mouseleave', () => {
+                isDragging = false;
+            });
+            container.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            const allCards = document.querySelectorAll('.product-card');
+            allCards.forEach(card => initSlider(card));
+        });
+        // Button click ripple effect for product buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('product-btn')) {
+                const button = e.target;
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+              
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 100px;
+                    height: 100px;
+                    background: rgba(255, 255, 255, 0.6);
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                    left: ${x}px;
+                    top: ${y}px;
+                `;
+              
+                button.style.position = 'relative';
+                button.style.overflow = 'hidden';
+                button.appendChild(ripple);
+              
+                setTimeout(() => ripple.remove(), 600);
+            }
+        });
+        // Comparison Slider Script
+        const comparisonContainer = document.getElementById('comparisonContainer');
         const slider = document.getElementById('slider');
         const afterImage = document.getElementById('afterImage');
-        let dragging = false;
-
-        const update = x => {
+      
+        let isDragging = false;
+        function updateSliderPosition(x) {
             const rect = comparisonContainer.getBoundingClientRect();
-            let percent = ((x - rect.left) / rect.width) * 100;
-            percent = Math.max(0, Math.min(100, percent));
-            slider.style.left = percent + '%';
-            afterImage.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
-        };
-
-        const move = e => {
-            if (!dragging) return;
-            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            update(clientX);
-        };
-
-        slider.addEventListener('mousedown', () => dragging = true);
-        slider.addEventListener('touchstart', () => dragging = true, { passive: true });
-        document.addEventListener('mousemove', move);
-        document.addEventListener('touchmove', move, { passive: false });
-        document.addEventListener('mouseup', () => dragging = false);
-        document.addEventListener('touchend', () => dragging = false);
-    }
-
-    /* ==== HIMIYA (rasmlar va matnni nusxa olishni oldini olish) ==== */
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onselectstart = e => e.preventDefault();
-    document.ondragstart = e => e.preventDefault();
-</script>
+            const containerWidth = rect.width;
+            const offsetX = x - rect.left;
+          
+            let percentage = (offsetX / containerWidth) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
+          
+            slider.style.left = percentage + '%';
+            afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+        }
+        function handleMove(e) {
+            if (!isDragging) return;
+          
+            e.preventDefault();
+            const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            updateSliderPosition(x);
+        }
+        function startDrag(e) {
+            isDragging = true;
+            comparisonContainer.style.cursor = 'col-resize';
+          
+            const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            updateSliderPosition(x);
+        }
+        function stopDrag() {
+            isDragging = false;
+            comparisonContainer.style.cursor = 'default';
+        }
+        slider.addEventListener('mousedown', startDrag);
+        slider.addEventListener('touchstart', startDrag, { passive: false });
+      
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('mouseup', stopDrag);
+        document.addEventListener('touchend', stopDrag);
+    </script>
 </body>
 </html>

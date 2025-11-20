@@ -466,6 +466,7 @@
             display: flex;
             gap: 24px;
             width: max-content;
+            touch-action: pan-y; /* Bu qator yangi */
         }
 
         .gallery-track.row-1 {
@@ -2130,17 +2131,25 @@
     track.addEventListener('touchstart', startDrag, { passive: false });
 
     function startDrag(e) {
-      isDragging = true;
-      isPaused = true;
-      lastTime = null;
-      dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
-      dragStartPos = position;
+    // Agar vertikal scroll bo'lsa, drag-ni boshlamaymiz
+    if (e.type === 'touchstart') {
+        const touch = e.touches[0];
+        track.dataset.startY = touch.clientY;
+        track.dataset.startX = touch.clientX;
+        return; // Darhol chiqamiz, keyingi touchmove da tekshiramiz
+    }
+    
+    isDragging = true;
+    isPaused = true;
+    lastTime = null;
+    dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
+    dragStartPos = position;
 
-      document.addEventListener('mousemove', onDrag, { passive: false });
-      document.addEventListener('mouseup', endDrag);
-      document.addEventListener('touchmove', onDrag, { passive: false });
-      document.addEventListener('touchend', endDrag, { passive: false });
-      document.addEventListener('touchcancel', endDrag, { passive: false });
+    document.addEventListener('mousemove', onDrag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchmove', onDrag, { passive: false });
+    document.addEventListener('touchend', endDrag, { passive: false });
+    document.addEventListener('touchcancel', endDrag, { passive: false });
     }
 
     function onDrag(e) {
@@ -2154,24 +2163,35 @@
       }
     }
 
-    function endDrag() {
-      isDragging = false;
-      isPaused = false;
-      document.removeEventListener('mousemove', onDrag);
-      document.removeEventListener('mouseup', endDrag);
-      document.removeEventListener('touchmove', onDrag);
-      document.removeEventListener('touchend', endDrag);
-      document.removeEventListener('touchcancel', endDrag);
-    }
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
+   function onDrag(e) {
+    if (e.type === 'touchmove' && !isDragging) {
+        const touch = e.touches[0];
+        const deltaX = Math.abs(touch.clientX - parseFloat(track.dataset.startX || 0));
+        const deltaY = Math.abs(touch.clientY - parseFloat(track.dataset.startY || 0));
+        
+        // Agar vertikal harakat ko'proq bo'lsa, drag qilmaymiz
+        if (deltaY > deltaX) {
+            return;
+        }
+        
+        // Gorizontal harakat - drag boshlaymiz
+        isDragging = true;
         isPaused = true;
-      } else {
-        isPaused = false;
         lastTime = null;
-      }
-    });
+        dragStartX = parseFloat(track.dataset.startX);
+        dragStartPos = position;
+        e.preventDefault();
+    }
+    
+    if (!isDragging) return;
+    e.preventDefault();
+    const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+    const dx = clientX - dragStartX;
+    position = dragStartPos - dx;
+    if (sequenceWidth > 0) {
+        position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+    }
+}
 
     let resizeTimer = null;
     window.addEventListener('resize', () => {

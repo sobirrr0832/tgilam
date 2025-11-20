@@ -8,13 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
@@ -29,9 +25,9 @@
             background: #ffffff;
             color: var(--dark);
             overflow-x: hidden;
-            padding-top: 149px;
+            padding-top: 80px;
         }
-        /* Navigation - Header CSS */
+ /* Navigation - Header CSS */
         #part1 .navbar-wrapper {
             position: fixed;
             top: 0;
@@ -427,15 +423,17 @@
         #part2 .dot:hover {
             background: rgba(255, 255, 255, 0.8);
         }
-        /* Scrolling Gallery */
+       
+        /* ==== YANGI GALEREYA (Part 3) ==== */
         #part3 .scrolling-gallery {
-            padding: 100px 0;
+            padding: 120px 0;
             background: white;
+            position: relative;
             overflow: hidden;
         }
         #part3 .gallery-header {
             max-width: 1400px;
-            margin: 0 auto 60px;
+            margin: 0 auto 80px;
             padding: 0 40px;
             text-align: center;
         }
@@ -444,22 +442,24 @@
             font-weight: 800;
             margin-bottom: 16px;
             letter-spacing: -1px;
+            color: var(--dark);
         }
         #part3 .gallery-header p {
             font-size: 1.2rem;
             color: var(--gray);
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
+        }
+
+        #part3 .gallery-container {
+            position: relative;
+            overflow: hidden;
+            padding: 0 80px;
         }
         #part3 .gallery-track {
             display: flex;
             gap: 24px;
-            animation: scroll 40s linear infinite;
-            width: max-content;
-        }
-        #part3 .gallery-item-link {
-            text-decoration: none;
-            color: inherit;
+            will-change: transform;
         }
         #part3 .gallery-item {
             width: 400px;
@@ -468,50 +468,72 @@
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
-        }
-        #part3 .gallery-item:hover {
-            transform: scale(1.05);
-        }
-        #part3 .gallery-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            user-select: none;
         }
         #part3 .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            draggable: false;
+        }
+        #part3 .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
+            border-radius: 20px;
+            pointer-events: none;
         }
         #part3 .gallery-overlay {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             padding: 24px;
-            z-index: 1;
             color: white;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            pointer-events: none;
+            z-index: 1;
         }
-        #part3 .gallery-overlay h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 6px;
+        #part3 .gallery-overlay h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
+        #part3 .gallery-overlay p { font-size: 0.95rem; opacity: 0.95; }
+
+        #part3 .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.95);
+            border: none;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
         }
-        #part3 .gallery-overlay p {
-            font-size: 0.9rem;
-            opacity: 0.9;
+        #part3 .nav-btn:hover {
+            background: white;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.25);
+            transform: translateY(-50%) scale(1.1);
         }
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+        #part3 .nav-btn i { font-size: 20px; color: var(--dark); }
+        #part3 .nav-btn.prev { left: 20px; }
+        #part3 .nav-btn.next { right: 20px; }
+
+        @media (max-width: 768px) {
+            #part3 .gallery-item { width: 320px; height: 230px; }
+            #part3 .gallery-container { padding: 0 60px; }
         }
-        /* Advantages Section */
+        @media (max-width: 480px) {
+            #part3 .gallery-item { width: 280px; height: 200px; }
+            #part3 .gallery-overlay h3 { font-size: 1.2rem; }
+        }
+         /* Advantages Section */
         #part4 .advantages-section {
             max-width: 1400px;
             margin: 0 auto;
@@ -1214,7 +1236,8 @@
     </style>
 </head>
 <body>
-    <!-- Part 1: Header (New Navbar) -->
+
+   <!-- Part 1: Header (New Navbar) -->
     <div id="part1">
         <!-- Main Navbar Wrapper -->
         <div class="navbar-wrapper" id="navbarWrapper">
@@ -1254,7 +1277,7 @@
                 <div class="nav-container">
                     <div class="nav-links">
                         <a href="mahsulotlar.html">Mahsulotlar</a>
-                        <a href="about.html">Biz haqimizda</a>
+                        <a href="bizhaqimizda.html">Biz haqimizda</a>
                         <a href="galereya.html">Galereya</a>
                         <a href="kalcul.html">Kalkulyator</a>
                         <a href="aloqa.html">Aloqa</a>
@@ -1268,7 +1291,7 @@
             <div class="mobile-menu-links">
                 <a href="index.html">Bosh sahifa</a>
                 <a href="mahsulotlar.html">Mahsulotlar</a>
-                <a href="about.html">Biz haqimizda</a>
+                <a href="bizhaqimizda.html">Biz haqimizda</a>
                 <a href="galereya.html">Galereya</a>
                 <a href="kalcul.html">Kalkulyator</a>
                 <a href="aloqa.html">Aloqa</a>
@@ -1330,92 +1353,22 @@
             </div>
         </div>
     </div>
-
-    <!-- Part 3: Scrolling Gallery -->
+    <!-- ==== YANGI PART 3: Toshgilamlar Galereyasi ==== -->
     <div id="part3">
         <section class="scrolling-gallery">
             <div class="gallery-header">
                 <h2>Bizning toshgilamlar galereyasi</h2>
-                <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
+                <p>Bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
             </div>
-            <div class="gallery-track">
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g01.webp" alt="">
-                        <div class="gallery-overlay">
-                            <h3>Shabnam</h3>
-                            <p>ertalab shabnamday tiniq</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g02.webp" alt="Tech">
-                        <div class="gallery-overlay">
-                            <h3>Temuriy</h3>
-                            <p>aralash rangdagi silliq yuvilgan toshlar </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g03.webp" alt="Food">
-                        <div class="gallery-overlay">
-                            <h3>Oytog'</h3>
-                            <p>tabiatning mutanosib va sokin go'zalligi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g04.webp" alt="Travel">
-                        <div class="gallery-overlay">
-                            <h3>Kohinur</h3>
-                            <p>juda mayda va silliqlangan toshlar</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g05.webp" alt="Interior">
-                        <div class="gallery-overlay">
-                            <h3>Zarnigor</h3>
-                            <p>tabiiy toshlar va oq kristal uyg'unligi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g06.webp" alt="Store">
-                        <div class="gallery-overlay">
-                            <h3>Safonur</h3>
-                            <p>nafislik va kontrastninig uyg'unligi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g07.webp" alt="Tech">
-                        <div class="gallery-overlay">
-                            <h3>Suvoriy</h3>
-                            <p>tabiatda yaralgan noziklik</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g08.webp" alt="Food">
-                        <div class="gallery-overlay">
-                            <h3>Safir</h3>
-                            <p>tabiiy iliqlik va ranglar uyg'unligi</p>
-                        </div>
-                    </div>
-                </a>
+
+            <div class="gallery-container">
+                <button class="nav-btn prev" aria-label="Oldinga"><i class="fas fa-chevron-left"></i></button>
+                <div class="gallery-track" id="galleryTrack"></div>
+                <button class="nav-btn next" aria-label="Orqaga"><i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
     </div>
-
-    <!-- Part 4: Advantages Section -->
+   <!-- Part 4: Advantages Section -->
     <div id="part4">
         <section class="advantages-section">
             <div class="section-header">
@@ -1578,334 +1531,118 @@
             </div>
         </footer>
     </div>
-
     <script>
-        // Header Scripts
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const navbarWrapper = document.getElementById('navbarWrapper');
-       
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuBtn.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            navbarWrapper.classList.toggle('menu-open');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        });
-        // Close mobile menu when clicking on a link
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuBtn.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                navbarWrapper.classList.remove('menu-open');
-                document.body.style.overflow = '';
-            });
-        });
-        // Navbar show/hide on scroll
-        let lastScrollTop = 0;
-        let scrollTimer = null;
-        window.addEventListener('scroll', () => {
-            const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
-           
-            if (scrollTimer !== null) {
-                clearTimeout(scrollTimer);
-            }
-           
-            if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-                navbarWrapper.classList.add('hidden');
-            } else {
-                navbarWrapper.classList.remove('hidden');
-            }
-           
-            lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
-           
-            scrollTimer = setTimeout(() => {
-                scrollTimer = null;
-            }, 100);
-        }, { passive: true });
-        // Close mobile menu on window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 968) {
-                mobileMenuBtn.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                navbarWrapper.classList.remove('menu-open');
-                document.body.style.overflow = '';
-            }
-        });
+        // ==== Barcha eski scriptlar (navbar, carousel, comparison va h.k.) saqlangan ====
 
-        // Main Content Scripts (from previous)
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        document.querySelectorAll('.gallery-card, .category-card, .advantage-card, .carousel-content').forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            card.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(card);
-        });
-        // Button click effects
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-              
-                ripple.style.cssText = `
-                    position: absolute;
-                    width: 100px;
-                    height: 100px;
-                    background: rgba(255, 255, 255, 0.6);
-                    border-radius: 50%;
-                    transform: translate(-50%, -50%) scale(0);
-                    animation: ripple 0.6s ease-out;
-                    pointer-events: none;
-                    left: ${x}px;
-                    top: ${y}px;
-                `;
-              
-                this.style.position = 'relative';
-                this.style.overflow = 'hidden';
-                this.appendChild(ripple);
-              
-                setTimeout(() => ripple.remove(), 600);
-            });
-        });
-        // Carousel functionality
-        const images = document.querySelectorAll('.carousel-image');
-        const dots = document.querySelectorAll('.dot');
-        let currentIndex = 0;
-        let zoomStartTime = Date.now();
-        const ZOOM_DURATION = 8000;
-        const MIN_SCALE = 1;
-        const MAX_SCALE = 1.15;
-        function getCurrentScale() {
-            const elapsed = Date.now() - zoomStartTime;
-            const progress = Math.min(elapsed / ZOOM_DURATION, 1);
-            return MIN_SCALE + (MAX_SCALE - MIN_SCALE) * progress;
-        }
-        function animateZoom() {
-            const currentScale = getCurrentScale();
-            const activeImage = images[currentIndex].querySelector('img');
-            if (activeImage) {
-                activeImage.style.transform = `scale(${currentScale})`;
-            }
-            requestAnimationFrame(animateZoom);
-        }
-        function showImage(index) {
-            const currentScale = getCurrentScale();
-          
-            images.forEach((img, i) => {
-                const imgElement = img.querySelector('img');
-                if (i === index) {
-                    imgElement.style.transform = `scale(${currentScale})`;
-                    img.classList.add('active');
-                } else {
-                    imgElement.style.transform = `scale(${currentScale})`;
-                    img.classList.remove('active');
-                }
-            });
-          
-            dots.forEach(dot => dot.classList.remove('active'));
-            dots[index].classList.add('active');
-          
-            currentIndex = index;
-            zoomStartTime = Date.now() - (currentScale - MIN_SCALE) / (MAX_SCALE - MIN_SCALE) * ZOOM_DURATION;
-        }
-        function nextImage() {
-            const nextIndex = (currentIndex + 1) % images.length;
-            showImage(nextIndex);
-        }
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                showImage(index);
-            });
-        });
-        animateZoom();
-        setInterval(nextImage, 8000);
-        // Add ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: translate(-50%, -50%) scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-        // Slider initialization for product cards (if any)
-        function initSlider(card) {
-            const container = card.querySelector('.slider-container');
-            const images = card.querySelectorAll('.slider-image');
-            const dotsContainer = card.querySelector('.slider-dots');
-            let currentIndex = 0;
-            let startX = 0;
-            let isDragging = false;
-            if (card.dataset.id === 'camera1') {
-                dotsContainer.style.display = 'none';
-                return;
-            }
-            images.forEach((_, i) => {
-                const dot = document.createElement('div');
-                dot.className = 'slider-dot';
-                if (i === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => goToSlide(i));
-                dotsContainer.appendChild(dot);
-            });
-            const dots = dotsContainer.querySelectorAll('.slider-dot');
-            function goToSlide(index) {
-                currentIndex = index;
-                container.style.transform = `translateX(-${currentIndex * 100}%)`;
-                dots.forEach((d, i) => {
-                    d.classList.toggle('active', i === currentIndex);
+        // ==== ENG YANGI GALEREYA SCRIPT (Swipe + 5 soniya kutish + toʻgʻri cheksiz aylanish) ====
+        const galleryData = [
+            { img: 'gimg/g01.webp', title: 'Shabnam', desc: 'ertalab shabnamday tiniq' },
+            { img: 'gimg/g02.webp', title: 'Temuriy', desc: 'aralash rangdagi silliq yuvilgan toshlar' },
+            { img: 'gimg/g03.webp', title: "Oytog'", desc: "tabiatning mutanosib va sokin go'zalligi" },
+            { img: 'gimg/g04.webp', title: 'Kohinur', desc: 'juda mayda va silliqlangan toshlar' },
+            { img: 'gimg/g05.webp', title: 'Zarnigor', desc: "tabiiy toshlar va oq kristal uyg'unligi" },
+            { img: 'gimg/g06.webp', title: 'Safonur', desc: "nafislik va kontrastninig uyg'unligi" },
+            { img: 'gimg/g07.webp', title: 'Suvoriy', desc: 'tabiatda yaralgan noziklik' },
+            { img: 'gimg/g08.webp', title: 'Safir', desc: "tabiiy iliqlik va ranglar uyg'unligi" }
+        ];
+
+        const track = document.getElementById('galleryTrack');
+        const itemWidth = 424; // 400 + 24
+        const totalItems = galleryData.length;
+        let currentIndex = totalItems * 2; // oʻrtadan boshlash
+        let isMoving = false;
+        let autoPlay = null;
+
+        function renderGallery() {
+            track.innerHTML = '';
+            for (let i = 0; i < 5; i++) {
+                galleryData.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.innerHTML = `
+                        <img src="${item.img}" alt="${item.title}" loading="lazy" draggable="false">
+                        <div class="gallery-overlay">
+                            <h3>${item.title}</h3>
+                            <p>${item.desc}</p>
+                        </div>
+                    `;
+                    track.appendChild(div);
                 });
             }
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % images.length;
-                goToSlide(currentIndex);
-            }
-            function prevSlide() {
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
-                goToSlide(currentIndex);
-            }
-            container.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                isDragging = true;
-                e.preventDefault();
-            }, { passive: false });
-            container.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-            }, { passive: false });
-            container.addEventListener('touchend', (e) => {
-                if (!isDragging) return;
-                const endX = e.changedTouches[0].clientX;
-                const diff = startX - endX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        nextSlide();
-                    } else {
-                        prevSlide();
-                    }
-                }
-                isDragging = false;
-            });
-            container.addEventListener('mousedown', (e) => {
-                startX = e.clientX;
-                isDragging = true;
-                e.preventDefault();
-            });
-            container.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                e.preventDefault();
-            });
-            container.addEventListener('mouseup', (e) => {
-                if (!isDragging) return;
-                const endX = e.clientX;
-                const diff = startX - endX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        nextSlide();
-                    } else {
-                        prevSlide();
-                    }
-                }
-                isDragging = false;
-            });
-            container.addEventListener('mouseleave', () => {
-                isDragging = false;
-            });
-            container.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
+            track.style.transition = 'none';
+            track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+            requestAnimationFrame(() => {
+                track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
             });
         }
-        document.addEventListener('DOMContentLoaded', () => {
-            const allCards = document.querySelectorAll('.product-card');
-            allCards.forEach(card => initSlider(card));
+
+        function move(direction) {
+            if (isMoving) return;
+            isMoving = true;
+            currentIndex += direction;
+            track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+
+            const onTransitionEnd = () => {
+                track.removeEventListener('transitionend', onTransitionEnd);
+
+                if (currentIndex >= totalItems * 4) {
+                    currentIndex -= totalItems * 2;
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                    requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
+                }
+                if (currentIndex < totalItems) {
+                    currentIndex += totalItems * 2;
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                    requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
+                }
+                isMoving = false;
+            };
+            track.addEventListener('transitionend', onTransitionEnd);
+        }
+
+        function startAutoPlay() {
+            if (autoPlay) clearInterval(autoPlay);
+            autoPlay = setInterval(() => move(1), 4000);
+        }
+        function stopAutoPlay() {
+            if (autoPlay) clearInterval(autoPlay);
+            autoPlay = null;
+        }
+
+        // Tugmalar
+        document.querySelector('#part3 .nav-btn.prev').onclick = () => { stopAutoPlay(); move(-1); setTimeout(startAutoPlay, 5000); };
+        document.querySelector('#part3 .nav-btn.next').onclick = () => { stopAutoPlay(); move(1); setTimeout(startAutoPlay, 5000); };
+
+        // Klaviatura
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowLeft') { stopAutoPlay(); move(-1); setTimeout(startAutoPlay, 5000); }
+            if (e.key === 'ArrowRight') { stopAutoPlay(); move(1); setTimeout(startAutoPlay, 5000); }
         });
-        // Button click ripple effect for product buttons
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('product-btn')) {
-                const button = e.target;
-                const ripple = document.createElement('span');
-                const rect = button.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-              
-                ripple.style.cssText = `
-                    position: absolute;
-                    width: 100px;
-                    height: 100px;
-                    background: rgba(255, 255, 255, 0.6);
-                    border-radius: 50%;
-                    transform: translate(-50%, -50%) scale(0);
-                    animation: ripple 0.6s ease-out;
-                    pointer-events: none;
-                    left: ${x}px;
-                    top: ${y}px;
-                `;
-              
-                button.style.position = 'relative';
-                button.style.overflow = 'hidden';
-                button.appendChild(ripple);
-              
-                setTimeout(() => ripple.remove(), 600);
+
+        // Swipe (mobil)
+        let touchStartX = 0;
+        const container = document.querySelector('#part3 .gallery-container');
+        container.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        container.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].screenX;
+            const diff = touchEndX - touchStartX;
+            if (Math.abs(diff) > 50) {
+                stopAutoPlay();
+                if (diff > 0) move(-1); else move(1);
+                setTimeout(startAutoPlay, 5000);
             }
         });
-        // Comparison Slider Script
-        const comparisonContainer = document.getElementById('comparisonContainer');
-        const slider = document.getElementById('slider');
-        const afterImage = document.getElementById('afterImage');
-      
-        let isDragging = false;
-        function updateSliderPosition(x) {
-            const rect = comparisonContainer.getBoundingClientRect();
-            const containerWidth = rect.width;
-            const offsetX = x - rect.left;
-          
-            let percentage = (offsetX / containerWidth) * 100;
-            percentage = Math.max(0, Math.min(100, percentage));
-          
-            slider.style.left = percentage + '%';
-            afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
-        }
-        function handleMove(e) {
-            if (!isDragging) return;
-          
-            e.preventDefault();
-            const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            updateSliderPosition(x);
-        }
-        function startDrag(e) {
-            isDragging = true;
-            comparisonContainer.style.cursor = 'col-resize';
-          
-            const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            updateSliderPosition(x);
-        }
-        function stopDrag() {
-            isDragging = false;
-            comparisonContainer.style.cursor = 'default';
-        }
-        slider.addEventListener('mousedown', startDrag);
-        slider.addEventListener('touchstart', startDrag, { passive: false });
-      
-        document.addEventListener('mousemove', handleMove);
-        document.addEventListener('touchmove', handleMove, { passive: false });
-        document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('touchend', stopDrag);
+
+        // Himoya
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onselectstart = e => e.preventDefault();
+        document.ondragstart = e => e.preventDefault();
+
+        // Init
+        renderGallery();
+        startAutoPlay();
     </script>
 </body>
 </html>

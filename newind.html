@@ -27,7 +27,39 @@
             overflow-x: hidden;
             padding-top: 80px;
         }
+/* ==== YANGI GALEREYA ==== */
+        .scrolling-gallery { padding:120px 0; background:#fff; overflow:hidden; position:relative; }
+        .gallery-header { max-width:1400px; margin:0 auto 70px; padding:0 40px; text-align:center; }
+        .gallery-header h2 { font-size:3rem; font-weight:800; color:var(--dark); }
+        .gallery-header p { font-size:1.2rem; color:var(--gray); max-width:700px; margin:20px auto 0; }
 
+        .gallery-container { position:relative; overflow:hidden; padding:0 80px; }
+        .gallery-track { display:flex; gap:24px; will-change:transform; }
+        .gallery-item { width:400px; height:280px; border-radius:20px; overflow:hidden; position:relative; flex-shrink:0; box-shadow:0 8px 24px rgba(0,0,0,0.08); }
+        .gallery-item img { width:100%; height:100%; object-fit:cover; draggable:false; }
+        .gallery-item::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,0.5)); border-radius:20px; }
+        .gallery-overlay { position:absolute; bottom:0; left:0; right:0; padding:24px; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6); z-index:1; }
+        .gallery-overlay h3 { font-size:1.4rem; font-weight:700; margin-bottom:6px; }
+        .gallery-overlay p { font-size:0.95rem; opacity:0.95; }
+
+        .nav-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.95); border:none; width:50px; height:50px; border-radius:50%; cursor:pointer; z-index:10; box-shadow:0 4px 20px rgba(0,0,0,0.15); transition:all .3s; }
+        .nav-btn:hover { background:#fff; transform:translateY(-50%) scale(1.1); }
+        .nav-btn i { font-size:20px; color:var(--dark); }
+        .nav-btn.prev { left:20px; }
+        .nav-btn.next { right:20px; }
+
+        @media (max-width:768px) {
+            .nav-btn { display:none !important; }
+            .gallery-header h2 { font-size:2.4rem; }
+            .gallery-item { width:320px; height:230px; }
+            .gallery-container { padding:0 20px; }
+            .gallery-track { gap:16px; }
+        }
+        @media (max-width:480px) {
+            .gallery-item { width:280px; height:200px; }
+            .gallery-overlay h3 { font-size:1.2rem; }
+        }
+        
          /* Navigation - Header CSS */
         #part1 .navbar-wrapper {
             position: fixed;
@@ -1423,19 +1455,19 @@
             </div>
         </div>
     </div>
-<!-- PART 3: YANGI GALEREYA -->
-<section class="scrolling-gallery">
-    <div class="gallery-header">
-        <h2>Bizning toshgilamlar galereyasi</h2>
-        <p>Bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
-    </div>
-
-    <div class="gallery-container">
-        <button class="nav-btn prev" aria-label="Oldinga"><i class="fas fa-chevron-left"></i></button>
-        <div class="gallery-track" id="galleryTrack"></div>
-        <button class="nav-btn next" aria-label="Orqaga"><i class="fas fa-chevron-right"></i></button>
-    </div>
-</section>
+<!-- YANGI GALEREYA -->
+    <section class="scrolling-gallery">
+        <div class="gallery-header">
+            <h2>Bizning toshgilamlar galereyasi</h2>
+            <p>Bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
+        </div>
+        <div class="gallery-container">
+            <button class="nav-btn prev" aria-label="Oldinga"><i class="fas fa-chevron-left"></i></button>
+            <div class="gallery-track" id="galleryTrack"></div>
+            <button class="nav-btn next" aria-label="Orqaga"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+    
  <!-- Part 4: Advantages Section -->
     <div id="part4">
         <section class="advantages-section">
@@ -1601,37 +1633,46 @@
     </div>
 
 <script>
-    /* ==== YANGI GALEREYA JS ==== */
-    const galleryData = [
-        { img: 'gimg/g01.webp', title: 'Shabnam', desc: 'ertalab shabnamday tiniq' },
-        { img: 'gimg/g02.webp', title: 'Temuriy', desc: 'aralash rangdagi silliq yuvilgan toshlar' },
-        { img: 'gimg/g03.webp', title: "Oytog'", desc: "tabiatning mutanosib va sokin go'zalligi" },
-        { img: 'gimg/g04.webp', title: 'Kohinur', desc: 'juda mayda va silliqlangan toshlar' },
-        { img: 'gimg/g05.webp', title: 'Zarnigor', desc: "tabiiy toshlar va oq kristal uyg'unligi" },
-        { img: 'gimg/g06.webp', title: 'Safonur', desc: "nafislik va kontrastninig uyg'unligi" },
-        { img: 'gimg/g07.webp', title: 'Suvoriy', desc: 'tabiatda yaralgan noziklik' },
-        { img: 'gimg/g08.webp', title: 'Safir', desc: "tabiiy iliqlik va ranglar uyg'unligi" }
-    ];
+/* ==== YANGI GALEREYA – TOʻLIQ TUZATILGAN ==== */
+const galleryData = [
+    { img: 'gimg/g01.webp', title: 'Shabnam', desc: 'ertalab shabnamday tiniq' },
+    { img: 'gimg/g02.webp', title: 'Temuriy', desc: 'aralash rangdagi silliq yuvilgan toshlar' },
+    { img: 'gimg/g03.webp', title: "Oytog'", desc: "tabiatning mutanosib va sokin go'zalligi" },
+    { img: 'gimg/g04.webp', title: 'Kohinur', desc: 'juda mayda va silliqlangan toshlar' },
+    { img: 'gimg/g05.webp', title: 'Zarnigor', desc: "tabiiy toshlar va oq kristal uyg'unligi" },
+    { img: 'gimg/g06.webp', title: 'Safonur', desc: "nafislik va kontrastninig uyg'unligi" },
+    { img: 'gimg/g07.webp', title: 'Suvoriy', desc: 'tabiatda yaralgan noziklik' },
+    { img: 'gimg/g08.webp', title: 'Safir', desc: "tabiiy iliqlik va ranglar uyg'unligi" }
+];
 
-    const track = document.getElementById('galleryTrack');
-    const totalItems = galleryData.length;
-    const isMobile = window.innerWidth <= 768;
-    const gap = isMobile ? 16 : 24;
-    const itemWidth = (isMobile ? 320 : 400) + gap;
+const track = document.getElementById('galleryTrack');
+const container = document.querySelector('.gallery-container');
+const totalItems = galleryData.length;
+let currentIndex = totalItems;           // oʻrtadan boshlash
+let itemWidth = 424;                     // 400 + 24(gap)
+let isMoving = false;
+let autoPlay = null;
 
-    let currentIndex = totalItems; // oʻrtadan boshlash
-    let isMoving = false;
+// Responsive hisoblash
+function calculateDimensions() {
+    const mobile = window.innerWidth <= 768;
+    const width = mobile ? 320 : 400;
+    const gap = mobile ? 16 : 24;
+    itemWidth = width + gap;
+    return { mobile, width, gap };
+}
 
-    function renderGallery() {
-        track.innerHTML = '';
-        track.style.gap = `${gap}px`;
+function renderGallery() {
+    track.innerHTML = '';
+    const { width } = calculateDimensions();
+    track.style.gap = (itemWidth - width) + 'px';
 
-        // 5 marta takrorlash → cheksiz carousel
-        [...galleryData, ...galleryData, ...galleryData, ...galleryData, ...galleryData].forEach(item => {
+    // 5 marta takrorlash → cheksiz
+    for (let i = 0; i < 5; i++) {
+        galleryData.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'gallery-item-link';
             div.innerHTML = `
-                <div class="gallery-item" style="width:${isMobile?320:400}px;height:${isMobile?230:280}px;">
+                <div class="gallery-item" style="width:${width}px;height:${width <= 320 ? 230 : 280}px;">
                     <img src="${item.img}" alt="${item.title}" loading="lazy" draggable="false">
                     <div class="gallery-overlay">
                         <h3>${item.title}</h3>
@@ -1640,85 +1681,67 @@
                 </div>`;
             track.appendChild(div);
         });
+    }
 
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+    requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22,0.61,0.36,1)');
+}
+
+function move(dir) {
+    if (isMoving) return;
+    isMoving = true;
+    currentIndex += dir;
+    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+
+    track.addEventListener('transitionend', function handler() {
+        track.removeEventListener('transitionend', handler);
+        if (currentIndex >= totalItems * 3) currentIndex -= totalItems;
+        if (currentIndex < totalItems) currentIndex += totalItems;
         track.style.transition = 'none';
         track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-        requestAnimationFrame(() => {
-            track.style.transition = 'transform 0.6s cubic-bezier(0.22,0.61,0.36,1)';
-        });
+        requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22,0.61,0.36,1)');
+        isMoving = false;
+    });
+}
+
+function startAutoPlay() {
+    if (autoPlay) clearInterval(autoPlay);
+    autoPlay = setInterval(() => move(1), 4000);
+}
+
+// Events
+document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.onclick = () => { clearInterval(autoPlay); move(btn.classList.contains('prev') ? -1 : 1); setTimeout(startAutoPlay, 8000); };
+});
+
+let touchStartX = 0;
+container.addEventListener('touchstart', e => touchStartX = e.touches[0].screenX, {passive:true});
+container.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 50) {
+        clearInterval(autoPlay);
+        move(diff > 0 ? 1 : -1);
+        setTimeout(startAutoPlay, 8000);
     }
+});
 
-    function move(direction) {
-        if (isMoving) return;
-        isMoving = true;
-        currentIndex += direction;
-        track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+// Himoya
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onselectstart = e => e.preventDefault();
+document.ondragstart = e => e.preventDefault();
 
-        track.addEventListener('transitionend', function handler() {
-            track.removeEventListener('transitionend', handler);
-
-            if (currentIndex >= totalItems * 3) { currentIndex -= totalItems; }
-            if (currentIndex < totalItems) { currentIndex += totalItems; }
-
-            track.style.transition = 'none';
-            track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-            requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22,0.61,0.36,1)');
-            isMoving = false;
-        });
-    }
-
-    // Autoplay
-    let autoPlay = setInterval(() => move(1), 4000);
-
-    function stopAutoPlay() { clearInterval(autoPlay); autoPlay = null; }
-    function startAutoPlay() { if (!autoPlay) autoPlay = setInterval(() => move(1), 4000); }
-
-    // Tugmalar (desktop)
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            stopAutoPlay();
-            move(btn.classList.contains('prev') ? -1 : 1);
-            setTimeout(startAutoPlay, 8000);
-        });
-    });
-
-    // Klaviatura
-    document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-            stopAutoPlay();
-            move(e.key === 'ArrowLeft' ? -1 : 1);
-            setTimeout(startAutoPlay, 8000);
-        }
-    });
-
-    // Swipe (mobil)
-    let touchStartX = 0;
-    const container = document.querySelector('.gallery-container');
-    container.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive:true});
-    container.addEventListener('touchend', e => {
-        const diff = touchStartX - e.changedTouches[0].screenX;
-        if (Math.abs(diff) > 50) {
-            stopAutoPlay();
-            move(diff > 0 ? 1 : -1);
-            setTimeout(startAutoPlay, 8000);
-        }
-    });
-
-    // Himoya
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onselectstart = e => e.preventDefault();
-    document.ondragstart = e => e.preventDefault();
-
-    // Resize da toʻgʻri ishlatish
-    window.addEventListener('resize', () => {
-        if ((window.innerWidth <= 768) !== isMobile) location.reload();
-    });
-
+// Resize
+window.addEventListener('resize', () => {
+    calculateDimensions();
     renderGallery();
-    startAutoPlay();
+    track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+});
 
-   Mana faqat eski barcha JavaScript kodlari (header, carousel, mobile menu, ripple effect, comparison slider, product card slider va h.k.) – galereya qismi bundan tashqari qoladi. Shu kodlarni <script> tegining ichiga, yangi galereya JSdan keyin qoʻyishingiz kifoya.
-HTML<script>
+// Start
+renderGallery();
+startAutoPlay();
+
     /* ==== HEADER & MOBILE MENU ==== */
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');

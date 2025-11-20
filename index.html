@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="cimg/logo.png" type="image/x-icon">
     <title>Toshgilam - Zamonaviy Tosh Gilamlar</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +30,7 @@
             background: #ffffff;
             color: var(--dark);
             overflow-x: hidden;
-            padding-top: 80px;
+            padding-top: 60px;
         }
         /* Navigation - Header CSS */
         #part1 .navbar-wrapper {
@@ -76,7 +77,7 @@
             line-height: 0;
         }
         #part1 .logo img {
-            height: 65px;
+            height: 70px;
             width: auto;
             display: block;
             object-fit: contain;
@@ -427,65 +428,89 @@
         #part2 .dot:hover {
             background: rgba(255, 255, 255, 0.8);
         }
-        /* Scrolling Gallery */
-        #part3 .scrolling-gallery {
+         /* --- Scrolling Gallery --- */
+        .scrolling-gallery {
             padding: 100px 0;
             background: white;
             overflow: hidden;
         }
-        #part3 .gallery-header {
+
+        .gallery-header {
             max-width: 1400px;
             margin: 0 auto 60px;
             padding: 0 40px;
             text-align: center;
         }
-        #part3 .gallery-header h2 {
+
+        .gallery-header h2 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 16px;
             letter-spacing: -1px;
         }
-        #part3 .gallery-header p {
+
+        .gallery-header p {
             font-size: 1.2rem;
-            color: var(--gray);
+            color: #64748b;
             max-width: 600px;
             margin: 0 auto;
         }
-        #part3 .gallery-track {
+
+        .gallery-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .gallery-track {
             display: flex;
             gap: 24px;
-            animation: scroll 40s linear infinite;
             width: max-content;
+            touch-action: pan-y; /* Bu qator yangi */
         }
-        #part3 .gallery-item-link {
+
+        .gallery-track.row-1 {
+            animation: scroll-right 40s linear infinite;
+        }
+
+        .gallery-track.row-2 {
+            animation: scroll-left 45s linear infinite;
+        }
+
+        .gallery-item-link {
             text-decoration: none;
             color: inherit;
         }
-        #part3 .gallery-item {
+
+        .gallery-item {
             width: 400px;
             height: 280px;
             border-radius: 20px;
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             transition: transform 0.3s;
         }
-        #part3 .gallery-item:hover {
+
+        .gallery-item:hover {
             transform: scale(1.05);
         }
-        #part3 .gallery-item::after {
+
+        .gallery-item::after {
             content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
         }
-        #part3 .gallery-item img {
+
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        #part3 .gallery-overlay {
+
+        .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -494,24 +519,27 @@
             z-index: 1;
             color: white;
         }
-        #part3 .gallery-overlay h3 {
+
+        .gallery-overlay h3 {
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 6px;
         }
-        #part3 .gallery-overlay p {
+
+        .gallery-overlay p {
             font-size: 0.9rem;
             opacity: 0.9;
         }
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+
+        @keyframes scroll-right {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
-        /* Advantages Section */
+
+        @keyframes scroll-left {
+            0%   { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }/* Advantages Section */
         #part4 .advantages-section {
             max-width: 1400px;
             margin: 0 auto;
@@ -1331,89 +1359,181 @@
         </div>
     </div>
 
-    <!-- Part 3: Scrolling Gallery -->
-    <div id="part3">
-        <section class="scrolling-gallery">
-            <div class="gallery-header">
-                <h2>Bizning toshgilamlar galereyasi</h2>
-                <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
-            </div>
-            <div class="gallery-track">
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g01.webp" alt="">
-                        <div class="gallery-overlay">
-                            <h3>Shabnam</h3>
-                            <p>ertalab shabnamday tiniq</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g02.webp" alt="Tech">
-                        <div class="gallery-overlay">
-                            <h3>Temuriy</h3>
-                            <p>aralash rangdagi silliq yuvilgan toshlar </p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g03.webp" alt="Food">
-                        <div class="gallery-overlay">
-                            <h3>Oytog'</h3>
-                            <p>tabiatning mutanosib va sokin go'zalligi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g04.webp" alt="Travel">
-                        <div class="gallery-overlay">
-                            <h3>Kohinur</h3>
-                            <p>juda mayda va silliqlangan toshlar</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g05.webp" alt="Interior">
-                        <div class="gallery-overlay">
-                            <h3>Zarnigor</h3>
-                            <p>tabiiy toshlar va oq kristal uyg'unligi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g06.webp" alt="Store">
-                        <div class="gallery-overlay">
-                            <h3>Safonur</h3>
-                            <p>nafislik va kontrastninig uyg'unligi</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g07.webp" alt="Tech">
-                        <div class="gallery-overlay">
-                            <h3>Suvoriy</h3>
-                            <p>tabiatda yaralgan noziklik</p>
-                        </div>
-                    </div>
-                </a>
-                <a href="galereya.html" class="gallery-item-link">
-                    <div class="gallery-item">
-                        <img src="gimg/g08.webp" alt="Food">
-                        <div class="gallery-overlay">
-                            <h3>Safir</h3>
-                            <p>tabiiy iliqlik va ranglar uyg'unligi</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </section>
+ <!-- ========== GALLERY SECTION ========== -->
+<section class="scrolling-gallery">
+    <div class="gallery-header">
+        <h2>Bizning toshgilamlar galereyasi</h2>
+        <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
     </div>
+
+    <div class="gallery-rows">
+        <!-- Birinchi qator: O'ngdan chapga -->
+        <div class="gallery-track row-1" id="track1">
+            <a href="#shabnam" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/shabnam02.webp?updatedAt=1760467034588" alt="Shabnam">
+                    <div class="gallery-overlay">
+                        <h3>Shabnam</h3>
+                        <p>ertalab shabnamday tiniq</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#temuriy" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/temuriy02.webp?updatedAt=1760467034640" alt="Temuriy">
+                    <div class="gallery-overlay">
+                        <h3>Temuriy</h3>
+                        <p>aralash rangdagi silliq yuvilgan toshlar</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#oytog" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/oytog02.webp?updatedAt=1760467034872" alt="Oytog'">
+                    <div class="gallery-overlay">
+                        <h3>Oytog'</h3>
+                        <p>tabiatning mutanosib va sokin go'zalligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#kohinur" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kohinur02.webp?updatedAt=1760467034847" alt="Kohinur">
+                    <div class="gallery-overlay">
+                        <h3>Kohinur</h3>
+                        <p>juda mayda va silliqlangan toshlar</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#zarnigor" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/zarnigor02.webp?updatedAt=1760467035558" alt="Zarnigor">
+                    <div class="gallery-overlay">
+                        <h3>Zarnigor</h3>
+                        <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#safonur" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/safonur02.webp?updatedAt=1760467034062" alt="Safonur">
+                    <div class="gallery-overlay">
+                        <h3>Safonur</h3>
+                        <p>nafislik va kontrastninig uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#suvoriy" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/suvoriy02.webp?updatedAt=1760467035321" alt="Suvoriy">
+                    <div class="gallery-overlay">
+                        <h3>Suvoriy</h3>
+                        <p>tabiatda yaralgan noziklik</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#safir" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/safir02.webp?updatedAt=1760467035332" alt="Safir">
+                    <div class="gallery-overlay">
+                        <h3>Safir</h3>
+                        <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ikkinchi qator: Chapdan o'ngga -->
+        <div class="gallery-track row-2" id="track2">
+            <a href="#marjon" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/mohisa01.webp?updatedAt=1762446078660" alt="Marjon">
+                    <div class="gallery-overlay">
+                        <h3>Marjon</h3>
+                        <p>dengiz tubidagi go'zallik</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#lolazor" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/kohakon02.webp?updatedAt=1762446078985" alt="Lolazor">
+                    <div class="gallery-overlay">
+                        <h3>kohakon</h3>
+                        <p>bahor ranglarining jamlanishi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#oftob" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/joshqin01.webp?updatedAt=1762446061194" alt="Oftob">
+                    <div class="gallery-overlay">
+                        <h3>Jo'shqin</h3>
+                        <p>quyosh nuridek yorqin va issiq</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#guliston" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/hayrat01.webp?updatedAt=1762446049250" alt="Guliston">
+                    <div class="gallery-overlay">
+                        <h3>Hayrat</h3>
+                        <p>gullar bog'idagi rang-baranglik</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#shohona" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/barkamol03.webp?updatedAt=1762446043356" alt="Shohona">
+                    <div class="gallery-overlay">
+                        <h3>barkamol</h3>
+                        <p>saroy me'morchiligining nafosligi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#yulduz" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/orasta02.webp?updatedAt=1762445988899" alt="Yulduz">
+                    <div class="gallery-overlay">
+                        <h3>Orasta</h3>
+                        <p>osmon yulduzlaridek charaqlab turuvchi</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#bahor" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/nazm01.webp?updatedAt=1762446063188" alt="Bahor">
+                    <div class="gallery-overlay">
+                        <h3>Nazm</h3>
+                        <p>yangilanish va hayot taravati</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#marifat" class="gallery-item-link">
+                <div class="gallery-item">
+                    <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/mohisa02.webp?updatedAt=1762446078885" alt="Marifat">
+                    <div class="gallery-overlay">
+                        <h3>Mohisa</h3>
+                        <p>bilim va madaniyat uyg'unligi</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 
     <!-- Part 4: Advantages Section -->
     <div id="part4">
@@ -1907,5 +2027,185 @@
         document.addEventListener('mouseup', stopDrag);
         document.addEventListener('touchend', stopDrag);
     </script>
+
+    <script>
+(function () {
+  // Birinchi qator uchun
+  const track1 = document.getElementById('track1');
+  if (track1) initGallery(track1, 60, 'right');
+
+  // Ikkinchi qator uchun
+  const track2 = document.getElementById('track2');
+  if (track2) initGallery(track2, 50, 'left');
+
+  function initGallery(track, speed, direction) {
+    let isPaused = false;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartPos = 0;
+    let position = 0;
+    let lastTime = null;
+
+    // Clone items for infinite scroll
+    const items = Array.from(track.children);
+    if (items.length === 0) return;
+
+    items.forEach(node => {
+      const clone = node.cloneNode(true);
+      track.appendChild(clone);
+    });
+
+    let sequenceWidth = calcSequenceWidth();
+
+    function calcSequenceWidth() {
+      const origNodes = Array.from(track.children).slice(0, items.length);
+      return origNodes.reduce((w, n) => w + n.getBoundingClientRect().width + getGap(), 0);
+    }
+
+    function getGap() {
+      const style = getComputedStyle(track);
+      const g = parseFloat(style.gap || style.columnGap || 24);
+      return isNaN(g) ? 24 : g;
+    }
+
+    function ensureDimensionsReady() {
+      sequenceWidth = calcSequenceWidth();
+      if (sequenceWidth === 0 || !isFinite(sequenceWidth)) {
+        const imgs = track.querySelectorAll('img');
+        let remaining = imgs.length;
+        if (remaining === 0) {
+          sequenceWidth = calcSequenceWidth();
+          return;
+        }
+        imgs.forEach(img => {
+          if (img.complete) {
+            remaining--;
+          } else {
+            img.addEventListener('load', () => {
+              remaining--;
+              if (remaining === 0) {
+                sequenceWidth = calcSequenceWidth();
+              }
+            }, { once: true });
+            img.addEventListener('error', () => {
+              remaining--;
+              if (remaining === 0) {
+                sequenceWidth = calcSequenceWidth();
+              }
+            }, { once: true });
+          }
+        });
+      }
+    }
+
+    ensureDimensionsReady();
+
+    function step(timestamp) {
+      if (lastTime === null) lastTime = timestamp;
+      const dt = (timestamp - lastTime) / 1000;
+      lastTime = timestamp;
+
+      if (!isPaused && !isDragging) {
+        if (direction === 'right') {
+          position += speed * dt;
+        } else {
+          position -= speed * dt;
+        }
+        if (sequenceWidth > 0) {
+          position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+        }
+      }
+
+      track.style.transform = `translateX(${-position}px)`;
+      requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+
+    track.addEventListener('mouseenter', () => isPaused = true);
+    track.addEventListener('mouseleave', () => isPaused = false);
+    track.addEventListener('focusin', () => isPaused = true);
+    track.addEventListener('focusout', () => isPaused = false);
+
+    track.addEventListener('mousedown', startDrag, { passive: false });
+    track.addEventListener('touchstart', startDrag, { passive: false });
+
+    function startDrag(e) {
+    // Agar vertikal scroll bo'lsa, drag-ni boshlamaymiz
+    if (e.type === 'touchstart') {
+        const touch = e.touches[0];
+        track.dataset.startY = touch.clientY;
+        track.dataset.startX = touch.clientX;
+        return; // Darhol chiqamiz, keyingi touchmove da tekshiramiz
+    }
+    
+    isDragging = true;
+    isPaused = true;
+    lastTime = null;
+    dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
+    dragStartPos = position;
+
+    document.addEventListener('mousemove', onDrag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchmove', onDrag, { passive: false });
+    document.addEventListener('touchend', endDrag, { passive: false });
+    document.addEventListener('touchcancel', endDrag, { passive: false });
+    }
+
+    function onDrag(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+      const dx = clientX - dragStartX;
+      position = dragStartPos - dx;
+      if (sequenceWidth > 0) {
+        position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+      }
+    }
+
+   function onDrag(e) {
+    if (e.type === 'touchmove' && !isDragging) {
+        const touch = e.touches[0];
+        const deltaX = Math.abs(touch.clientX - parseFloat(track.dataset.startX || 0));
+        const deltaY = Math.abs(touch.clientY - parseFloat(track.dataset.startY || 0));
+        
+        // Agar vertikal harakat ko'proq bo'lsa, drag qilmaymiz
+        if (deltaY > deltaX) {
+            return;
+        }
+        
+        // Gorizontal harakat - drag boshlaymiz
+        isDragging = true;
+        isPaused = true;
+        lastTime = null;
+        dragStartX = parseFloat(track.dataset.startX);
+        dragStartPos = position;
+        e.preventDefault();
+    }
+    
+    if (!isDragging) return;
+    e.preventDefault();
+    const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+    const dx = clientX - dragStartX;
+    position = dragStartPos - dx;
+    if (sequenceWidth > 0) {
+        position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+    }
+}
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        ensureDimensionsReady();
+        if (sequenceWidth > 0) position = position % sequenceWidth;
+      }, 150);
+    });
+
+    track.style.willChange = 'transform';
+    track.style.transform = 'translateX(0px)';
+  }
+})();
+</script>
 </body>
 </html>

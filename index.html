@@ -467,6 +467,7 @@
             gap: 24px;
             width: max-content;
             touch-action: pan-y; /* Bu qator yangi */
+            pointer-events: auto; /* Bu qator yangi */
         }
 
         .gallery-track.row-1 {
@@ -491,10 +492,12 @@
             flex-shrink: 0;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
             transition: transform 0.3s;
+            pointer-events: auto; /* Bu qator yangi */
         }
 
         .gallery-item:hover {
             transform: scale(1.05);
+            z-index: 10; /* Bu qator yangi */
         }
 
         .gallery-item::after {
@@ -1457,7 +1460,7 @@
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/mohisa01.webp?updatedAt=1762446078660" alt="Marjon">
                     <div class="gallery-overlay">
                         <h3>Marjon</h3>
-                        <p>dengiz tubidagi go'zallik</p>
+                        <!-- <p>dengiz tubidagi go'zallik</p> -->
                     </div>
                 </div>
             </a>
@@ -1466,8 +1469,8 @@
                 <div class="gallery-item">
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/kohakon02.webp?updatedAt=1762446078985" alt="Lolazor">
                     <div class="gallery-overlay">
-                        <h3>kohakon</h3>
-                        <p>bahor ranglarining jamlanishi</p>
+                        <h3>Kohakon</h3>
+                        <!-- <p>bahor ranglarining jamlanishi</p> -->
                     </div>
                 </div>
             </a>
@@ -1477,7 +1480,7 @@
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/joshqin01.webp?updatedAt=1762446061194" alt="Oftob">
                     <div class="gallery-overlay">
                         <h3>Jo'shqin</h3>
-                        <p>quyosh nuridek yorqin va issiq</p>
+                        <!-- <p>quyosh nuridek yorqin va issiq</p> -->
                     </div>
                 </div>
             </a>
@@ -1487,7 +1490,7 @@
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/hayrat01.webp?updatedAt=1762446049250" alt="Guliston">
                     <div class="gallery-overlay">
                         <h3>Hayrat</h3>
-                        <p>gullar bog'idagi rang-baranglik</p>
+                        <!-- <p>gullar bog'idagi rang-baranglik</p> -->
                     </div>
                 </div>
             </a>
@@ -1496,8 +1499,8 @@
                 <div class="gallery-item">
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/barkamol03.webp?updatedAt=1762446043356" alt="Shohona">
                     <div class="gallery-overlay">
-                        <h3>barkamol</h3>
-                        <p>saroy me'morchiligining nafosligi</p>
+                        <h3>Barkamol</h3>
+                        <!-- <p>saroy me'morchiligining nafosligi</p> -->
                     </div>
                 </div>
             </a>
@@ -1507,7 +1510,7 @@
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/orasta02.webp?updatedAt=1762445988899" alt="Yulduz">
                     <div class="gallery-overlay">
                         <h3>Orasta</h3>
-                        <p>osmon yulduzlaridek charaqlab turuvchi</p>
+                        <!-- <p>osmon yulduzlaridek charaqlab turuvchi</p> -->
                     </div>
                 </div>
             </a>
@@ -1517,7 +1520,7 @@
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/nazm01.webp?updatedAt=1762446063188" alt="Bahor">
                     <div class="gallery-overlay">
                         <h3>Nazm</h3>
-                        <p>yangilanish va hayot taravati</p>
+                        <!-- <p>yangilanish va hayot taravati</p> -->
                     </div>
                 </div>
             </a>
@@ -1527,7 +1530,7 @@
                     <img src="https://ik.imagekit.io/kwnpz8tu8/kategoriya/mohisa02.webp?updatedAt=1762446078885" alt="Marifat">
                     <div class="gallery-overlay">
                         <h3>Mohisa</h3>
-                        <p>bilim va madaniyat uyg'unligi</p>
+                        <!-- <p>bilim va madaniyat uyg'unligi</p> -->
                     </div>
                 </div>
             </a>
@@ -2121,7 +2124,35 @@
     }
 
     requestAnimationFrame(step);
-
+    // Hover holatini reset qilish
+    const allItems = track.querySelectorAll('.gallery-item');
+    allItems.forEach(item => {
+        item.addEventListener('mouseenter', function(e) {
+            if (isDragging) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
+        
+        item.addEventListener('click', function(e) {
+            if (isDragging || Math.abs(position - dragStartPos) > 5) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
+    });
+    
+    // Hover holatini tozalash
+    document.addEventListener('DOMContentLoaded', () => {
+        allItems.forEach(item => {
+            item.style.transform = '';
+        });
+    });
+    
+    track.addEventListener('mouseenter', () => isPaused = true);
+    // kod tugadi yangi qoshilgan 
     track.addEventListener('mouseenter', () => isPaused = true);
     track.addEventListener('mouseleave', () => isPaused = false);
     track.addEventListener('focusin', () => isPaused = true);
@@ -2136,6 +2167,7 @@
         const touch = e.touches[0];
         track.dataset.startY = touch.clientY;
         track.dataset.startX = touch.clientX;
+         track.dataset.hasMoved = 'false'; /* Bu qator yangi */
         return; // Darhol chiqamiz, keyingi touchmove da tekshiramiz
     }
     
@@ -2144,6 +2176,7 @@
     lastTime = null;
     dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
     dragStartPos = position;
+    track.dataset.hasMoved = 'false'; /* Bu qator yangi */
 
     document.addEventListener('mousemove', onDrag, { passive: false });
     document.addEventListener('mouseup', endDrag);
@@ -2163,7 +2196,7 @@
       }
     }
 
-   function onDrag(e) {
+  function onDrag(e) {
     if (e.type === 'touchmove' && !isDragging) {
         const touch = e.touches[0];
         const deltaX = Math.abs(touch.clientX - parseFloat(track.dataset.startX || 0));
@@ -2192,7 +2225,6 @@
         position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
     }
 }
-
     let resizeTimer = null;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);

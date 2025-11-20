@@ -3,36 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bizning Toshgilamlar Galereyasi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Toshgilam – Galereya</title>
+
     <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: #ffffff;
+            background: white;
             color: #0f172a;
-            padding: 80px 0;
             overflow-x: hidden;
         }
-        :root { --primary: #6366f1; --dark: #0f172a; --gray: #64748b; }
 
-        .scrolling-gallery { padding: 100px 0; background: white; position: relative; overflow: hidden; }
-        .gallery-header { max-width: 1400px; margin: 0 auto 60px; padding: 0 40px; text-align: center; }
-        .gallery-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; color: var(--dark); }
-        .gallery-header p { font-size: 1.2rem; color: var(--gray); max-width: 700px; margin: 0 auto; }
+        /* --- Scrolling Gallery --- */
+        .scrolling-gallery {
+            padding: 100px 0;
+            background: white;
+            overflow: hidden;
+        }
 
-        .gallery-container { position: relative; overflow: hidden; padding: 0 80px; }
+        .gallery-header {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .gallery-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .gallery-header p {
+            font-size: 1.2rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .gallery-track {
             display: flex;
             gap: 24px;
-            will-change: transform;
+            animation: scroll 40s linear infinite;
+            width: max-content;
         }
 
         .gallery-item-link {
             text-decoration: none;
             color: inherit;
-            pointer-events: none;
         }
 
         .gallery-item {
@@ -43,231 +67,340 @@
             position: relative;
             flex-shrink: 0;
             box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-            user-select: none;
-            -webkit-user-drag: none;
+            transition: transform 0.3s;
         }
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            pointer-events: none;
-            user-select: none;
-            -webkit-user-drag: none;
-            draggable: false;
+
+        .gallery-item:hover {
+            transform: scale(1.05);
         }
+
         .gallery-item::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5));
-            border-radius: 20px;
-            pointer-events: none;
+            background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4));
         }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .gallery-overlay {
             position: absolute;
-            bottom: 0; left: 0; right: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 24px;
-            color: white;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-            pointer-events: none;
             z-index: 1;
-        }
-        .gallery-overlay h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 6px; }
-        .gallery-overlay p { font-size: 0.95rem; opacity: 0.95; }
-
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.95);
-            border: none;
-            width: 50px; height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-        }
-        .nav-btn:hover { background: white; box-shadow: 0 6px 30px rgba(0,0,0,0.25); transform: translateY(-50%) scale(1.1); }
-        .nav-btn i { font-size: 20px; color: var(--dark); }
-        .nav-btn.prev { left: 20px; }
-        .nav-btn.next { right: 20px; }
-
-        /* Rasmlarni himoya qilish */
-        img { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-
-        /* Mobil rejimda o‘qlar (nav-btn) butunlay yashiriladi */
-        @media (max-width: 768px) {
-            .nav-btn { display: none !important; }
-            .gallery-header h2 { font-size: 2.2rem; }
-            .gallery-item { width: 320px; height: 230px; }
-            .gallery-container { padding: 0 20px; } /* chetlardan bo‘sh joyni kamaytirdik */
+            color: white;
         }
 
-        @media (max-width: 480px) {
-            .gallery-item { width: 280px; height: 200px; }
-            .gallery-overlay h3 { font-size: 1.2rem; }
-            .gallery-container { padding: 0 10px; }
+        .gallery-overlay h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .gallery-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @keyframes scroll {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
     </style>
 </head>
 <body>
 
+<!-- ========== GALLERY SECTION ========== -->
 <section class="scrolling-gallery">
     <div class="gallery-header">
         <h2>Bizning toshgilamlar galereyasi</h2>
-        <p>Bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
+        <p>bu materiallar mustahkam, estetik va uzoq muddatli, chidamli</p>
     </div>
 
-    <div class="gallery-container">
-        <button class="nav-btn prev" aria-label="Oldinga"><i class="fas fa-chevron-left"></i></button>
-        <div class="gallery-track" id="galleryTrack"></div>
-        <button class="nav-btn next" aria-label="Orqaga"><i class="fas fa-chevron-right"></i></button>
+    <div class="gallery-track">
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g01.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Shabnam</h3>
+                    <p>ertalab shabnamday tiniq</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g02.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Temuriy</h3>
+                    <p>aralash rangdagi silliq yuvilgan toshlar</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g03.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Oytog'</h3>
+                    <p>tabiatning mutanosib va sokin go'zalligi</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g04.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Kohinur</h3>
+                    <p>juda mayda va silliqlangan toshlar</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g05.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Zarnigor</h3>
+                    <p>tabiiy toshlar va oq kristal uyg'unligi</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g06.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Safonur</h3>
+                    <p>nafislik va kontrastninig uyg'unligi</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g07.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Suvoriy</h3>
+                    <p>tabiatda yaralgan noziklik</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="#" class="gallery-item-link">
+            <div class="gallery-item">
+                <img src="gimg/g08.webp" alt="">
+                <div class="gallery-overlay">
+                    <h3>Safir</h3>
+                    <p>tabiiy iliqlik va ranglar uyg'unligi</p>
+                </div>
+            </div>
+        </a>
     </div>
 </section>
 
 <script>
-    const galleryData = [
-        { img: 'gimg/g01.webp', title: 'Shabnam', desc: 'ertalab shabnamday tiniq' },
-        { img: 'gimg/g02.webp', title: 'Temuriy', desc: 'aralash rangdagi silliq yuvilgan toshlar' },
-        { img: 'gimg/g03.webp', title: "Oytog'", desc: "tabiatning mutanosib va sokin go'zalligi" },
-        { img: 'gimg/g04.webp', title: 'Kohinur', desc: 'juda mayda va silliqlangan toshlar' },
-        { img: 'gimg/g05.webp', title: 'Zarnigor', desc: "tabiiy toshlar va oq kristal uyg'unligi" },
-        { img: 'gimg/g06.webp', title: 'Safonur', desc: "nafislik va kontrastninig uyg'unligi" },
-        { img: 'gimg/g07.webp', title: 'Suvoriy', desc: 'tabiatda yaralgan noziklik' },
-        { img: 'gimg/g08.webp', title: 'Safir', desc: "tabiiy iliqlik va ranglar uyg'unligi" }
-    ];
+(function () {
+  const track = document.querySelector('.gallery-track');
+  if (!track) return;
 
-    const track = document.getElementById('galleryTrack');
-    const totalItems = galleryData.length;
+  // --- Config ---
+  let speed = 60; // piksel/sekund (o'zgartirishingiz mumkin)
+  let isPaused = false;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartPos = 0;
+  let position = 0; // px - hozirgi surilish pozitsiyasi
+  let lastTime = null;
 
-    // Mobil yoki desktop ekanligini aniqlash uchun
-    const isMobile = window.innerWidth <= 768;
+  // --- Prepare infinite scroll: duplicate children ---
+  const items = Array.from(track.children);
+  if (items.length === 0) return;
 
-    // Mobil bo‘lsa gap ni kattaroq qilamiz, shunda oxirgi rasm ham to‘liq ko‘rinadi va ortiqcha bo‘sh joy qolmaydi
-    const baseGap = 24;
-    const gap = isMobile ? 16 : baseGap;
+  // Clone items to create seamless loop
+  items.forEach(node => {
+    const clone = node.cloneNode(true);
+    track.appendChild(clone);
+  });
 
-    // Har bir elementning to‘liq kengligi (kartochka + gap)
-    const itemWidth = (isMobile ? 320 : 400) + gap;
+  // Calculate full width of one sequence (original set)
+  let sequenceWidth = calcSequenceWidth();
 
-    let currentIndex = totalItems; // o‘rtadan boshlash (cheksiz aylanish uchun)
-    let isMoving = false;
+  function calcSequenceWidth() {
+    // width of the original sequence (not including clones)
+    const origNodes = Array.from(track.children).slice(0, items.length);
+    return origNodes.reduce((w, n) => w + n.getBoundingClientRect().width + getGap(), 0);
+  }
 
-    // Galereyani yaratish
-    function renderGallery() {
-        track.innerHTML = '';
-        track.style.gap = `${gap}px`; // flex gap ni dinamik qilamiz
+  function getGap(){
+    // gallery-track uses gap:24px in CSS; try to detect, fallback to 24
+    const style = getComputedStyle(track);
+    const g = parseFloat(style.gap || style.columnGap || 24);
+    return isNaN(g) ? 24 : g;
+  }
 
-        // Oldin, o‘rta va keyin nusxalar (cheksiz scroll uchun)
-        [...galleryData, ...galleryData, ...galleryData, ...galleryData, ...galleryData].forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'gallery-item-link';
-            div.innerHTML = `
-                <div class="gallery-item" style="width:${isMobile ? 320 : 400}px; height:${isMobile ? 230 : 280}px;">
-                    <img src="${item.img}" alt="${item.title}" loading="lazy" draggable="false">
-                    <div class="gallery-overlay">
-                        <h3>${item.title}</h3>
-                        <p>${item.desc}</p>
-                    </div>
-                </div>
-            `;
-            track.appendChild(div);
-        });
-
-        // Boshlang‘ich joylashuv
-        track.style.transition = 'none';
-        track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-        requestAnimationFrame(() => {
-            track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)';
-        });
-    }
-
-    function move(direction) {
-        if (isMoving) return;
-        isMoving = true;
-
-        currentIndex += direction;
-        track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-
-        track.addEventListener('transitionend', function handler() {
-            track.removeEventListener('transitionend', handler);
-
-            // Cheksiz aylanishni ta'minlash
-            if (currentIndex >= totalItems * 3) {
-                currentIndex -= totalItems;
-                track.style.transition = 'none';
-                track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-                requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
+  // If sequenceWidth is 0 (images not loaded yet), wait for load
+  function ensureDimensionsReady() {
+    sequenceWidth = calcSequenceWidth();
+    if (sequenceWidth === 0 || !isFinite(sequenceWidth)) {
+      // try again after images load
+      const imgs = track.querySelectorAll('img');
+      let remaining = imgs.length;
+      if (remaining === 0) {
+        sequenceWidth = calcSequenceWidth();
+        return;
+      }
+      imgs.forEach(img => {
+        if (img.complete) {
+          remaining--;
+        } else {
+          img.addEventListener('load', () => {
+            remaining--;
+            if (remaining === 0) {
+              sequenceWidth = calcSequenceWidth();
             }
-            if (currentIndex < totalItems) {
-                currentIndex += totalItems;
-                track.style.transition = 'none';
-                track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
-                requestAnimationFrame(() => track.style.transition = 'transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1)');
+          }, { once: true });
+          img.addEventListener('error', () => {
+            remaining--;
+            if (remaining === 0) {
+              sequenceWidth = calcSequenceWidth();
             }
-
-            isMoving = false;
-        });
-    }
-
-    // Autoplay
-    let autoPlay = null;
-    function startAutoPlay() {
-        if (autoPlay) clearInterval(autoPlay);
-        autoPlay = setInterval(() => move(1), 4000); // o‘ngga siljish
-    }
-
-    function stopAutoPlay() {
-        if (autoPlay) clearInterval(autoPlay);
-        autoPlay = null;
-    }
-
-    // Tugmalar (faqat desktopda ishlaydi, mobil uchun yashirilgan)
-    document.querySelector('.nav-btn.prev').onclick = () => { stopAutoPlay(); move(-1); setTimeout(startAutoPlay, 8000); };
-    document.querySelector('.nav-btn.next').onclick = () => { stopAutoPlay(); move(1); setTimeout(startAutoPlay, 8000); };
-
-    // Klaviatura
-    document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft') { stopAutoPlay(); move(-1); setTimeout(startAutoPlay, 8000); }
-        if (e.key === 'ArrowRight') { stopAutoPlay(); move(1); setTimeout(startAutoPlay, 8000); }
-    });
-
-    // Swipe (mobil uchun)
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const container = document.querySelector('.gallery-container');
-
-    container.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, {passive: true});
-    container.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 50) {
-            stopAutoPlay();
-            move(diff > 0 ? 1 : -1);
-            setTimeout(startAutoPlay, 8000);
+          }, { once: true });
         }
-    });
+      });
+    }
+  }
 
-    // Himoya
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onselectstart = e => e.preventDefault();
-    document.ondragstart = e => e.preventDefault();
+  ensureDimensionsReady();
 
-    // Boshlash
-    renderGallery();
-    startAutoPlay();
+  // --- Animation loop ---
+  function step(timestamp) {
+    if (lastTime === null) lastTime = timestamp;
+    const dt = (timestamp - lastTime) / 1000; // seconds
+    lastTime = timestamp;
 
-    // Ekranni o‘lchamini o‘zgartirganda qayta render qilish (mobil ↔ desktop)
-    window.addEventListener('resize', () => {
-        if ((window.innerWidth <= 768) !== isMobile) {
-            location.reload();
-        }
-    });
+    if (!isPaused && !isDragging) {
+      position += speed * dt;
+      // keep position in range [0, sequenceWidth)
+      if (sequenceWidth > 0) position %= sequenceWidth;
+    }
+
+    // apply transform: translateX negative because we move left
+    // Use -position px; but since we duplicated sequence, we can translate by -position
+    track.style.transform = `translateX(${-position}px)`;
+
+    requestAnimationFrame(step);
+  }
+
+  requestAnimationFrame(step);
+
+  // --- Pause/Resume on hover & focus ---
+  track.addEventListener('mouseenter', () => isPaused = true);
+  track.addEventListener('mouseleave', () => isPaused = false);
+
+  // also pause when any focus inside gallery (keyboard users)
+  track.addEventListener('focusin', () => isPaused = true);
+  track.addEventListener('focusout', () => isPaused = false);
+
+  // --- Drag to scrub ---
+  track.addEventListener('mousedown', startDrag, { passive: false });
+  track.addEventListener('touchstart', startDrag, { passive: false });
+
+  function startDrag(e) {
+    isDragging = true;
+    isPaused = true;
+    lastTime = null; // reset time delta to avoid jump when releasing
+
+    dragStartX = (e.touches ? e.touches[0].clientX : e.clientX);
+    dragStartPos = position;
+
+    document.addEventListener('mousemove', onDrag, { passive: false });
+    document.addEventListener('mouseup', endDrag);
+    document.addEventListener('touchmove', onDrag, { passive: false });
+    document.addEventListener('touchend', endDrag, { passive: false });
+    document.addEventListener('touchcancel', endDrag, { passive: false });
+  }
+
+  function onDrag(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const clientX = (e.touches ? e.touches[0].clientX : e.clientX);
+    const dx = clientX - dragStartX;
+    // reverse direction so dragging left moves gallery left
+    position = dragStartPos - dx;
+
+    // keep in bounds to prevent huge numbers
+    if (sequenceWidth > 0) {
+      position = ((position % sequenceWidth) + sequenceWidth) % sequenceWidth;
+    }
+  }
+
+  function endDrag() {
+    isDragging = false;
+    isPaused = false;
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', endDrag);
+    document.removeEventListener('touchmove', onDrag);
+    document.removeEventListener('touchend', endDrag);
+    document.removeEventListener('touchcancel', endDrag);
+  }
+
+  // --- Visibility change (tab hidden) ---
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      isPaused = true;
+    } else {
+      isPaused = false;
+      lastTime = null; // reset timestamp to avoid jump
+    }
+  });
+
+  // --- Recalculate on resize/orientation change ---
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      ensureDimensionsReady();
+      // clamp position within new width
+      if (sequenceWidth > 0) position = position % sequenceWidth;
+    }, 150);
+  });
+
+  // --- Optional: keyboard control (left/right to nudge) ---
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      position = Math.max(0, position - 200);
+      isPaused = true;
+      setTimeout(() => isPaused = false, 300);
+    } else if (e.key === 'ArrowRight') {
+      position = position + 200;
+      if (sequenceWidth > 0) position %= sequenceWidth;
+      isPaused = true;
+      setTimeout(() => isPaused = false, 300);
+    }
+  });
+
+  // --- Expose small API on track element (for debugging / control) ---
+  track.galleryControl = {
+    pause: () => isPaused = true,
+    play:  () => { isPaused = false; lastTime = null; },
+    setSpeed: (s) => { speed = Number(s) || speed; },
+    getSpeed: () => speed
+  };
+
+  // Ensure initial transform style (in case CSS reset)
+  track.style.willChange = 'transform';
+  track.style.transform = 'translateX(0px)';
+})();
 </script>
+
 
 </body>
 </html>
